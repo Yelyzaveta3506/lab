@@ -22,7 +22,7 @@ header {
     padding: 72px 20px 92px; 
     text-align: center; 
     color: var(--ink); 
-    background: linear-gradient(135deg, #38B255, #96ef91); 
+    background: linear-gradient(135deg, #38B255, #96ef91);  
 }
 
 header h1 { 
