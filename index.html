@@ -1,9 +1,52 @@
 <!DOCTYPE html>
 <html lang="uk">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Файли каталогу</title>
-        <link rel="stylesheet" href=""
-    </head>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Вебпрограмування | Група І-23</title>
+	<style>
+		:root { --primary: #6c4ab6; --accent: #f2b84b; --ink: #25213a; --muted: #6d6880; --bg: #f7f5fc; }
+		* { box-sizing: border-box; }
+		body { margin: 0; font-family: Arial, sans-serif; color: var(--ink); background: var(--bg); }
+		header { padding: 72px 20px 92px; text-align: center; color: white; background: linear-gradient(135deg, #4d338e, #8965d1); }
+		header h1 { margin: 0 0 14px; font-size: clamp(2rem, 5vw, 3.5rem); }
+		header p { margin: 0; font-size: 1.15rem; opacity: .9; }
+		main { width: min(1050px, calc(100% - 40px)); margin: -42px auto 50px; }
+		.intro { padding: 26px 30px; margin-bottom: 26px; background: white; border-radius: 16px; box-shadow: 0 8px 24px #32215b18; }
+		.intro h2 { margin: 0 0 8px; color: var(--primary); }
+		.intro p { margin: 0; color: var(--muted); line-height: 1.6; }
+		.tasks { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+		.task { display: flex; flex-direction: column; min-height: 160px; padding: 23px; background: white; border-radius: 14px; border-top: 4px solid var(--accent); box-shadow: 0 6px 18px #32215b12; transition: transform .2s, box-shadow .2s; }
+		.task:hover { transform: translateY(-4px); box-shadow: 0 12px 25px #32215b22; }
+		.task h3 { margin: 0 0 10px; font-size: 1.1rem; }
+		.task p { margin: 0 0 18px; color: var(--muted); line-height: 1.45; }
+		.task a { margin-top: auto; color: var(--primary); font-weight: bold; text-decoration: none; }
+		.task a:hover { text-decoration: underline; }
+		footer { padding: 24px; text-align: center; color: var(--muted); font-size: .9rem; }
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Вебпрограмування</h1>
+		<p>Портфоліо студентки групи І-23</p>
+	</header>
+
+	<main>
+		<section class="intro">
+			<h2>Лабораторні роботи</h2>
+			<p>Вітаю! На цій сторінці зібрано виконані завдання з дисципліни «Вебпрограмування».</p>
+		</section>
+
+		<section class="tasks" aria-label="Перелік лабораторних робіт">
+			<article class="task"><h3>Лабораторна робота №1</h3><p>Основи HTML та структура вебсторінки.</p><a href="lab1.html">Переглянути роботу →</a></article>
+			<article class="task"><h3>Лабораторна робота №2</h3><p>Оформлення сторінки за допомогою CSS.</p><a href="lab2.html">Переглянути роботу →</a></article>
+			<article class="task"><h3>Лабораторна робота №3</h3><p>Адаптивна верстка та Flexbox.</p><a href="lab3.html">Переглянути роботу →</a></article>
+			<article class="task"><h3>Лабораторна робота №4</h3><p>Основи JavaScript та взаємодія з DOM.</p><a href="lab4.html">Переглянути роботу →</a></article>
+			<article class="task"><h3>Лабораторна робота №5</h3><p>Форми, події та валідація даних.</p><a href="lab5.html">Переглянути роботу →</a></article>
+			<article class="task"><h3>Лабораторна робота №6</h3><p>Підсумковий вебпроєкт.</p><a href="lab6.html">Переглянути роботу →</a></article>
+		</section>
+	</main>
+
+	<footer>© 2024 · Студентка групи І-23</footer>
+</body>
 </html>
