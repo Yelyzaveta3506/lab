@@ -1,10 +1,9 @@
 :root { 
-    --primary: #6c4ab6; 
-    --accent: #f2b84b; 
-    --ink: #25213a; 
-    --muted: #6d6880; 
-    --bg: #f7f5fc; 
-}
+    --primary: #2d6a4f; 
+    --accent: #52b788; 
+    --ink: #1b2e23; 
+    --muted: #5c7365; 
+    --bg: #f4f8f5;
 
 * { 
     box-sizing: 
@@ -13,7 +12,7 @@
 		
 body { 
     margin: 0; 
-    font-family: Arial, sans-serif; 
+    font-family: 'Inter', sans-serif; 
     color: var(--ink); 
     background: var(--bg); 
 }
