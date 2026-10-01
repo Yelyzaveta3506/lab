@@ -98,14 +98,35 @@ main {
 		
 .task a { 
     margin-top: auto; 
-    color: var(--primary); 
+    align-self: flex-start;       
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; 
+
+    background-color:var(--primary);     
+    color: #ffffff;                
+    font-size: 16px; 
     font-weight: bold; 
-    text-decoration: none; 
+    text-decoration: none;
+
+    padding: 10px 22px;            
+    border-radius: 50px;           
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
+
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 		
 .task a:hover { 
-    text-decoration: 
-    underline; 
+    background-color: #2a4c38;    
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);  
+    text-decoration: none; 
+}
+
+.task a:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 		
 footer { 
