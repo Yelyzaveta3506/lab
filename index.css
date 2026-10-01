@@ -77,7 +77,7 @@ main {
     border-top: 4px solid var(--accent); 
     box-shadow: 0 6px 18px #32215b12; 
     transition: transform .2s, box-shadow .2s; 
-}
+}  
 		
 .task:hover { 
     transform: translateY(-4px); 
