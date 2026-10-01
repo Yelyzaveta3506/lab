@@ -6,7 +6,10 @@
 	<title>Таблиця</title>
 	<style>
 		body {
-			margin: 8px 20px;
+			margin: 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
 			font-family: Arial, sans-serif;
 			font-size: 11px;
 		}
@@ -26,7 +29,7 @@
 			vertical-align: middle;
 		}
 
-		.bar {
+		.top {
 			height: 19px;
 			background: #0863f5;
 			color: white;
@@ -52,14 +55,18 @@
 	</style>
 </head>
 <body>
-	<table aria-label="Таблиця з чотирма областями">
-		<tr><td class="bar" colspan="3">1</td></tr>
+	<table aria-label="Таблиця ">
+		<tr>
+            <td class="top" colspan="3">1</td>
+        </tr>
 		<tr>
 			<td class="side">5</td>
 			<td class="middle">4</td>
-			<td class="side" style="border-right: 0">2</td>
+			<td class="side">2</td>
 		</tr>
-		<tr><td class="bar bottom" colspan="3">3</td></tr>
+		<tr>
+            <td class="bar bottom" colspan="3">3</td>
+        </tr>
 	</table>
 </body>
 </html>
