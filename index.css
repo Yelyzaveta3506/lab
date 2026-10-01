@@ -70,7 +70,7 @@ main {
 .task { 
     display: flex; 
     flex-direction: column; 
-    min-height: 160px; 
+    min-height: 250px; 
     padding: 23px; 
     background: white; 
     border-radius: 14px; 
