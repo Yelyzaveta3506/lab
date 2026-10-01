@@ -43,15 +43,15 @@ main {
 		
 .intro { 
     padding: 26px 30px; 
-    margin-bottom: 26px; 
+    margin-bottom: 26px;
+    text-align: center; 
     background: white; 
     border-radius: 16px; 
-    box-shadow: 0 8px 24px #32215b18; 
+    box-shadow: 0 8px 24px #275b2118; 
 }
 		
 .intro h2 { 
     margin: 0 0 8px; 
-    text-align: center;
     color: var(--primary); 
 }
 		
@@ -70,7 +70,7 @@ main {
 .task { 
     display: flex; 
     flex-direction: column; 
-    min-height: 250px; 
+    min-height: 180px; 
     padding: 23px; 
     background: white; 
     border-radius: 14px; 
