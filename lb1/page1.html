@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Таблиця</title>
+	<style>
+		body {
+			margin: 8px 20px;
+			font-family: Arial, sans-serif;
+			font-size: 11px;
+		}
+
+		table {
+			width: 112px;
+			height: 142px;
+			table-layout: fixed;
+			border: 1px solid #222;
+			border-spacing: 0;
+			box-shadow: 3px 3px 3px #888;
+		}
+
+		td {
+			padding: 0;
+			text-align: center;
+			vertical-align: middle;
+		}
+
+		.bar {
+			height: 19px;
+			background: #0863f5;
+			color: white;
+			text-align: left;
+			padding-left: 9px;
+			border-bottom: 1px solid #222;
+		}
+
+		.side {
+			width: 30px;
+			background: #ffd000;
+			border-right: 1px solid #222;
+		}
+
+		.middle {
+			background: white;
+		}
+
+		.bottom {
+			border-top: 1px solid #222;
+			border-bottom: 0;
+		}
+	</style>
+</head>
+<body>
+	<table aria-label="Таблиця з чотирма областями">
+		<tr><td class="bar" colspan="3">1</td></tr>
+		<tr>
+			<td class="side">5</td>
+			<td class="middle">4</td>
+			<td class="side" style="border-right: 0">2</td>
+		</tr>
+		<tr><td class="bar bottom" colspan="3">3</td></tr>
+	</table>
+</body>
+</html>
