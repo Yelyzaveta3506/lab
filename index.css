@@ -86,11 +86,12 @@ main {
 		
 .task h3 { 
     margin: 0 0 10px; 
-    font-size: 1.1rem; 
+    font-size: 22px; 
 }
 		
 .task p { 
     margin: 0 0 18px; 
+    font-size: 18px;
     color: var(--muted); 
     line-height: 1.45; 
 }
