@@ -1,0 +1,69 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f1ea;
+  color: #1f2933;
+}
+
+nav { padding: 12px 24px; background: #1f2933; }
+nav a { color: #f4f1ea; text-decoration: none; margin-right: 16px; font-size: 14px; }
+nav a:hover { text-decoration: underline; }
+
+.hero {
+  padding: 64px 24px 80px;
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.hero .tag {
+  display: inline-block;
+  margin: 0 0 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #e4572e;
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.hero h1 { margin: 0 0 8px; font-size: 44px; line-height: 1.1; }
+.hero .sub { margin: 0; color: #52606d; font-size: 18px; }
+
+.tasks {
+  list-style: none;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px 64px;
+  display: grid;
+  gap: 14px;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  background: #fff;
+  border-left: 6px solid #e4572e;
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
+  transition: transform .2s, box-shadow .2s;
+}
+.task:hover {
+  transform: translateX(6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+}
+
+.num { font-size: 36px; font-weight: 700; color: #e4572e; min-width: 56px; }
+.text { flex: 1; }
+.text h2 { margin: 0 0 4px; font-size: 20px; }
+.text p { margin: 0; color: #52606d; font-size: 15px; }
+.arrow { font-size: 24px; color: #e4572e; transition: transform .2s; }
+.task:hover .arrow { transform: translateX(4px); }
+
+@media (max-width: 600px) {
+  .hero h1 { font-size: 32px; }
+  .num { font-size: 28px; min-width: 40px; }
+}
