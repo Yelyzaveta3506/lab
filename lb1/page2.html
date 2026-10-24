@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Плаваючі блоки</title>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 10px;
+			font-family: "Times New Roman", serif;
+			font-size: 12px;
+			font-weight: bold;
+		}
+
+		.layout {
+			width: 112px;
+			height: 142px;
+			border: 1px solid #222;
+			box-shadow: 2px 2px 2px #777;
+		}
+
+		.top,
+		.bottom {
+			height: 19px;
+			padding: 3px 9px;
+			color: white;
+			background: #0875f5;
+		}
+
+		.side,
+		.center {
+			float: left;
+			height: 101px;
+			text-align: center;
+			padding-top: 45px;
+		}
+
+		.side {
+			width: 31px;
+			background: #ffd000;
+		}
+
+		.center {
+			width: 48px;
+			background: white;
+		}
+
+		.bottom {
+			clear: both;
+		}
+	</style>
+</head>
+<body>
+	<div class="layout">
+		<div class="top">1</div>
+		<div class="side">5</div>
+		<div class="center">4</div>
+		<div class="side">2</div>
+		<div class="bottom">3</div>
+	</div>
+</body>
+</html>
