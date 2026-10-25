@@ -1,69 +1,53 @@
-body {
-  margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: #f4f1ea;
-  color: #1f2933;
+.lab-content {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 20px;
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 20px;
 }
 
-nav { padding: 12px 24px; background: #1f2933; }
-nav a { color: #f4f1ea; text-decoration: none; margin-right: 16px; font-size: 14px; }
-nav a:hover { text-decoration: underline; }
 
-.hero {
-  padding: 64px 24px 80px;
-  text-align: left;
-  max-width: 800px;
-  margin: 0 auto;
-}
-.hero .tag {
-  display: inline-block;
-  margin: 0 0 12px;
-  padding: 4px 12px;
-  border-radius: 999px;
-  background: #e4572e;
-  color: #fff;
-  font-size: 13px;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-}
-.hero h1 { margin: 0 0 8px; font-size: 44px; line-height: 1.1; }
-.hero .sub { margin: 0; color: #52606d; font-size: 18px; }
-
-.tasks {
-  list-style: none;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 24px 64px;
-  display: grid;
-  gap: 14px;
+.t1, .t2, .t3, .t4, .t5 {
+	background: #1b2e23;
+	border: 1px solid #2d6a4f;
+	border-radius: 16px;
+	overflow: hidden;          /* щоб шапка не виступала за заокруглені кути */
+	color: #fff;
 }
 
-.task {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 20px 24px;
-  background: #fff;
-  border-left: 6px solid #e4572e;
-  border-radius: 12px;
-  text-decoration: none;
-  color: inherit;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
-  transition: transform .2s, box-shadow .2s;
-}
-.task:hover {
-  transform: translateX(6px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+.task-header {
+	padding: 16px 20px;
+	background: #1b2e23;
+	border-bottom: 1px solid #2d6a4f;
 }
 
-.num { font-size: 36px; font-weight: 700; color: #e4572e; min-width: 56px; }
-.text { flex: 1; }
-.text h2 { margin: 0 0 4px; font-size: 20px; }
-.text p { margin: 0; color: #52606d; font-size: 15px; }
-.arrow { font-size: 24px; color: #e4572e; transition: transform .2s; }
-.task:hover .arrow { transform: translateX(4px); }
+.task-header h2 {
+	margin: 0;
+	font-size: 18px;
+	font-weight: 500;
+}
 
-@media (max-width: 600px) {
-  .hero h1 { font-size: 32px; }
-  .num { font-size: 28px; min-width: 40px; }
+.task-body {
+	padding: 24px;
+}
+
+.task-body p {
+	margin: 0 0 20px;
+	font-size: 17px;
+	line-height: 1.5;
+}
+
+.task-body a {
+	display: inline-block;
+	padding: 12px 16px;
+	background: #0a84ff;
+	color: #fff;
+	text-decoration: none;
+	border-radius: 10px;
+	font-size: 17px;
+}
+
+.task-body a:hover {
+	background: #3399ff;
 }
