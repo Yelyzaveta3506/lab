@@ -4,17 +4,29 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Завдання 4 | Лабораторна робота №1 </title>
-        <link rel="stylesheet" href="../index.css"> 
+        <link rel="stylesheet" href="../index.css"> <!-- для загальних стилів всіх сторінок -->
+        <link rel="stylesheet" href="index_lab1.css"> <!-- для стилів ЛБ1 -->
     </head>
-<body>
-    <header>
-        <h1>Завдання 4</h1>
-        <p>Створіть нову сторінку, яка містить малюнок</p>
-    </header>  
+<body class="t4-body">
+    <nav class="menu-bar">
+					<a href="index.html" title="Головна сторінка" class="b1">
+						<img src="image/icon-home.png" alt="Головна сторінка"  class="home-icon">
+					</a>
+					<a href="page1.html" class="b1">Завдання 1</a>
+					<a href="page2.html" class="b1">Завдання 2</a>
+					<a href="page3.html" class="b1">Завдання 3</a>
+					<a href="page4.html" class="b1 active" aria-current="page">Завдання 4</a>
+					<a href="page5.html" class="b1">Завдання 5</a>
+	</nav>
     <main>
-            <section class="lab-content">
+        <section class="intro">
+					<h5>Завдання 4. Створіть нову сторінку, яка містить малюнок</h5>
+		</section> 
+            <section class="t4-content">
                 <img src="https://sites.znu.edu.ua/webprog/labs/lab1/candle.tn.jpg" alt="Малюнок свічі" width="200">
                 <p>Це приклад малюнка свічі.</p>
             </section>
         </main>
+        <footer>© 2026 · Студентка групи І-23 - Антоненко Єлизавета </footer>
 </body>
+</html>

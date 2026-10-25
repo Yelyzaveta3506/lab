@@ -13,7 +13,7 @@
 		
 body { 
     margin: 0; 
-    font-family: 'Inter', sans-serif; 
+    font-family: 'Georgia', 'Times New Roman', serif; 
     color: var(--ink); 
     background: var(--bg); 
 }
@@ -53,6 +53,18 @@ main {
 .intro h2 { 
     margin: 0 0 8px; 
     font-size: 25px; 
+    color: var(--primary); 
+}
+
+.intro h3 { 
+    margin: 0 0 8px; 
+    font-size: 21px; 
+    color: var(--primary); 
+}
+
+.intro h5 { 
+    margin: 0 0 8px; 
+    font-size: 18px; 
     color: var(--primary); 
 }
 		

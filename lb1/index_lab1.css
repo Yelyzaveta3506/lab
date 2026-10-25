@@ -1,31 +1,31 @@
 .lab-content {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 	gap: 20px;
 	max-width: 1100px;
 	margin: 0 auto;
 	padding: 20px;
 }
 
-
 .t1, .t2, .t3, .t4, .t5 {
-	background: #1b2e23;
-	border: 1px solid #2d6a4f;
+	background: #fff;
+	border: 1px solid #D2E3D5;
 	border-radius: 16px;
-	overflow: hidden;          /* щоб шапка не виступала за заокруглені кути */
-	color: #fff;
+	overflow: hidden;       
+	color: #1b2e23;
 }
 
 .task-header {
 	padding: 16px 20px;
-	background: #1b2e23;
-	border-bottom: 1px solid #2d6a4f;
+	background: #38B255;
+	border-bottom: 1px solid #D2E3D5;
+  color: #1b2e23;
 }
 
 .task-header h2 {
 	margin: 0;
-	font-size: 18px;
-	font-weight: 500;
+	font-size: 20px;
+  font-weight: bold;
 }
 
 .task-body {
@@ -34,20 +34,457 @@
 
 .task-body p {
 	margin: 0 0 20px;
-	font-size: 17px;
+	font-size: 16px;
 	line-height: 1.5;
 }
 
 .task-body a {
 	display: inline-block;
 	padding: 12px 16px;
-	background: #0a84ff;
-	color: #fff;
+	background: #2E9344;
+	color: #f4f8f5;
 	text-decoration: none;
 	border-radius: 10px;
 	font-size: 17px;
 }
 
 .task-body a:hover {
-	background: #3399ff;
+	background: #38B255;
 }
+
+/* стилі до page1.html */
+
+.t1-body {
+	margin: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+table {
+	width: 100%;
+  min-height: 100vh;
+	table-layout: auto;
+	border: 1px solid #222;
+	border-collapse: collapse;
+	border-spacing: 0;
+	box-shadow: 3px 3px 3px #888;
+} 
+
+td {
+	padding: 0;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.top {
+	height: 60px;
+	background: linear-gradient(135deg, #38B255, #96ef91);  
+	text-align: center;
+	/*border-bottom: 1px solid #222; для виділення верхньої межі */
+}
+
+.b1{
+  color: #274333;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500; 
+  transition: color 0.2s ease;
+  margin: 0 10px;
+
+}
+
+.b1:hover {
+    color: #000; 
+}
+
+
+.home-icon{
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.side{
+	width: 17%;
+	background-image: url("image/f-site.png");
+  background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+  background-attachment: fixed;
+	/*border-right: 1px solid #222;*/
+}
+
+.middle {
+  width: 66%;
+  background: white;
+  color: #111111;
+  line-height: 1.5;
+  padding: 15px 30px;
+  vertical-align: top;
+}
+
+.middle h1, 
+.middle h2, 
+.middle h3,
+.middle h4, 
+.middle h5, 
+.middle h6,
+.middle p, 
+.center h1,
+.center h2,
+.center h3,
+.center h4,
+.center h5,
+.center h6,
+.center p,
+.i-middle h1,
+.i-middle h2,
+.i-middle h3,
+.i-middle h4,
+.i-middle h5,
+.i-middle h6,
+.i-middle p {
+  margin: 0;
+}
+
+.middle h1, 
+.middle h6,
+.center h1,
+.center h6,
+.i-middle h1,
+.i-middle h6 {
+  text-align: center;
+  font-weight: bold;
+}
+
+.middle h1, .center h1, .i-middle h1 { 
+  font-size: 28px; 
+  margin-bottom: 4px; 
+}
+
+.middle h2, .center h2, .i-middle h2 {
+  font-size: 24px;
+  color: #333333;
+}
+
+.middle h2, 
+.middle h3, 
+.middle h4, 
+.middle h5, 
+.center h2, 
+.center h3,
+.center h4,
+.center h5,
+.i-middle h5,
+.i-middle h2,
+.i-middle h3,
+.i-middle h4 {
+  text-align: left;
+  font-weight: normal;
+}
+
+.middle h3, .center h3, .i-middle h3 { 
+  font-size: 22px; 
+}
+
+.middle h4, .center h4, .i-middle h4 { 
+  font-size: 20px; 
+}
+
+.middle h5, .center h5, .i-middle h5 { 
+  font-size: 18px; 
+}
+
+.middle h6, .center h6, .i-middle h6 { 
+  font-size: 16px; 
+  margin: 18px 0 8px; 
+}
+
+.middle p, .center p, .i-middle p {
+  text-align: justify;
+  font-size: 16px;
+  text-indent: 30px;
+  margin-bottom: 4px;   
+}
+
+.bottom {
+	height: 60px;
+	/*border-top: 1px solid #222;
+	border-bottom: 0;*/
+}
+
+.b1.active {
+  color: #000;
+  font-weight: 700;
+}
+
+.b1.active:hover {
+  color: #000;
+}
+
+
+/* стилі до page2.html */
+
+.layout {
+  width: 100%;
+  min-height: 100vh;
+  box-shadow: 3px 3px 3px #888;
+  overflow: hidden; 
+  background:
+  linear-gradient(to right,
+      transparent 17%, white 17%, white 83%, transparent 83%),
+    url("image/f-site.png") center / cover no-repeat fixed;
+}
+
+.layout > * {
+  box-sizing: border-box;
+}
+
+.layout .top {
+  line-height: 60px;  
+}
+
+.layout .side {
+  width: 17%;
+  min-height: 1px;     
+  background: none;
+}
+
+.layout .side-left  { float: left; }
+.layout .side-right { float: right; }
+
+.layout .center {
+  float: left;
+  width: 66%;
+  padding: 15px 30px;
+  color: #111;
+  line-height: 1.5;
+}
+
+.layout .side:last-of-type {
+  float: right;       
+}
+
+.layout .bottom {
+  clear: both;         
+  line-height: 60px;
+  text-align: center;
+  background: white;
+}
+
+/* стилі до page3.html */
+
+.t3-body {
+  margin: 0;
+}
+
+.i-layout {
+  width: 100%;
+  min-height: 100vh;
+  font-size: 0;             
+  box-shadow: 3px 3px 3px #888888;
+  background: url("image/f-site.png") center / cover no-repeat fixed;
+}
+
+.i-block {
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+}
+
+.i-top,
+.i-bottom {
+  width: 100%;
+  height: 60px;
+  line-height: 60px;          
+  text-align: center;
+  font-size: 16px;            
+}
+
+.i-top {
+  background: linear-gradient(135deg, #38B255, #96ef91);
+}
+
+.i-bottom {
+  background: white;
+}
+
+.i-side {
+  width: 17%;
+}
+
+.i-middle {
+  width: 66%;
+  background: white;
+  color: #111;
+  line-height: 1.5;
+  padding: 15px 30px;
+}
+
+/* стилі до page4.html */
+
+.t4-body main, .t5-body main {
+  margin: 20px auto 50px;
+}
+
+.menu-bar {
+	height: 60px;
+  line-height: 60px;  
+  text-align: center;
+  background: linear-gradient(135deg, #38B255, #96ef91); 
+}
+
+.t4-content {
+  display: flex;
+  flex-direction: column;   
+  align-items: center;     
+  gap: 8px;
+  text-align: center;
+}
+
+.t4-content img {
+  display: block;
+}
+
+.intro h5 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+  text-align: left;
+  color: #333333;
+}
+
+/* стилі до page5.html */
+
+.form-card {
+  max-width: 570px;
+  margin: 0 auto;
+  padding: 30px 34px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px #275b2118;
+}
+
+.t5-body .form-card h2 {
+  color: #1b2e23;
+  font-size: 24px;
+  margin: 0 0 22px;
+  text-align: center;
+}
+
+.field {
+  margin: 0 0 18px;
+  padding: 0;
+  border: 0;
+}
+
+.field label,
+.field legend {
+  display: block;
+  margin-bottom: 6px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1b2e23;
+}
+
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="date"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 14px;
+  font: inherit;
+  color: #111;
+  background: #f4f8f5;
+  border: 1.5px solid #cfe6d4;
+  border-radius: 10px;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.field input:focus {
+  outline: none;
+  background: #fff;
+  border-color: #38B255;
+  box-shadow: 0 0 0 4px rgba(56, 178, 85, 0.18);
+}
+
+.choice {
+  display: inline-block;
+  margin: 0 8px 0 0;
+  cursor: pointer;
+}
+
+.field .choice {
+  font-weight: 500;
+}
+
+.choice input {
+  position: absolute;
+  opacity: 0;
+}
+
+.choice span {
+  display: inline-block;
+  padding: 9px 20px;
+  background: #f4f8f5;
+  border: 1.5px solid #cfe6d4;
+  border-radius: 999px;
+  transition: all 0.2s;
+}
+
+.choice:hover span {
+  border-color: #38B255;
+}
+
+.choice input:checked + span {
+  color: white;
+  background: linear-gradient(135deg, #38B255, #6fd36f);
+  border-color: transparent;
+}
+
+.choice input:focus-visible + span {
+  box-shadow: 0 0 0 4px rgba(56, 178, 85, 0.25);
+}
+
+.btn-submit {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 13px;
+  font: inherit;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #38B255, #6fd36f);
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(56, 178, 85, 0.35);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+.field.gender {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.field.gender legend {
+  width: 100%;      
+}
+
+.field.gender .choice {
+  margin: 0;
+}
+
