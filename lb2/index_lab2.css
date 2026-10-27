@@ -1,11 +1,13 @@
 /* ===== Змінні та основні стилі ===== */
     :root {
-      --green: #38B255;
-      --green-dark: #2e9344;
+      --green: #1f7a3a;
+      --green-dark: #17652e;
       --green-soft: #e8f7ec;
       --dark: #14231a;
       --bg: #f6f8f6;
       --speed: .3s;
+      --bs-success: #1f7a3a;
+      --bs-success-rgb: 31, 122, 58;
     }
 
     body {
@@ -15,7 +17,12 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      min-height: 100dvh;
     }
+
+    .fw-extrabold { font-weight: 800; }
+    .opacity-90 { opacity: .9; }
+    .min-w-0 { min-width: 0; }
 
     a {
       color: var(--green-dark);
@@ -93,15 +100,15 @@
       background: var(--green-dark);
       border-color: var(--green-dark);
       color: #fff;
-      box-shadow: 0 4px 12px rgba(56, 178, 85, 0.3);
+      box-shadow: 0 4px 12px rgba(31, 122, 58, 0.3);
     }
 
     /* ===== Hero та переваги ===== */
     .hero {
-      background: linear-gradient(135deg, #2e9344, #38B255 55%, #96ef91);
+      background: linear-gradient(135deg, #17652e, #1f7a3a 55%, #17652e);
       color: #fff;
       border-radius: 1.25rem;
-      box-shadow: 0 10px 30px rgba(46, 147, 68, 0.2);
+      box-shadow: 0 10px 30px rgba(23, 101, 46, 0.2);
     }
 
     .adv {
@@ -141,7 +148,7 @@
     }
     .product:hover {
       transform: translateY(-6px);
-      box-shadow: 0 14px 28px rgba(56, 178, 85, 0.18) !important;
+      box-shadow: 0 14px 28px rgba(31, 122, 58, 0.18);
     }
     .product-img {
       height: 220px;
@@ -165,7 +172,7 @@
       top: 10px;
       left: 10px;
       z-index: 2;
-      background: #ef4444;
+      background: #dc2626;
       color: #fff;
       font-size: 0.75rem;
       padding: 0.25rem 0.6rem;
@@ -208,25 +215,35 @@
       justify-content: center;
       gap: 0.5rem;
     }
-    .specs span {
+    .specs dt {
       display: block;
       color: #96ef91;
       font-size: 0.725rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      font-weight: 600;
     }
-    .product:hover .specs {
+    .product:hover .specs,
+    .product:focus-within .specs {
       opacity: 1;
+    }
+    .stars .star-btn {
+      border: 0;
+      background: transparent;
+      color: #f5a623;
+      padding: 0 1px;
+      line-height: 1;
     }
     .stars i {
       color: #f5a623;
-      cursor: pointer;
-      transition: transform 0.15s;
       font-size: 0.85rem;
     }
-    .stars i:hover {
+    .stars .star-btn:hover i,
+    .stars .star-btn:focus-visible i {
       transform: scale(1.3);
     }
+    .product .p-3 { min-width: 0; }
+    .old-price { font-size: .75rem; }
 
     /* ===== Хіти продажів (карусель) ===== */
     .hits {
@@ -281,6 +298,13 @@
     }
     .hits .ctl.prev { left: 1.5rem; }
     .hits .ctl.next { right: 1.5rem; }
+    .hits .ctl.pause {
+      top: .75rem;
+      right: .75rem;
+      bottom: auto;
+      width: 36px;
+      height: 36px;
+    }
 
     /* ===== Фільтри ===== */
     .filters {
@@ -288,7 +312,7 @@
       border-radius: 0.85rem;
       box-shadow: 0 2px 12px rgba(0,0,0,0.04);
       position: sticky;
-      top: 90px;
+      top: 6rem;
       z-index: 10;
     }
 
@@ -322,4 +346,33 @@
     }
     .toast-wrap {
       z-index: 1090;
+    }
+
+    @media (max-width: 991.98px) {
+      .filters { position: static; }
+    }
+
+    @media (hover: none) {
+      .specs {
+        position: static;
+        opacity: 1;
+        height: auto;
+        background: var(--dark);
+      }
+      .product-img {
+        height: auto;
+        flex-direction: column;
+      }
+      .product-img > img {
+        height: 175px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
     }
