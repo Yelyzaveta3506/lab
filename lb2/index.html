@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Лабораторна робота №2 | Звіт </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Підключення Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"> <!-- Підключення Bootstrap Icons -->
+        <link rel="stylesheet" href="index_lab2.css">  <!-- стиль ЛБ2 -->
+</head>
+<body>
+    <header class="sticky-top bg-white shadow-sm">
+        <nav class="navbar navbar-expand-lg navbar-light py-3">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                    <i class="bi bi-phone-fill fs-3"></i>
+                    <span class="fs-4">TechPulse</span>
+                </a>
+ 
+                <div class="d-flex order-lg-2 align-items-center gap-3">
+                    <button class="btn position-relative p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#cart" aria-label="Кошик">
+                        <i class="bi bi-cart3 fs-4 text-dark"></i>
+                        <span id="cartCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">0</span>
+                    </button>
+                    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Перемикач навігації">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+ 
+                <div class="collapse navbar-collapse justify-content-between" id="menu">
+                    <div class="search-box mx-lg-auto my-3 my-lg-0 w-100 px-lg-4">
+                        <div class="input-group">
+                            <input type="search" id="searchInput" class="form-control rounded-start-pill ps-3 border-end-0" placeholder="Пошук смартфонів, гаджетів, аксесуарів..." aria-label="Пошук">
+                            <button class="btn btn-outline-secondary border-start-0 rounded-end-pill px-3 bg-white text-dark" type="button" id="searchBtn" aria-label="Шукати">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </div>
+ 
+                    <ul class="navbar-nav mb-2 mb-lg-0 gap-lg-3">
+                        <li class="nav-item">
+                            <a class="nav-link active fw-medium" href="#">Головна</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium" href="#catalog">Каталог</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link fw-medium" href="#hits">Хіти продажів</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+ 
+    <main class="container my-4">
+ 
+        <!-- 2. Hero-банер -->
+        <section class="hero p-4 p-md-5 mb-5 shadow-sm">
+            <div class="row align-items-center">
+                <div class="col-lg-7 mb-4 mb-lg-0">
+                    <span class="badge bg-white text-success px-3 py-2 rounded-pill fw-bold mb-3 shadow-sm">⚡ Акція сезону</span>
+                    <h1 class="display-5 fw-bold mb-3 text-white">Сучасні смартфони з вигодою до 30%</h1>
+                    <p class="lead mb-4 text-white-50">Оновлюйте гаджети вигідно разом із TechPulse. Найпотужніші флагмани, преміальні годинники та бездротові навушники в наявності.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#catalog" class="btn btn-light text-success fw-bold px-4 py-2 rounded-pill shadow-sm">Перейти до каталогу</a>
+                        <a href="#hits" class="btn btn-outline-light fw-bold px-4 py-2 rounded-pill">Хіти продажу</a>
+                    </div>
+                </div>
+                <div class="col-lg-5 text-center">
+                    <img src="https://placehold.co/450x300/38B255/FFFFFF?text=TechPulse+Promo" alt="Акційний банер смартфони" class="img-fluid rounded-4 shadow-lg border border-white border-opacity-25">
+                </div>
+            </div>
+        </section>
+ 
+        <!-- Каталог: фільтри + сітка товарів -->
+        <div class="row g-4" id="catalog">
+ 
+            <!-- 3. Фільтри -->
+            <aside class="col-lg-3">
+                <div class="filters p-4 sticky-top">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h2 class="fs-5 fw-bold m-0"><i class="bi bi-funnel me-2 text-success"></i>Фільтри</h2>
+                        <button class="btn btn-sm btn-outline-secondary border-0 text-muted p-0" id="resetFilters">Скинути</button>
+                    </div>
+                    <hr class="text-muted opacity-25">
+ 
+                    <!-- Категорії -->
+                    <div class="mb-4">
+                        <h3 class="fs-6 fw-semibold mb-3">Категорії</h3>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="cat1" checked>
+                            <label class="form-check-label" for="cat1">Смартфони</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="cat2">
+                            <label class="form-check-label" for="cat2">Смарт-годинники</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="cat3">
+                            <label class="form-check-label" for="cat3">Навушники та аудіо</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="cat4">
+                            <label class="form-check-label" for="cat4">Аксесуари</label>
+                        </div>
+                    </div>
+ 
+                    <!-- Бренди -->
+                    <div class="mb-4">
+                        <h3 class="fs-6 fw-semibold mb-3">Бренд</h3>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="brand1">
+                            <label class="form-check-label" for="brand1">Apple</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="brand2">
+                            <label class="form-check-label" for="brand2">Samsung</label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="checkbox" id="brand3">
+                            <label class="form-check-label" for="brand3">Xiaomi</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="brand4">
+                            <label class="form-check-label" for="brand4">Google</label>
+                        </div>
+                    </div>
+ 
+                    <!-- Ціна -->
+                    <div class="mb-3">
+                        <h3 class="fs-6 fw-semibold mb-3">Ціна (грн)</h3>
+                        <label for="priceRange" class="form-label text-muted small">Максимальна ціна: <span id="priceValue" class="fw-bold text-dark">60 000</span> грн</label>
+                        <input type="range" class="form-range" min="1000" max="80000" step="1000" value="60000" id="priceRange">
+                        <div class="d-flex justify-content-between text-muted small mt-1">
+                            <span>1 000 грн</span>
+                            <span>80 000 грн</span>
+                        </div>
+                    </div>
+ 
+                    <button class="btn btn-green w-100 rounded-pill py-2 mt-2 fw-semibold">Застосувати</button>
+                </div>
+            </aside>
+ 
+            <!-- 4. Товари: 6 карток -->
+            <div class="col-lg-9">
+                <h2 class="visually-hidden">Каталог товарів</h2>
+ 
+                <div class="d-flex justify-content-between align-items-center mb-4 bg-white p-3 rounded-3 shadow-sm">
+                    <span class="text-muted fw-medium">Знайдено товарів: <strong class="text-dark">6</strong></span>
+                    <div class="d-flex align-items-center gap-2">
+                        <label for="sortSelect" class="text-muted small text-nowrap d-none d-sm-inline">Сортування:</label>
+                        <select id="sortSelect" class="form-select form-select-sm rounded-pill">
+                            <option selected>За популярністю</option>
+                            <option value="1">Від дешевих до дорогих</option>
+                            <option value="2">Від дорогих до дешевих</option>
+                            <option value="3">Новинки</option>
+                        </select>
+                    </div>
+                </div>
+ 
+                <!-- Сітка: 1 колонка (мобільні), 2 (планшети), 3 (десктоп) -->
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+ 
+                    <!-- Товар 1 -->
+                    <div class="col">
+                        <div class="card product h-100 shadow-sm">
+                            <div class="product-img">
+                                <span class="discount">-15%</span>
+                                <img src="https://placehold.co/220x220/f1f5f9/38B255?text=iPhone+15+Pro" alt="Смартфон Apple iPhone 15 Pro" class="img-fluid">
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <span class="text-muted small mb-1">Смартфони • Apple</span>
+                                <h3 class="card-title fs-6 fw-bold mb-2">Смартфон Apple iPhone 15 Pro 256GB Natural Titanium</h3>
+                                <div class="mb-2 text-warning small">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill text-muted"></i>
+                                    <span class="text-muted ms-1">(42)</span>
+                                </div>
+                                <div class="mt-auto d-flex align-items-center justify-content-between pt-2">
+                                    <div>
+                                        <span class="fs-5 fw-bold text-dark">47 999 ₴</span>
+                                        <div class="text-decoration-line-through text-muted small">55 999 ₴</div>
+                                    </div>
+                                    <button class="btn btn-green btn-sm rounded-pill px-3 py-2 add-btn" data-title="Apple iPhone 15 Pro" data-price="47999">
+                                        <i class="bi bi-cart-plus me-1"></i> В кошик
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- Товар 2 -->
+                    <div class="col">
+                        <div class="card product h-100 shadow-sm">
+                            <div class="product-img">
+                                <span class="discount">-20%</span>
+                                <img src="https://placehold.co/220x220/f1f5f9/38B255?text=Galaxy+S24" alt="Смартфон Samsung Galaxy S24 Ultra" class="img-fluid">
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <span class="text-muted small mb-1">Смартфони • Samsung</span>
+                                <h3 class="card-title fs-6 fw-bold mb-2">Смартфон Samsung Galaxy S24 Ultra 12/512GB Grey</h3>
+                                <div class="mb-2 text-warning small">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <span class="text-muted ms-1">(58)</span>
+                                </div>
+                                <div class="mt-auto d-flex align-items-center justify-content-between pt-2">
+                                    <div>
+                                        <span class="fs-5 fw-bold text-dark">52 499 ₴</span>
+                                        <div class="text-decoration-line-through text-muted small">65 999 ₴</div>
+                                    </div>
+                                    <button class="btn btn-green btn-sm rounded-pill px-3 py-2 add-btn" data-title="Samsung Galaxy S24 Ultra" data-price="52499">
+                                        <i class="bi bi-cart-plus me-1"></i> В кошик
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- Товар 3 -->
+                    <div class="col">
+                        <div class="card product h-100 shadow-sm">
+                            <div class="product-img">
+                                <img src="https://placehold.co/220x220/f1f5f9/38B255?text=Xiaomi+14" alt="Смартфон Xiaomi 14" class="img-fluid">
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <span class="text-muted small mb-1">Смартфони • Xiaomi</span>
+                                <h3 class="card-title fs-6 fw-bold mb-2">Смартфон Xiaomi 14 12/512GB Black</h3>
+                                <div class="mb-2 text-warning small">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                    <span class="text-muted ms-1">(19)</span>
+                                </div>
+                                <div class="mt-auto d-flex align-items-center justify-content-between pt-2">
+                                    <div>
+                                        <span class="fs-5 fw-bold text-dark">34 999 ₴</span>
+                                    </div>
+                                    <button class="btn btn-green btn-sm rounded-pill px-3 py-2 add-btn" data-title="Xiaomi 14" data-price="34999">
+                                        <i class="bi bi-cart-plus me-1"></i> В кошик
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- Товар 4 -->
+                    <div class="col">
+                        <div class="card product h-100 shadow-sm">
+                            <div class="product-img">
+                                <span class="discount">-10%</span>
+                                <img src="https://placehold.co/220x220/f1f5f9/38B255?text=Apple+Watch" alt="Смарт-годинник Apple Watch Series 9" class="img-fluid">
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <span class="text-muted small mb-1">Годинники • Apple</span>
+                                <h3 class="card-title fs-6 fw-bold mb-2">Смарт-годинник Apple Watch Series 9 GPS 41mm</h3>
+                                <div class="mb-2 text-warning small">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill text-muted"></i>
+                                    <span class="text-muted ms-1">(31)</span>
+                                </div>
+                                <div class="mt-auto d-flex align-items-center justify-content-between pt-2">
+                                    <div>
+                                        <span class="fs-5 fw-bold text-dark">17 999 ₴</span>
+                                        <div class="text-decoration-line-through text-muted small">19 999 ₴</div>
+                                    </div>
+                                    <button class="btn btn-green btn-sm rounded-pill px-3 py-2 add-btn" data-title="Apple Watch Series 9" data-price="17999">
+                                        <i class="bi bi-cart-plus me-1"></i> В кошик
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- Товар 5 -->
+                    <div class="col">
+                        <div class="card product h-100 shadow-sm">
+                            <div class="product-img">
+                                <img src="https://placehold.co/220x220/f1f5f9/38B255?text=AirPods+Pro+2" alt="Навушники AirPods Pro 2" class="img-fluid">
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <span class="text-muted small mb-1">Аудіо • Apple</span>
+                                <h3 class="card-title fs-6 fw-bold mb-2">Бездротові навушники Apple AirPods Pro 2 USB-C</h3>
+                                <div class="mb-2 text-warning small">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <span class="text-muted ms-1">(84)</span>
+                                </div>
+                                <div class="mt-auto d-flex align-items-center justify-content-between pt-2">
+                                    <div>
+                                        <span class="fs-5 fw-bold text-dark">10 499 ₴</span>
+                                    </div>
+                                    <button class="btn btn-green btn-sm rounded-pill px-3 py-2 add-btn" data-title="AirPods Pro 2 USB-C" data-price="10499">
+                                        <i class="bi bi-cart-plus me-1"></i> В кошик
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                    <!-- Товар 6 -->
+                    <div class="col">
+                        <div class="card product h-100 shadow-sm">
+                            <div class="product-img">
+                                <span class="discount">-25%</span>
+                                <img src="https://placehold.co/220x220/f1f5f9/38B255?text=Pixel+8+Pro" alt="Смартфон Google Pixel 8 Pro" class="img-fluid">
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <span class="text-muted small mb-1">Смартфони • Google</span>
+                                <h3 class="card-title fs-6 fw-bold mb-2">Смартфон Google Pixel 8 Pro 12/256GB Bay</h3>
+                                <div class="mb-2 text-warning small">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                    <span class="text-muted ms-1">(27)</span>
+                                </div>
+                                <div class="mt-auto d-flex align-items-center justify-content-between pt-2">
+                                    <div>
+                                        <span class="fs-5 fw-bold text-dark">38 999 ₴</span>
+                                        <div class="text-decoration-line-through text-muted small">51 999 ₴</div>
+                                    </div>
+                                    <button class="btn btn-green btn-sm rounded-pill px-3 py-2 add-btn" data-title="Google Pixel 8 Pro" data-price="38999">
+                                        <i class="bi bi-cart-plus me-1"></i> В кошик
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+ 
+                </div>
+            </div>
+        </div>
+ 
+        <!-- 5. Хіти продажів (карусель) -->
+        <section class="mt-5 pt-4" id="hits">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h2 class="fs-3 fw-bold m-0">🔥 Хіти продажів</h2>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-success rounded-circle p-2" type="button" data-bs-target="#hitsCarousel" data-bs-slide="prev" aria-label="Попередній">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <button class="btn btn-outline-success rounded-circle p-2" type="button" data-bs-target="#hitsCarousel" data-bs-slide="next" aria-label="Наступний">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+ 
+            <div id="hitsCarousel" class="carousel slide shadow-sm rounded-4 overflow-hidden bg-white p-4" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 text-center p-3">
+                                <img src="https://placehold.co/350x250/38B255/FFFFFF?text=iPhone+15+Pro+Max" class="img-fluid rounded-3 shadow" alt="Смартфон Apple iPhone 15 Pro Max">
+                            </div>
+                            <div class="col-md-7 px-4">
+                                <span class="badge bg-success bg-opacity-10 text-success px-3 py-1 rounded-pill mb-2 fw-semibold">Вибір покупців #1</span>
+                                <h3 class="fs-4 fw-bold mb-2">Apple iPhone 15 Pro Max 1TB</h3>
+                                <p class="text-muted mb-3">Титановий корпус, найпотужніший чіп A17 Pro та революційна система камер з 5х оптичним зумом.</p>
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="fs-4 fw-bold text-success">59 999 ₴</span>
+                                    <button class="btn btn-green rounded-pill px-4 py-2 add-btn" data-title="iPhone 15 Pro Max 1TB" data-price="59999">Купити зараз</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row align-items-center">
+                            <div class="col-md-5 text-center p-3">
+                                <img src="https://placehold.co/350x250/2e9344/FFFFFF?text=Galaxy+Watch+6" class="img-fluid rounded-3 shadow" alt="Смарт-годинник Samsung Galaxy Watch 6 Classic">
+                            </div>
+                            <div class="col-md-7 px-4">
+                                <span class="badge bg-success bg-opacity-10 text-success px-3 py-1 rounded-pill mb-2 fw-semibold">Топовий гаджет</span>
+                                <h3 class="fs-4 fw-bold mb-2">Samsung Galaxy Watch 6 Classic</h3>
+                                <p class="text-muted mb-3">Стильний класичний дизайн із механічним безелем та розширеними функціями моніторингу здоров'я.</p>
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="fs-4 fw-bold text-success">14 999 ₴</span>
+                                    <button class="btn btn-green rounded-pill px-4 py-2 add-btn" data-title="Galaxy Watch 6 Classic" data-price="14999">Купити зараз</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ 
+    </main>
+ 
+    <!-- 6. Футер -->
+    <footer class="pt-5 pb-4 mt-5" id="footer">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <i class="bi bi-phone-fill fs-3 text-success"></i>
+                        <span class="fs-4 fw-bold text-white">TechPulse</span>
+                    </div>
+                    <p class="text-muted small mb-3">Ваш надійний провідник у світі сучасних мобільних технологій та гаджетів. Тільки офіційна продукція та найкращий сервіс.</p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="social" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social" aria-label="Telegram"><i class="bi bi-telegram"></i></a>
+                        <a href="#" class="social" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h2 class="text-white fs-6 fw-bold mb-3">Каталог</h2>
+                    <ul class="list-unstyled d-flex flex-column gap-2 small">
+                        <li><a href="#">Смартфони</a></li>
+                        <li><a href="#">Планшети</a></li>
+                        <li><a href="#">Смарт-годинники</a></li>
+                        <li><a href="#">Навушники</a></li>
+                        <li><a href="#">Аксесуари</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h2 class="text-white fs-6 fw-bold mb-3">Клієнтам</h2>
+                    <ul class="list-unstyled d-flex flex-column gap-2 small">
+                        <li><a href="#">Доставка і оплата</a></li>
+                        <li><a href="#">Гарантія та сервіс</a></li>
+                        <li><a href="#">Обмін та повернення</a></li>
+                        <li><a href="#">Бонусна програма</a></li>
+                        <li><a href="#">Контакти</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <h2 class="text-white fs-6 fw-bold mb-3">Контакти</h2>
+                    <ul class="list-unstyled d-flex flex-column gap-2 small text-muted">
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="bi bi-geo-alt-fill text-success"></i> вул. Хрещатик, 24, Київ, Україна
+                        </li>
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="bi bi-telephone-fill text-success"></i> 0 (800) 300-555 (безкоштовно)
+                        </li>
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="bi bi-envelope-fill text-success"></i> support@techpulse.ua
+                        </li>
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="bi bi-clock-fill text-success"></i> Щодня з 09:00 до 21:00
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary opacity-25">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 text-muted small">
+                <p class="m-0">&copy; 2026 TechPulse. Усі права захищені.</p>
+                <div class="d-flex gap-3">
+                    <a href="#">Політика конфіденційності</a>
+                    <a href="#">Умови використання</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+ 
+    <!-- Кошик (висувна панель) -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cart" aria-labelledby="cartTitle">
+        <div class="offcanvas-header border-bottom">
+            <h2 class="offcanvas-title fs-5 fw-bold" id="cartTitle"><i class="bi bi-cart3 me-2 text-success"></i>Кошик покупок</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрити"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column">
+            <div id="cartItems" class="flex-grow-1 overflow-auto">
+                <p class="text-muted text-center my-5">Ваш кошик порожній</p>
+            </div>
+            <div class="border-top pt-3 mt-3">
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-semibold">Загальна сума:</span>
+                    <span id="cartTotal" class="fw-bold fs-5 text-success">0 ₴</span>
+                </div>
+                <button class="btn btn-green w-100 rounded-pill py-2 fw-semibold" id="checkoutBtn" disabled>Оформити замовлення</button>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- Повідомлення (toast) -->
+    <div class="toast-wrap position-fixed bottom-0 end-0 p-3">
+        <div id="toast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="toastText">Товар успішно додано до кошика!</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрити"></button>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Пошук товарів за текстом картки (назва, бренд, категорія)
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const foundCount = document.getElementById('foundCount');
+const noResults = document.getElementById('noResults');
+
+function searchProducts() {
+    const query = searchInput.value.trim().toLowerCase();
+    let found = 0;
+
+    document.querySelectorAll('#productGrid > .col').forEach(card => {
+        const match = card.textContent.toLowerCase().includes(query);
+        card.classList.toggle('d-none', !match);
+        if (match) found++;
+    });
+
+    foundCount.textContent = found;
+    noResults.classList.toggle('d-none', found !== 0);
+}
+
+// Пошук під час введення
+searchInput.addEventListener('input', searchProducts);
+
+// Кнопка-лупа та Enter: шукати і прокрутити до каталогу
+function goToCatalog() {
+    searchProducts();
+    document.getElementById('catalog').scrollIntoView({ behavior: 'smooth' });
+}
+searchBtn.addEventListener('click', goToCatalog);
+searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') goToCatalog();
+});
+        // Повзунок ціни: показує вибране значення
+        const priceRange = document.getElementById('priceRange');
+        const priceValue = document.getElementById('priceValue');
+        if (priceRange && priceValue) {
+            priceRange.addEventListener('input', (e) => {
+                priceValue.textContent = Number(e.target.value).toLocaleString('uk-UA');
+            });
+        }
+ 
+        // Кошик: стан і елементи інтерфейсу
+        let cart = [];
+        const cartCount = document.getElementById('cartCount');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const toastText = document.getElementById('toastText');
+        const bsToast = new bootstrap.Toast(document.getElementById('toast'), { delay: 3000 });
+ 
+        // Показати повідомлення
+        function showToast(msg) {
+            toastText.textContent = msg;
+            bsToast.show();
+        }
+ 
+        // Перемалювати кошик після кожної зміни
+        function updateCart() {
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+ 
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-muted text-center my-5">Ваш кошик порожній</p>';
+                cartTotal.textContent = '0 ₴';
+                checkoutBtn.disabled = true;
+                return;
+            }
+ 
+            let html = '';
+            let total = 0;
+ 
+            cart.forEach((item, index) => {
+                const sum = item.price * item.qty;
+                total += sum;
+                html += `
+                    <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
+                        <div>
+                            <h3 class="mb-1 fs-6 fw-semibold">${item.title}</h3>
+                            <span class="text-muted small">${item.price.toLocaleString('uk-UA')} ₴ × ${item.qty}</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="fw-bold text-success">${sum.toLocaleString('uk-UA')} ₴</span>
+                            <button class="btn btn-sm btn-outline-danger border-0 p-1 remove-btn" data-index="${index}" aria-label="Видалити">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+ 
+            cartItems.innerHTML = html;
+            cartTotal.textContent = total.toLocaleString('uk-UA') + ' ₴';
+            checkoutBtn.disabled = false;
+ 
+            // Кнопки видалення товару
+            document.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    cart.splice(e.currentTarget.dataset.index, 1);
+                    updateCart();
+                });
+            });
+        }
+ 
+        // Додавання товару в кошик
+        document.querySelectorAll('.add-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const { title, price } = e.currentTarget.dataset;
+ 
+                const found = cart.find(item => item.title === title);
+                if (found) {
+                    found.qty += 1;
+                } else {
+                    cart.push({ title, price: Number(price), qty: 1 });
+                }
+ 
+                updateCart();
+                showToast(`Товар "${title}" додано до кошика!`);
+            });
+        });
+ 
+        // Оформлення замовлення
+        checkoutBtn.addEventListener('click', () => {
+            showToast('Дякуємо за замовлення! Наш менеджер зв\'яжеться з вами.');
+            cart = [];
+            updateCart();
+            const panel = bootstrap.Offcanvas.getInstance(document.getElementById('cart'));
+            if (panel) {
+                panel.hide();
+            }
+        });
+    </script>
+</body>
+</html>
+ 

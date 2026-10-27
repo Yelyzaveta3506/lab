@@ -1,0 +1,148 @@
+/* ===== Змінні ===== */
+:root {
+    --gradient: linear-gradient(135deg, #38B255 0%, #96ef91 100%);
+    --green: #38B255;
+    --green-dark: #2e9344;
+    --dark: #1a202c;
+    --bg: #f8f9fa;
+    --speed: 0.3s;
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--bg);
+    color: var(--dark);
+}
+
+/* ===== Шапка ===== */
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--green) !important;
+}
+
+/* Поле пошуку (раніше інлайновий max-width) */
+.search-box {
+    max-width: 500px;
+}
+
+/* ===== Hero-банер ===== */
+.hero {
+    background: var(--gradient);
+    border-radius: 1rem;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.25), transparent 60%);
+    pointer-events: none;
+}
+
+/* ===== Картки товарів ===== */
+.product {
+    border: none;
+    border-radius: 0.75rem;
+    transition: transform var(--speed) ease, box-shadow var(--speed) ease;
+    background: #fff;
+    overflow: hidden;
+}
+.product:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(56, 178, 85, 0.18);
+}
+.product-img {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f1f5f9;
+    position: relative;
+    overflow: hidden;
+}
+.product-img img {
+    max-height: 160px;
+    object-fit: contain;
+    transition: transform var(--speed) ease;
+}
+.product:hover .product-img img {
+    transform: scale(1.06);
+}
+
+/* ===== Знижка та кнопки ===== */
+.discount {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ef4444;
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 50rem;
+    font-weight: 600;
+}
+.btn-green {
+    background-color: var(--green);
+    border-color: var(--green);
+    color: #fff;
+    transition: all var(--speed) ease;
+}
+.btn-green:hover {
+    background-color: var(--green-dark);
+    border-color: var(--green-dark);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(56, 178, 85, 0.3);
+}
+
+/* ===== Бічна панель фільтрів ===== */
+.filters {
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    top: 90px;      /* відступ під закріпленою шапкою (раніше інлайново) */
+    z-index: 10;
+}
+
+/* ===== Карусель ===== */
+.carousel-item {
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+/* ===== Футер ===== */
+footer {
+    background-color: #0f172a;
+    color: #cbd5e1;
+}
+footer a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+footer a:hover {
+    color: var(--green);
+}
+.social {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+.social:hover {
+    background: var(--green);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* ===== Повідомлення (toast) ===== */
+.toast-wrap {
+    z-index: 1050;
+}
