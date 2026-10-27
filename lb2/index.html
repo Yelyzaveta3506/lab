@@ -15,7 +15,7 @@
 </head>
 <body id="top">
 
-  <!-- Top bar -->
+  <!--Header з логотипом, пошуком та кошиком-->
   <div class="topbar">
     <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
       <span><i class="bi bi-truck me-1" aria-hidden="true"></i> Доставка за 1 гривню</span>
@@ -25,45 +25,46 @@
     </div>
   </div>
 
-  <!-- Header -->
+  <!-- Сам Header -->
   <header class="sticky-top bg-white shadow-sm py-2">
-    <div class="container d-flex align-items-center justify-content-between gap-3 flex-wrap">
+    <div class="container header-content d-flex align-items-center gap-3 flex-wrap">
       <a class="brand" href="#top" aria-label="TechPulse — на початок сторінки">
         <i class="bi bi-phone text-success" aria-hidden="true"></i> TechPulse
       </a>
-      
-      <!-- Пошук -->
-      <form class="search-form flex-grow-1" id="searchForm" role="search">
-        <div class="input-group">
-          <input type="search" id="searchInput" class="form-control rounded-start-pill border-end-0 ps-3" placeholder="Пошук смартфонів та гаджетів..." aria-label="Пошук">
-          <button class="btn btn-green rounded-end-pill px-4" type="submit" id="searchBtn" aria-label="Шукати">
-            <i class="bi bi-search" aria-hidden="true"></i>
+      <button class="header-toggle ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#headerMenu" aria-controls="headerMenu" aria-expanded="false" aria-label="Відкрити меню">
+        <i class="bi bi-list" aria-hidden="true"></i>
+      </button>
+      <div class="collapse header-menu flex-grow-1" id="headerMenu">
+        <form class="search-form" id="searchForm" role="search">
+          <div class="input-group">
+            <input type="search" id="searchInput" class="form-control rounded-start-pill border-end-0 ps-3" placeholder="Пошук смартфонів та гаджетів..." aria-label="Пошук">
+            <button class="btn btn-green rounded-end-pill px-4" type="submit" id="searchBtn" aria-label="Шукати">
+              <i class="bi bi-search" aria-hidden="true"></i>
+            </button>
+          </div>
+        </form>
+        <nav class="header-actions" aria-label="Швидкі дії">
+          <button type="button" class="hico" id="tradeInBtn" title="Trade-in" aria-label="Оцінити пристрій за програмою Trade-in">
+            <i class="bi bi-arrow-repeat" aria-hidden="true"></i>
+            <span>Trade-in</span>
           </button>
-        </div>
-      </form>
-
-      <!-- Навігація з лічильниками -->
-      <nav class="d-flex align-items-center gap-1" aria-label="Швидкі дії">
-        <button type="button" class="hico" id="tradeInBtn" title="Trade-in" aria-label="Оцінити пристрій за програмою Trade-in">
-          <i class="bi bi-arrow-repeat" aria-hidden="true"></i>
-          <span>Trade-in</span>
-        </button>
-        <button type="button" class="hico" id="compareBtn" title="Порівняння" data-bs-toggle="modal" data-bs-target="#compareModal" aria-label="Відкрити порівняння моделей">
-          <i class="bi bi-bar-chart" aria-hidden="true"></i>
-          <span>Порівняти</span>
-          <span class="bdg" id="cmpN" hidden aria-live="polite">0</span>
-        </button>
-        <button type="button" class="hico" id="favoritesBtn" title="Обране" aria-pressed="false">
-          <i class="bi bi-heart" aria-hidden="true"></i>
-          <span>Обране</span>
-          <span class="bdg" id="favN" hidden aria-live="polite">0</span>
-        </button>
-        <button type="button" class="hico" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" title="Кошик">
-          <i class="bi bi-cart3" aria-hidden="true"></i>
-          <span>Кошик</span>
-          <span class="bdg" id="cartN" hidden aria-live="polite">0</span>
-        </button>
-      </nav>
+          <button type="button" class="hico" id="compareBtn" title="Порівняння" data-bs-toggle="modal" data-bs-target="#compareModal" aria-label="Відкрити порівняння моделей">
+            <i class="bi bi-bar-chart" aria-hidden="true"></i>
+            <span>Порівняти</span>
+            <span class="bdg" id="cmpN" hidden aria-live="polite">0</span>
+          </button>
+          <button type="button" class="hico" id="favoritesBtn" title="Обране" aria-pressed="false">
+            <i class="bi bi-heart" aria-hidden="true"></i>
+            <span>Обране</span>
+            <span class="bdg" id="favN" hidden aria-live="polite">0</span>
+          </button>
+          <button type="button" class="hico" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" title="Кошик">
+            <i class="bi bi-cart3" aria-hidden="true"></i>
+            <span>Кошик</span>
+            <span class="bdg" id="cartN" hidden aria-live="polite">0</span>
+          </button>
+        </nav>
+      </div>
     </div>
   </header>
 
@@ -88,7 +89,7 @@
           </div>
         </div>
         <div class="col-lg-5 text-center mt-4 mt-lg-0">
-          <img src="https://placehold.co/480x320/2e9344/FFFFFF?text=TechPulse+Season+Sale" alt="Акція TechPulse" width="480" height="320" class="img-fluid rounded-4 shadow-lg">
+          <img src="images/phone_sale.png" alt="Акція TechPulse" width="480" height="320" class="img-fluid rounded-4 shadow-lg">
         </div>
       </div>
     </section>
@@ -126,30 +127,6 @@
         </div>
         </li>
       </ul>
-    </section>
-
-    <!-- Секція "Хіти продажів" (Карусель) -->
-    <section class="mb-5">
-      <h2 class="fs-3 fw-bold mb-3 d-flex align-items-center gap-2">
-        <i class="bi bi-fire text-danger" aria-hidden="true"></i> Хіти продажів
-      </h2>
-      <div id="hitsCar" class="carousel slide hits" data-bs-ride="carousel" data-bs-interval="5000" role="region" aria-roledescription="карусель" aria-label="Хіти продажів">
-        <div class="carousel-inner" id="hitsInner">
-          <!-- Динамічно заповнюється JS -->
-        </div>
-        <div class="carousel-indicators" id="hitsInd">
-          <!-- Індикатори JS -->
-        </div>
-        <button class="ctl prev" type="button" data-bs-target="#hitsCar" data-bs-slide="prev" aria-label="Попередній">
-          <i class="bi bi-chevron-left" aria-hidden="true"></i>
-        </button>
-        <button class="ctl next" type="button" data-bs-target="#hitsCar" data-bs-slide="next" aria-label="Наступний">
-          <i class="bi bi-chevron-right" aria-hidden="true"></i>
-        </button>
-        <button class="ctl pause" type="button" id="hitsPause" aria-label="Призупинити автоматичне гортання" aria-pressed="false">
-          <i class="bi bi-pause-fill" aria-hidden="true"></i>
-        </button>
-      </div>
     </section>
 
     <!-- Каталог товарів з фільтрами -->
@@ -205,7 +182,6 @@
             <fieldset class="mb-4 border-0 p-0">
               <legend class="fs-6 fw-semibold mb-2">Бренд</legend>
               <div id="brandsList">
-                <!-- Заповнюється JS -->
               </div>
             </fieldset>
 
@@ -220,10 +196,9 @@
           </div>
         </aside>
 
-        <!-- Галерея товарів (CSS Grid) -->
+        <!-- Галерея товарів  -->
         <div class="col-lg-9">
           <div id="grid" class="products-grid">
-            <!-- Динамічні картки -->
           </div>
           <div id="notFound" class="text-center text-muted my-5" hidden role="status" aria-live="polite">
             <i class="bi bi-search display-4 mb-3 opacity-50" aria-hidden="true"></i>
@@ -233,9 +208,32 @@
         </div>
       </div>
     </section>
-  </main>
+  
+    <!-- Секція "Хіти продажів" створена за допомогою каруселі -->
+    <section class="mb-5">
+      <h2 class="fs-3 fw-bold mb-3 d-flex align-items-center gap-2">
+        <i class="bi bi-fire text-danger" aria-hidden="true"></i> Хіти продажів
+      </h2>
+      <div id="hitsCar" class="carousel slide hits" data-bs-ride="carousel" data-bs-interval="5000" role="region" aria-roledescription="карусель" aria-label="Хіти продажів">
+        <div class="carousel-inner" id="hitsInner">
+        </div>
+        <div class="carousel-indicators" id="hitsInd">
+        </div>
+        <button class="ctl prev" type="button" data-bs-target="#hitsCar" data-bs-slide="prev" aria-label="Попередній">
+          <i class="bi bi-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button class="ctl next" type="button" data-bs-target="#hitsCar" data-bs-slide="next" aria-label="Наступний">
+          <i class="bi bi-chevron-right" aria-hidden="true"></i>
+        </button>
+        <button class="ctl pause" type="button" id="hitsPause" aria-label="Призупинити автоматичне гортання" aria-pressed="false">
+          <i class="bi bi-pause-fill" aria-hidden="true"></i>
+        </button>
+      </div>
+    </section>
 
-  <!-- Підвал (Footer) -->
+</main>
+
+  <!-- Підвал -->
   <footer class="pt-5 pb-4">
     <div class="container">
       <div class="row g-4 mb-4">
@@ -301,7 +299,7 @@
     </div>
   </footer>
 
-  <!-- Модальне вікно порівняння -->
+  <!-- Вікно порівнянь -->
   <div class="modal fade" id="compareModal" tabindex="-1" aria-labelledby="compareModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content">
@@ -317,7 +315,7 @@
     </div>
   </div>
 
-  <!-- Модальне вікно Trade-in -->
+  <!-- Вікно Trade-in -->
   <div class="modal fade" id="tradeInModal" tabindex="-1" aria-labelledby="tradeInModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -355,7 +353,7 @@
     </div>
   </div>
 
-  <!-- Sidebar Кошика (Offcanvas) -->
+  <!-- Кошика  -->
   <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
     <div class="offcanvas-header border-bottom">
       <h3 class="offcanvas-title fs-5 fw-bold" id="cartOffcanvasLabel">
@@ -379,7 +377,7 @@
     </div>
   </div>
 
-  <!-- Toast Сповіщення -->
+  <!-- Сповіщення -->
   <div class="toast-wrap position-fixed bottom-0 end-0 p-3">
     <div id="toast" class="toast text-white bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="d-flex align-items-center">
@@ -392,15 +390,14 @@
   <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Логіка веб-додатка -->
   <script>
     /* ===== База даних товарів ===== */
     const S = s => Object.fromEntries(s.split('|').map(x => x.split(':')));
-    const IMG = t => `https://placehold.co/500x500/f1f5f9/2e9344?text=${encodeURIComponent(t)}`;
+    const IMG = (id) => `images/product-${id}.png`;
 
     const A = (id, cat, brand, name, price, old, r, n, specs) => {
       const short = name.replace(/^(Смартфон|Чохол|Бездротові навушники|Смарт-годинник)\s+/, '');
-      return { id, cat, brand, name, short, price, old, r, n, specs: S(specs), img: IMG(short) };
+      return { id, cat, brand, name, short, price, old, r, n, specs: S(specs), img: IMG(id) };
     };
 
     const PRODUCTS = [
@@ -761,6 +758,20 @@
     });
 
     $('#compareModal').addEventListener('show.bs.modal', renderComparison);
+
+    $('#headerMenu').addEventListener('shown.bs.collapse', () => {
+      const toggle = $('.header-toggle');
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Закрити меню');
+      toggle.innerHTML = '<i class="bi bi-x-lg" aria-hidden="true"></i>';
+    });
+
+    $('#headerMenu').addEventListener('hidden.bs.collapse', () => {
+      const toggle = $('.header-toggle');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Відкрити меню');
+      toggle.innerHTML = '<i class="bi bi-list" aria-hidden="true"></i>';
+    });
 
     $('#favoritesBtn').addEventListener('click', event => {
       favoritesOnly = !favoritesOnly;
