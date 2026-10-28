@@ -1,4 +1,4 @@
-/* ===== Змінні та основні стилі ===== */
+/*  Змінні та основні стилі  */
     :root {
       --green: #1f7a3a;
       --green-dark: #17652e;
@@ -63,7 +63,7 @@
       color: var(--green);
     }
 
-    /* ===== Шапка ===== */
+    /*  Шапка  */
     .topbar {
       background: var(--green-dark);
       color: #fff;
@@ -165,7 +165,7 @@
       font-weight: 700;
     }
 
-    /* ===== Кнопки ===== */
+    /* Кнопки  */
     .btn-green {
       background: var(--green);
       border-color: var(--green);
@@ -179,7 +179,7 @@
       box-shadow: 0 4px 12px rgba(31, 122, 58, 0.3);
     }
 
-    /* ===== Hero та переваги ===== */
+    /* Hero та переваги */
     .hero {
       background: linear-gradient(135deg, #17652e, #1f7a3a 55%, #17652e);
       color: #fff;
@@ -203,14 +203,14 @@
       color: var(--green);
     }
 
-    /* ===== Сітка товарів CSS Grid ===== */
+    /*  Сітка товарів CSS Grid  */
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
       gap: 1.5rem;
     }
 
-    /* ===== Картки товарів ===== */
+    /*  Картки товарів  */
     .product {
       border: 0;
       border-radius: 0.85rem;
@@ -334,7 +334,7 @@
     .product .p-3 { min-width: 0; }
     .old-price { font-size: .75rem; }
 
-    /* ===== Хіти продажів (карусель) ===== */
+    /*  Хіти продажів (карусель)  */
     .hits {
       background: #fff;
       border-radius: 1.25rem;
@@ -395,7 +395,7 @@
       height: 36px;
     }
 
-    /* ===== Фільтри ===== */
+    /*  Фільтри  */
     .filters {
       background: #fff;
       border-radius: 0.85rem;
@@ -405,7 +405,7 @@
       z-index: 10;
     }
 
-    /* ===== Підвал ===== */
+    /*  Підвал  */
     footer {
       background: #0f2418;
       color: #d7e6db;
@@ -568,7 +568,7 @@
       }
     }
 
-    /* ===== Стилі для хлібних крихт та нових сторінок ===== */
+    /* Стилі для хлібних крихт та нових сторінок  */
 .breadcrumb-custom {
   background: #fff;
   padding: 0.75rem 1.25rem;

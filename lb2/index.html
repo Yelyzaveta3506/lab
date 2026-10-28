@@ -469,10 +469,10 @@
   </script>
 
   <script>
-    /* ===== База даних товарів ===== */
+    /*  База даних товарів  */
     const { PRODUCTS, CATEGORY_NAMES: CAT_NAMES, read: LS, write: save, money } = window.TechPulseStore;
 
-    /* ===== Стан та LocalStorage ===== */
+    /* Стан та LocalStorage  */
     const $ = (s, r = document) => r.querySelector(s);
     const $$ = (s, r = document) => [...r.querySelectorAll(s)];
     let cart = LS('cart', {});
@@ -492,7 +492,6 @@
     const rt = p => rate[p.id] || { sum: p.r * p.n, n: p.n };
     const avg = p => rt(p).sum / rt(p).n;
 
-    /* Accessible interactive rating controls */
     const starsHTML = p => {
       const currentAvg = Math.round(avg(p));
       const selectedRating = mine[p.id] || 0;
@@ -510,7 +509,7 @@
       bootstrap.Toast.getOrCreateInstance($('#toast'), { delay: 2500 }).show();
     };
 
-    /* ===== Рендеринг Картки Товару ===== */
+    /*  Рендеринг Картки Товару  */
     function cardHTML(p) {
       const isFav = fav.includes(p.id);
       const specsList = Object.entries(p.specs).slice(0, 4);
@@ -549,7 +548,7 @@
       `;
     }
 
-    /* ===== Оновлення даних та лічильників ===== */
+    /*  Оновлення даних та лічильників  */
     function refresh() {
       save('cart', cart);
       save('fav', fav);
@@ -625,7 +624,7 @@
       });
     }
 
-    /* ===== Рендеринг Каруселі Хітів ===== */
+    /* Рендеринг Каруселі Хітів */
     function renderHits() {
       const list = [...PRODUCTS].sort((a, b) => b.n - a.n).slice(0, 4);
       $('#hitsInd').innerHTML = list.map((p, i) => `
@@ -657,7 +656,7 @@
       `).join('');
     }
 
-    /* ===== Рендеринг Бренди у Фільтрі ===== */
+    /*  Рендеринг Бренди у Фільтрі  */
     function renderBrands() {
       const brands = [...new Set(PRODUCTS.map(p => p.brand))];
       $('#brandsList').innerHTML = brands.map((b, i) => `
@@ -668,7 +667,7 @@
       `).join('');
     }
 
-    /* ===== Фільтрація та Каталог ===== */
+    /* Фільтрація та Каталог  */
     function renderCatalog() {
       const q = $('#searchInput').value.trim().toLowerCase();
       const cats = $$('.filter-cat:checked').map(x => x.value);
@@ -704,7 +703,7 @@
       if (focusSelector) $('#grid').querySelector(focusSelector)?.focus();
     }
 
-    /* ===== Події (Event Listeners) ===== */
+    /* Події  */
     document.addEventListener('click', e => {
       const addBtn = e.target.closest('[data-add]');
       const favBtn = e.target.closest('[data-fav]');
