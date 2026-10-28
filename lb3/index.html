@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Лабораторна робота №3 | Звіт </title>
+        <link rel="stylesheet" href="../index.css">
+    </head>
+ <body>
+  <header>
+    <h1>Лабораторна робота №3 </h1>
+    <p>Вступ до JavaScript</p>
+  </header>
+  <main>
+    <p>Температура за Фаренгейтом</p>
+    <input type="number" id="fahrenheit" value="32"  oninput="convertToCelsius()">
+    <p>Температура за Цельсієм</p>
+    <input type="number" id="celsius" value="0"  oninput="convertToFahrenheit()">
+    <script>
+        function convertToCelsius() {
+            var fahrenheit = document.getElementById("fahrenheit").value;
+            // при відкритті сторінки, якщо у одному блоці прибрати значення, то у іншому з'являється - -17.78
+            //треба спробувати вирішити цю проблему за допомогою перевірки на порожнє значення (хоча це і не потрібно, але для кращого візуалу)
+            if (fahrenheit === "") {
+                document.getElementById("celsius").value = "";
+                return;
+            }
+            var celsius = (fahrenheit - 32) * 5 / 9;
+            document.getElementById("celsius").value = celsius.toFixed(2);
+        }
+        function convertToFahrenheit() {
+            var celsius = document.getElementById("celsius").value;
+            if (celsius === "") {
+                document.getElementById("fahrenheit").value = "";
+                return;
+            }
+            var fahrenheit = (celsius * 9 / 5) + 32;
+            document.getElementById("fahrenheit").value = fahrenheit.toFixed(2);
+        }
+    </script>
+  </main>
+ </body>
+</html>
