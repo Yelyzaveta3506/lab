@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Лабораторна робота №2 | Звіт</title>
+        <title>TechPulse — смартфони та гаджети</title>
         <meta name="description" content="TechPulse — каталог смартфонів і гаджетів із фільтрами, порівнянням та програмою Trade-in.">
         <link rel="icon" href="data:,">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -15,58 +15,7 @@
 </head>
 <body id="top">
 
-  <!--Header з логотипом, пошуком та кошиком-->
-  <div class="topbar">
-    <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
-      <span><i class="bi bi-truck me-1" aria-hidden="true"></i> Доставка за 1 гривню</span>
-      <span><i class="bi bi-shield-check me-1" aria-hidden="true"></i> Офіційна гарантія</span>
-      <span><i class="bi bi-arrow-repeat me-1" aria-hidden="true"></i> Trade-in зі знижкою</span>
-      <span><i class="bi bi-credit-card me-1" aria-hidden="true"></i> Розстрочка від 0%</span>
-    </div>
-  </div>
-
-  <!-- Сам Header -->
-  <header class="sticky-top bg-white shadow-sm py-2">
-    <div class="container header-content d-flex align-items-center gap-3 flex-wrap">
-      <a class="brand" href="#top" aria-label="TechPulse — на початок сторінки">
-        <i class="bi bi-phone text-success" aria-hidden="true"></i> TechPulse
-      </a>
-      <button class="header-toggle ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#headerMenu" aria-controls="headerMenu" aria-expanded="false" aria-label="Відкрити меню">
-        <i class="bi bi-list" aria-hidden="true"></i>
-      </button>
-      <div class="collapse header-menu flex-grow-1" id="headerMenu">
-        <form class="search-form" id="searchForm" role="search">
-          <div class="input-group">
-            <input type="search" id="searchInput" class="form-control rounded-start-pill border-end-0 ps-3" placeholder="Пошук смартфонів та гаджетів..." aria-label="Пошук">
-            <button class="btn btn-green rounded-end-pill px-4" type="submit" id="searchBtn" aria-label="Шукати">
-              <i class="bi bi-search" aria-hidden="true"></i>
-            </button>
-          </div>
-        </form>
-        <nav class="header-actions" aria-label="Швидкі дії">
-          <button type="button" class="hico" id="tradeInBtn" title="Trade-in" aria-label="Оцінити пристрій за програмою Trade-in">
-            <i class="bi bi-arrow-repeat" aria-hidden="true"></i>
-            <span>Trade-in</span>
-          </button>
-          <button type="button" class="hico" id="compareBtn" title="Порівняння" data-bs-toggle="modal" data-bs-target="#compareModal" aria-label="Відкрити порівняння моделей">
-            <i class="bi bi-bar-chart" aria-hidden="true"></i>
-            <span>Порівняти</span>
-            <span class="bdg" id="cmpN" hidden aria-live="polite">0</span>
-          </button>
-          <button type="button" class="hico" id="favoritesBtn" title="Обране" aria-pressed="false">
-            <i class="bi bi-heart" aria-hidden="true"></i>
-            <span>Обране</span>
-            <span class="bdg" id="favN" hidden aria-live="polite">0</span>
-          </button>
-          <button type="button" class="hico" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" title="Кошик">
-            <i class="bi bi-cart3" aria-hidden="true"></i>
-            <span>Кошик</span>
-            <span class="bdg" id="cartN" hidden aria-live="polite">0</span>
-          </button>
-        </nav>
-      </div>
-    </div>
-  </header>
+  <div id="siteHeader"></div>
 
   <main class="container my-4">
     
@@ -77,15 +26,15 @@
           <span class="badge bg-white text-success rounded-pill px-3 py-2 mb-3 fw-bold">
             <i class="bi bi-lightning-charge me-1" aria-hidden="true"></i> Акція сезону
           </span>
-          <h1 class="display-5 fw-extrabold mb-3">Смартфони з вигодою до 30%</h1>
+          <h1 class="display-5 fw-extrabold mb-3">Смартфони з вигодою до 25%</h1>
           <p class="lead mb-4 opacity-90">Оновлюйте ваш пристрій разом із TechPulse: обміняйте старий за програмою Trade-in та купуйте флагмани у вигідну розстрочку.</p>
           <div class="d-flex flex-wrap gap-2">
             <a href="#catalog" class="btn btn-light text-success fw-bold rounded-pill px-4 py-2">
               <i class="bi bi-bag me-1" aria-hidden="true"></i> До каталогу
             </a>
-            <button type="button" class="btn btn-outline-light fw-bold rounded-pill px-4 py-2" data-bs-toggle="modal" data-bs-target="#tradeInModal">
+            <a href="trade-in.html" class="btn btn-outline-light fw-bold rounded-pill px-4 py-2">
               Оцінити старий смартфон
-            </button>
+            </a>
           </div>
         </div>
         <div class="col-lg-5 text-center mt-4 mt-lg-0">
@@ -190,7 +139,7 @@
               <legend class="fs-6 fw-semibold mb-2">Ціна, грн</legend>
               <div class="input-group input-group-sm">
                 <input id="minPrice" type="number" min="0" class="form-control" placeholder="від 0" aria-label="Мін ціна">
-                <input id="maxPrice" type="number" min="0" class="form-control" placeholder="до 70000" aria-label="Макс ціна">
+                <input id="maxPrice" type="number" min="0" class="form-control" placeholder="до 52499" aria-label="Макс ціна">
               </div>
             </fieldset>
           </div>
@@ -244,37 +193,32 @@
           <p class="small text-white-50 mb-3">
             Офіційний інтернет-магазин смартфонів і сучасних гаджетів. Гарантія якості, широкий вибір оригінальної техніки та сервісне обслуговування.
           </p>
-          <div class="d-flex gap-2">
-            <a href="#" class="social" title="Facebook" aria-label="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
-            <a href="#" class="social" title="Instagram" aria-label="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
-            <a href="#" class="social" title="Telegram" aria-label="Telegram"><i class="bi bi-telegram" aria-hidden="true"></i></a>
-            <a href="#" class="social" title="YouTube" aria-label="YouTube"><i class="bi bi-youtube" aria-hidden="true"></i></a>
-          </div>
+          <p class="small text-white-50 mb-0">Сторінки TechPulse у соцмережах скоро з’являться.</p>
         </div>
         <div class="col-6 col-lg-2">
-          <h3 class="text-white fs-6 fw-bold mb-3">Каталог</h3>
+          <h2 class="text-white fs-6 fw-bold mb-3">Каталог</h2>
           <nav aria-label="Каталог у підвалі">
             <ul class="list-unstyled small d-grid gap-2 m-0">
-              <li><a href="#catalog">Смартфони</a></li>
-              <li><a href="#catalog">Чохли</a></li>
-              <li><a href="#catalog">Навушники</a></li>
-              <li><a href="#catalog">Смарт-годинники</a></li>
+              <li><a href="index.html#catalog">Смартфони</a></li>
+              <li><a href="index.html#catalog">Чохли</a></li>
+              <li><a href="index.html#catalog">Навушники</a></li>
+              <li><a href="index.html#catalog">Смарт-годинники</a></li>
             </ul>
           </nav>
         </div>
         <div class="col-6 col-lg-2">
-          <h3 class="text-white fs-6 fw-bold mb-3">Клієнтам</h3>
+          <h2 class="text-white fs-6 fw-bold mb-3">Клієнтам</h2>
           <nav aria-label="Інформація для клієнтів">
             <ul class="list-unstyled small d-grid gap-2 m-0">
-              <li><a href="#" data-bs-toggle="modal" data-bs-target="#tradeInModal">Trade-in</a></li>
-              <li><a href="#">Оплата й доставка</a></li>
-              <li><a href="#">Гарантія та повернення</a></li>
-              <li><a href="#">Центр підтримки</a></li>
+              <li><a href="trade-in.html">Trade-in</a></li>
+              <li><span>Оплата й доставка — деталі уточнюйте у менеджера.</span></li>
+              <li><span>Офіційна гарантія на сертифіковану техніку.</span></li>
+              <li><a href="mailto:support@techpulse.ua">Центр підтримки</a></li>
             </ul>
           </nav>
         </div>
         <div class="col-lg-4">
-          <h3 class="text-white fs-6 fw-bold mb-3">Контакти</h3>
+          <h2 class="text-white fs-6 fw-bold mb-3">Контакти</h2>
           <address class="small d-grid gap-2 m-0">
             <span class="d-flex align-items-center gap-2">
               <i class="bi bi-geo-alt text-success" aria-hidden="true"></i> вул. Хрещатик, 24, Київ, Україна
@@ -294,150 +238,256 @@
       <hr class="border-secondary opacity-25">
       <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 small text-white-50">
         <p class="m-0">&copy; 2026 TechPulse. Усі права захищені.</p>
-        <p class="m-0">Зроблено з любов'ю до технологій</p>
+        <p class="m-0">Зроблено з любов’ю до технологій</p>
       </div>
     </div>
   </footer>
 
-  <!-- Вікно порівнянь -->
-  <div class="modal fade" id="compareModal" tabindex="-1" aria-labelledby="compareModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title fs-5" id="compareModalLabel">Порівняння моделей</h2>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
-        </div>
-        <div class="modal-body" id="compareContent" aria-live="polite"></div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Закрити</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Вікно Trade-in -->
-  <div class="modal fade" id="tradeInModal" tabindex="-1" aria-labelledby="tradeInModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form id="tradeInForm">
-          <div class="modal-header">
-            <h2 class="modal-title fs-5" id="tradeInModalLabel">Оцінка Trade-in</h2>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
-          </div>
-          <div class="modal-body">
-            <p class="small text-muted">Вкажіть орієнтовну вартість пристрою та його стан. Результат є попередньою оцінкою, не офертою.</p>
-            <div class="mb-3">
-              <label for="tradeInModel" class="form-label">Модель пристрою</label>
-              <input id="tradeInModel" name="model" class="form-control" required maxlength="100" placeholder="Наприклад, iPhone 13">
-            </div>
-            <div class="mb-3">
-              <label for="tradeInValue" class="form-label">Орієнтовна ринкова вартість, ₴</label>
-              <input id="tradeInValue" name="value" class="form-control" type="number" min="1" max="1000000" step="1" required>
-            </div>
-            <div>
-              <label for="tradeInCondition" class="form-label">Стан пристрою</label>
-              <select id="tradeInCondition" name="condition" class="form-select" required>
-                <option value="0.7">Відмінний — без пошкоджень</option>
-                <option value="0.5">Добрий — незначні сліди використання</option>
-                <option value="0.3">Задовільний — помітні сліди використання</option>
-              </select>
-            </div>
-            <p id="tradeInResult" class="alert alert-success mt-3 mb-0" role="status" aria-live="polite" hidden></p>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-green rounded-pill">Розрахувати оцінку</button>
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Закрити</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Кошика  -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
-    <div class="offcanvas-header border-bottom">
-      <h3 class="offcanvas-title fs-5 fw-bold" id="cartOffcanvasLabel">
-        <i class="bi bi-cart3 text-success me-2" aria-hidden="true"></i>Ваш кошик
-      </h3>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрити"></button>
-    </div>
-    <div class="offcanvas-body d-flex flex-column">
-      <div id="cartItems" class="flex-grow-1 overflow-auto pe-1">
-        <!-- Список товарів у кошику -->
-      </div>
-      <div class="border-top pt-3 mt-auto">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <span class="fw-bold">Разом до сплати:</span>
-          <span id="cartTotal" class="text-success fs-4 fw-extrabold">0 ₴</span>
-        </div>
-        <button type="button" id="goCheckout" class="btn btn-green w-100 rounded-pill py-2 fw-semibold" disabled>
-          Оформити замовлення
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Сповіщення -->
-  <div class="toast-wrap position-fixed bottom-0 end-0 p-3">
-    <div id="toast" class="toast text-white bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="d-flex align-items-center">
-        <div class="toast-body" id="toastText">Товар успішно додано!</div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрити"></button>
-      </div>
-    </div>
-  </div>
-
   <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+(() => {
+  const image = id => `images/product-${id}.png`;
+  const product = (id, cat, brand, name, price, old, rating, reviews, specs) => ({
+    id,
+    cat,
+    brand,
+    name,
+    short: name.replace(/^(Смартфон|Чохол|Бездротові навушники|Смарт-годинник)\s+/, ''),
+    price,
+    old,
+    r: rating,
+    n: reviews,
+    specs,
+    img: image(id)
+  });
+
+  const PRODUCTS = [
+    product(1, 'phone', 'Apple', 'Смартфон Apple iPhone 15 Pro 256GB Natural Titanium', 47999, 55999, 4.8, 42, { 'Діагональ': '6,1"', 'Екран': 'Super Retina XDR', 'Процесор': 'Apple A17 Pro', 'Камера': '48+12+12 Мп', 'Акумулятор': '3274 мАг' }),
+    product(2, 'phone', 'Samsung', 'Смартфон Samsung Galaxy S24 Ultra 12/512GB Grey', 52499, 65999, 4.9, 58, { 'Діагональ': '6,8"', 'Екран': 'Dynamic AMOLED 2X', 'Процесор': 'Snapdragon 8 Gen 3', 'Камера': '200+50+12+10 Мп', 'Акумулятор': '5000 мАг' }),
+    product(3, 'phone', 'Samsung', 'Смартфон Samsung Galaxy S25 FE 8/256GB Jetblack', 29999, 32499, 4.5, 103, { 'Діагональ': '6,7"', 'Екран': 'Dynamic AMOLED 2X', 'Процесор': 'Exynos 2400', 'Камера': '50+12+8 Мп', 'Акумулятор': '4900 мАг' }),
+    product(4, 'phone', 'Xiaomi', 'Смартфон Xiaomi 14 12/512GB Black', 34999, 0, 4.6, 19, { 'Діагональ': '6,36"', 'Екран': 'LTPO AMOLED', 'Процесор': 'Snapdragon 8 Gen 3', 'Камера': '50+50+50 Мп', 'Акумулятор': '4610 мАг' }),
+    product(5, 'phone', 'Google', 'Смартфон Google Pixel 8 Pro 12/256GB Bay', 38999, 51999, 4.7, 27, { 'Діагональ': '6,7"', 'Екран': 'LTPO OLED', 'Процесор': 'Google Tensor G3', 'Камера': '50+48+48 Мп', 'Акумулятор': '5050 мАг' }),
+    product(6, 'phone', 'Apple', 'Смартфон Apple iPhone 14 128GB Midnight', 27999, 31999, 4.7, 76, { 'Діагональ': '6,1"', 'Екран': 'Super Retina XDR', 'Процесор': 'Apple A15 Bionic', 'Камера': '12+12 Мп', 'Акумулятор': '3279 мАг' }),
+    product(7, 'phone', 'Xiaomi', 'Смартфон Xiaomi Redmi Note 13 Pro 8/256GB Blue', 12999, 0, 4.4, 64, { 'Діагональ': '6,67"', 'Екран': 'AMOLED 120 Гц', 'Процесор': 'Helio G99 Ultra', 'Камера': '200+8+2 Мп', 'Акумулятор': '5100 мАг' }),
+    product(8, 'phone', 'Samsung', 'Смартфон Samsung Galaxy A55 8/256GB Navy', 17999, 19999, 4.5, 51, { 'Діагональ': '6,6"', 'Екран': 'Super AMOLED', 'Процесор': 'Exynos 1480', 'Камера': '50+12+5 Мп', 'Акумулятор': '5000 мАг' }),
+    product(9, 'case', 'Apple', 'Чохол Apple iPhone 15 Pro Silicone Case MagSafe', 1799, 0, 4.6, 33, { 'Матеріал': 'Силікон', 'Сумісність': 'iPhone 15 Pro', 'MagSafe': 'Так', 'Колір': 'Чорний' }),
+    product(10, 'case', 'Samsung', 'Чохол Samsung Galaxy S25 FE Clear Case', 449, 599, 4.2, 21, { 'Матеріал': 'Полікарбонат', 'Сумісність': 'Galaxy S25 FE', 'MagSafe': 'Ні', 'Колір': 'Прозорий' }),
+    product(11, 'audio', 'Apple', 'Бездротові навушники Apple AirPods Pro 2 USB-C', 10499, 0, 4.9, 84, { 'Тип': 'TWS Внутрішньоканальні', 'Шумозаглушення': 'Активне', 'Зарядка': 'USB-C', 'Автономність': 'до 6 год' }),
+    product(12, 'watch', 'Apple', 'Смарт-годинник Apple Watch Series 9 GPS 41mm', 17999, 19999, 4.5, 31, { 'Дисплей': '1,69"', 'Корпус': 'Алюміній 41 мм', 'Датчики': 'ЕКГ, SpO2', 'Автономність': 'до 18 год' })
+  ];
+
+  const CATEGORY_NAMES = {
+    phone: 'Смартфони',
+    case: 'Чохли',
+    audio: 'Навушники',
+    watch: 'Смарт-годинники'
+  };
+
+  function showStorageError(message) {
+    console.error('TechPulse: browser storage is unavailable or contains invalid data.');
+    let notice = document.getElementById('storageNotice');
+    if (!notice) {
+      notice = document.createElement('div');
+      notice.id = 'storageNotice';
+      notice.className = 'alert alert-warning storage-notice';
+      notice.setAttribute('role', 'alert');
+      document.body.append(notice);
+    }
+    notice.textContent = message;
+  }
+
+  function read(key, fallback) {
+    try {
+      const value = localStorage.getItem(key);
+      return value === null ? fallback : JSON.parse(value);
+    } catch (error) {
+      showStorageError('Не вдалося прочитати дані браузера. Перевірте налаштування сховища та відкрийте сайт через локальний вебсервер.');
+      return fallback;
+    }
+  }
+
+  function write(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch (error) {
+      showStorageError('Не вдалося зберегти дані у браузері. Перевірте налаштування сховища та відкрийте сайт через локальний вебсервер.');
+      return false;
+    }
+  }
+
+  window.TechPulseStore = {
+    PRODUCTS,
+    CATEGORY_NAMES,
+    read,
+    write,
+    money: amount => `${Number(amount).toLocaleString('uk-UA')} ₴`
+  };
+  if (location.protocol === 'file:') {
+    showStorageError('Сайт відкрито як file://. Браузер може ізолювати сховище між HTML-сторінками, тому для надійного збереження кошика, обраного й порівняння відкрийте папку через локальний вебсервер.');
+  }
+})();
+  </script>
+  <script>
+(() => {
+  const page = location.pathname.split('/').pop() || 'index.html';
+  const active = name => page === name ? ' aria-current="page"' : '';
+  const header = document.getElementById('siteHeader');
+  if (!header) return;
+
+  header.innerHTML = `
+    <div class="topbar">
+      <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <span><i class="bi bi-truck me-1" aria-hidden="true"></i> Доставка за 1 гривню</span>
+        <span><i class="bi bi-shield-check me-1" aria-hidden="true"></i> Офіційна гарантія</span>
+        <span><i class="bi bi-arrow-repeat me-1" aria-hidden="true"></i> Trade-in зі знижкою</span>
+        <span><i class="bi bi-credit-card me-1" aria-hidden="true"></i> Розстрочка від 0%</span>
+      </div>
+    </div>
+    <header class="sticky-top bg-white shadow-sm py-2">
+      <div class="container header-content d-flex align-items-center gap-3 flex-wrap">
+        <a class="brand" href="index.html#top"${active('index.html')} aria-label="TechPulse — на головну">
+          <i class="bi bi-phone text-success" aria-hidden="true"></i> TechPulse
+        </a>
+        <button class="header-toggle ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#headerMenu" aria-controls="headerMenu" aria-expanded="false" aria-label="Відкрити меню">
+          <i class="bi bi-list" aria-hidden="true"></i>
+        </button>
+        <div class="collapse header-menu flex-grow-1" id="headerMenu">
+          <form class="search-form" id="searchForm" role="search" action="index.html">
+            <div class="input-group">
+              <input type="search" id="searchInput" name="q" class="form-control rounded-start-pill border-end-0 ps-3" placeholder="Пошук смартфонів та гаджетів..." aria-label="Пошук">
+              <button class="btn btn-green rounded-end-pill px-4" type="submit" id="searchBtn" aria-label="Шукати"><i class="bi bi-search" aria-hidden="true"></i></button>
+            </div>
+          </form>
+          <nav class="header-actions" aria-label="Швидкі дії">
+            <a href="trade-in.html" class="hico"${active('trade-in.html')}><i class="bi bi-arrow-repeat" aria-hidden="true"></i><span>Trade-in</span></a>
+            <a href="compare.html" class="hico"${active('compare.html')}><i class="bi bi-bar-chart" aria-hidden="true"></i><span>Порівняти</span><span class="bdg" id="cmpN" hidden aria-live="polite">0</span></a>
+            <a href="favorites.html" class="hico"${active('favorites.html')}><i class="bi bi-heart" aria-hidden="true"></i><span>Обране</span><span class="bdg" id="favN" hidden aria-live="polite">0</span></a>
+            <button type="button" class="hico" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" title="Кошик"><i class="bi bi-cart3" aria-hidden="true"></i><span>Кошик</span><span class="bdg" id="cartN" hidden aria-live="polite">0</span></button>
+          </nav>
+        </div>
+      </div>
+    </header>`;
+
+  document.body.insertAdjacentHTML('beforeend', `
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+      <div class="offcanvas-header border-bottom">
+        <h2 class="offcanvas-title fs-5 fw-bold" id="cartOffcanvasLabel"><i class="bi bi-cart3 text-success me-2" aria-hidden="true"></i>Ваш кошик</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрити"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column">
+        <div id="cartItems" class="flex-grow-1 overflow-auto pe-1"></div>
+        <div class="border-top pt-3 mt-auto">
+          <div class="d-flex justify-content-between align-items-center mb-3"><span class="fw-bold">Разом до сплати:</span><span id="cartTotal" class="text-success fs-4 fw-extrabold">0 ₴</span></div>
+          <button type="button" id="goCheckout" class="btn btn-green w-100 rounded-pill py-2 fw-semibold" disabled>Оформити замовлення</button>
+        </div>
+      </div>
+    </div>
+    <div class="toast-wrap position-fixed bottom-0 end-0 p-3">
+      <div id="toast" class="toast text-white bg-success border-0 shadow-lg" role="status" aria-live="polite" aria-atomic="true">
+        <div class="d-flex align-items-center"><div class="toast-body" id="toastText"></div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрити" data-bs-theme="dark"></button></div>
+      </div>
+    </div>`);
+
+  const store = window.TechPulseStore;
+  const products = store.PRODUCTS;
+  const productById = id => products.find(item => item.id === Number(id));
+  const money = store.money;
+  const loadObject = key => {
+    const value = store.read(key, {});
+    return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+  };
+  const toast = message => {
+    document.getElementById('toastText').textContent = message;
+    bootstrap.Toast.getOrCreateInstance(document.getElementById('toast'), { delay: 2500 }).show();
+  };
+
+  function renderCart() {
+    const cart = loadObject('cart');
+    const items = Object.entries(cart).filter(([id, quantity]) => productById(id) && Number.isInteger(quantity) && quantity > 0);
+    const cartCount = items.reduce((total, [, quantity]) => total + quantity, 0);
+    const favorites = store.read('fav', []);
+    const comparisons = store.read('cmp', []);
+    const cartBadge = document.getElementById('cartN');
+    const favBadge = document.getElementById('favN');
+    const cmpBadge = document.getElementById('cmpN');
+    cartBadge.textContent = cartCount;
+    cartBadge.hidden = cartCount === 0;
+    favBadge.textContent = Array.isArray(favorites) ? favorites.length : 0;
+    favBadge.hidden = favBadge.textContent === '0';
+    cmpBadge.textContent = Array.isArray(comparisons) ? comparisons.length : 0;
+    cmpBadge.hidden = cmpBadge.textContent === '0';
+
+    document.getElementById('cartItems').innerHTML = items.length ? items.map(([id, quantity]) => {
+      const item = productById(id);
+      return `<div class="d-flex gap-2 align-items-center border-bottom py-2">
+        <img src="${item.img}" width="54" height="54" class="rounded object-fit-contain" alt="" loading="lazy">
+        <div class="flex-grow-1 min-w-0"><div class="fw-semibold small text-truncate">${item.short}</div><div class="small text-success fw-bold">${money(item.price)}</div></div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Кількість товару ${item.short}">
+          <button type="button" class="btn btn-outline-secondary" data-q="${id}" data-d="-1" aria-label="Зменшити кількість ${item.short}">−</button>
+          <span class="px-2 align-self-center" aria-live="polite">${quantity}</span>
+          <button type="button" class="btn btn-outline-secondary" data-q="${id}" data-d="1" aria-label="Збільшити кількість ${item.short}">+</button>
+        </div>
+      </div>`;
+    }).join('') : '<p class="text-muted text-center my-5">Ваш кошик порожній</p>';
+    document.getElementById('cartTotal').textContent = money(items.reduce((total, [id, quantity]) => total + productById(id).price * quantity, 0));
+    document.getElementById('goCheckout').disabled = items.length === 0;
+  }
+
+  window.TechPulseShell = { refresh: renderCart };
+  document.getElementById('goCheckout').addEventListener('click', () => {
+    if (!document.getElementById('goCheckout').disabled) location.href = 'checkout.html';
+  });
+  document.addEventListener('click', event => {
+    const button = event.target.closest('[data-q]');
+    if (!button) return;
+    const cart = loadObject('cart');
+    const id = button.dataset.q;
+    cart[id] = (cart[id] || 0) + Number(button.dataset.d);
+    if (cart[id] < 1) delete cart[id];
+    if (store.write('cart', cart)) {
+      renderCart();
+      window.dispatchEvent(new CustomEvent('techpulse-cart-updated'));
+    }
+  });
+  document.getElementById('headerMenu').addEventListener('shown.bs.collapse', () => {
+    const toggle = document.querySelector('.header-toggle');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Закрити меню');
+    toggle.innerHTML = '<i class="bi bi-x-lg" aria-hidden="true"></i>';
+  });
+  document.getElementById('headerMenu').addEventListener('hidden.bs.collapse', () => {
+    const toggle = document.querySelector('.header-toggle');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Відкрити меню');
+    toggle.innerHTML = '<i class="bi bi-list" aria-hidden="true"></i>';
+  });
+  window.addEventListener('storage', renderCart);
+  renderCart();
+})();
+  </script>
 
   <script>
     /* ===== База даних товарів ===== */
-    const S = s => Object.fromEntries(s.split('|').map(x => x.split(':')));
-    const IMG = (id) => `images/product-${id}.png`;
-
-    const A = (id, cat, brand, name, price, old, r, n, specs) => {
-      const short = name.replace(/^(Смартфон|Чохол|Бездротові навушники|Смарт-годинник)\s+/, '');
-      return { id, cat, brand, name, short, price, old, r, n, specs: S(specs), img: IMG(id) };
-    };
-
-    const PRODUCTS = [
-      A(1, 'phone', 'Apple', 'Смартфон Apple iPhone 15 Pro 256GB Natural Titanium', 47999, 55999, 4.8, 42, `Діагональ:6,1"|Екран:Super Retina XDR|Процесор:Apple A17 Pro|Камера:48+12+12 Мп|Акумулятор:3274 мАг`),
-      A(2, 'phone', 'Samsung', 'Смартфон Samsung Galaxy S24 Ultra 12/512GB Grey', 52499, 65999, 4.9, 58, `Діагональ:6,8"|Екран:Dynamic AMOLED 2X|Процесор:Snapdragon 8 Gen 3|Камера:200+50+12+10 Мп|Акумулятор:5000 мАг`),
-      A(3, 'phone', 'Samsung', 'Смартфон Samsung Galaxy S25 FE 8/256GB Jetblack', 29999, 32499, 4.5, 103, `Діагональ:6,7"|Екран:Dynamic AMOLED 2X|Процесор:Exynos 2400|Камера:50+12+8 Мп|Акумулятор:4900 мАг`),
-      A(4, 'phone', 'Xiaomi', 'Смартфон Xiaomi 14 12/512GB Black', 34999, 0, 4.6, 19, `Діагональ:6,36"|Екран:LTPO AMOLED|Процесор:Snapdragon 8 Gen 3|Камера:50+50+50 Мп|Акумулятор:4610 мАг`),
-      A(5, 'phone', 'Google', 'Смартфон Google Pixel 8 Pro 12/256GB Bay', 38999, 51999, 4.7, 27, `Діагональ:6,7"|Екран:LTPO OLED|Процесор:Google Tensor G3|Камера:50+48+48 Мп|Акумулятор:5050 мАг`),
-      A(6, 'phone', 'Apple', 'Смартфон Apple iPhone 14 128GB Midnight', 27999, 31999, 4.7, 76, `Діагональ:6,1"|Екран:Super Retina XDR|Процесор:Apple A15 Bionic|Камера:12+12 Мп|Акумулятор:3279 мАг`),
-      A(7, 'phone', 'Xiaomi', 'Смартфон Xiaomi Redmi Note 13 Pro 8/256GB Blue', 12999, 0, 4.4, 64, `Діагональ:6,67"|Екран:AMOLED 120 Гц|Процесор:Helio G99 Ultra|Камера:200+8+2 Мп|Акумулятор:5100 мАг`),
-      A(8, 'phone', 'Samsung', 'Смартфон Samsung Galaxy A55 8/256GB Navy', 17999, 19999, 4.5, 51, `Діагональ:6,6"|Екран:Super AMOLED|Процесор:Exynos 1480|Камера:50+12+5 Мп|Акумулятор:5000 мАг`),
-      A(9, 'case', 'Apple', 'Чохол Apple iPhone 15 Pro Silicone Case MagSafe', 1799, 0, 4.6, 33, `Матеріал:Силікон|Сумісність:iPhone 15 Pro|MagSafe:Так|Колір:Чорний`),
-      A(10, 'case', 'Samsung', 'Чохол Samsung Galaxy S25 FE Clear Case', 449, 599, 4.2, 21, `Матеріал:Полікарбонат|Сумісність:Galaxy S25 FE|MagSafe:Ні|Колір:Прозорий`),
-      A(11, 'audio', 'Apple', 'Бездротові навушники Apple AirPods Pro 2 USB-C', 10499, 0, 4.9, 84, `Тип:TWS Внутрішньоканальні|Шумозаглушення:Активне|Зарядка:USB-C|Автономність:до 6 год`),
-      A(12, 'watch', 'Apple', 'Смарт-годинник Apple Watch Series 9 GPS 41mm', 17999, 19999, 4.5, 31, `Дисплей:1,69"|Корпус:Алюміній 41 мм|Датчики:ЕКГ, SpO2|Автономність:до 18 год`),
-    ];
-
-    const CAT_NAMES = { phone: 'Смартфони', case: 'Чохли', audio: 'Навушники', watch: 'Смарт-годинники' };
+    const { PRODUCTS, CATEGORY_NAMES: CAT_NAMES, read: LS, write: save, money } = window.TechPulseStore;
 
     /* ===== Стан та LocalStorage ===== */
     const $ = (s, r = document) => r.querySelector(s);
     const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-    const LS = (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v ?? d; } catch { return d; } };
-    const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
-
     let cart = LS('cart', {});
     let fav = LS('fav', []);
     let cmp = LS('cmp', []);
     let rate = LS('rate', {});
     let mine = LS('mine', {});
-    let favoritesOnly = false;
 
     const pid = id => PRODUCTS.find(p => p.id === Number(id));
-    const money = n => Number(n).toLocaleString('uk-UA') + ' ₴';
 
     cart = cart && typeof cart === 'object' && !Array.isArray(cart)
       ? Object.fromEntries(Object.entries(cart).filter(([id, quantity]) => pid(id) && Number.isInteger(quantity) && quantity > 0))
       : {};
     fav = Array.isArray(fav) ? [...new Set(fav.filter(id => pid(id)))] : [];
-    cmp = Array.isArray(cmp) ? [...new Set(cmp.filter(id => pid(id)))].slice(0, 3) : [];
+    cmp = Array.isArray(cmp) ? [...new Set(cmp.filter(id => pid(id)))] : [];
 
     const rt = p => rate[p.id] || { sum: p.r * p.n, n: p.n };
     const avg = p => rt(p).sum / rt(p).n;
@@ -445,12 +495,13 @@
     /* Accessible interactive rating controls */
     const starsHTML = p => {
       const currentAvg = Math.round(avg(p));
+      const selectedRating = mine[p.id] || 0;
       const starsArr = [1, 2, 3, 4, 5].map(i => `
-        <button type="button" class="star-btn" data-s="${i}" aria-label="Оцінити ${i} з 5" aria-pressed="${mine[p.id] === i}">
+        <button type="button" class="star-btn" role="radio" data-s="${i}" aria-label="Оцінити ${i} з 5" aria-checked="${selectedRating === i}" tabindex="${selectedRating === i || (!selectedRating && i === 1) ? '0' : '-1'}">
           <i class="bi bi-star${i <= currentAvg ? '-fill' : ''}" aria-hidden="true"></i>
         </button>
       `).join('');
-      return `<span class="stars" role="group" aria-label="Рейтинг ${p.short}" data-id="${p.id}">${starsArr}</span>
+      return `<span class="stars" role="radiogroup" aria-label="Оцінити ${p.short}" data-id="${p.id}">${starsArr}</span>
               <small class="text-muted ms-1">${avg(p).toFixed(1)} (${rt(p).n})</small>`;
     };
 
@@ -464,7 +515,7 @@
       const isFav = fav.includes(p.id);
       const specsList = Object.entries(p.specs).slice(0, 4);
       return `
-        <article class="product">
+        <article class="product" data-product-id="${p.id}">
           <div class="product-img">
             ${p.old ? `<span class="discount">-${Math.round(100 - p.price / p.old * 100)}%</span>` : ''}
             <button type="button" class="fav-btn" data-fav="${p.id}" aria-label="${isFav ? 'Вилучити з обраного' : 'Додати в обране'}" aria-pressed="${isFav}">
@@ -541,8 +592,37 @@
       const totalSum = ids.reduce((s, id) => s + (pid(id) ? pid(id).price * cart[id] : 0), 0);
       $('#cartTotal').textContent = money(totalSum);
       $('#goCheckout').disabled = ids.length === 0;
+      syncProductButtons();
+    }
 
-      renderCatalog();
+    function syncProductButtons() {
+      $$('#grid [data-product-id]').forEach(card => {
+        const id = Number(card.dataset.productId);
+        const favoriteButton = card.querySelector('[data-fav]');
+        const isFavorite = fav.includes(id);
+        favoriteButton.setAttribute('aria-pressed', String(isFavorite));
+        favoriteButton.setAttribute('aria-label', isFavorite ? 'Вилучити з обраного' : 'Додати в обране');
+        favoriteButton.innerHTML = `<i class="bi bi-heart${isFavorite ? '-fill' : ''}" aria-hidden="true"></i>`;
+
+        const compareButton = card.querySelector('[data-cmp]');
+        const isCompared = cmp.includes(id);
+        compareButton.setAttribute('aria-pressed', String(isCompared));
+        compareButton.setAttribute('aria-label', isCompared ? 'Вилучити з порівняння' : 'Додати до порівняння');
+      });
+    }
+
+    function syncProductRating(product) {
+      const rating = Math.round(avg(product));
+      $$(`.stars[data-id="${product.id}"]`).forEach(stars => {
+        stars.querySelectorAll('.star-btn').forEach(button => {
+          const value = Number(button.dataset.s);
+          button.setAttribute('aria-checked', String(mine[product.id] === value));
+          button.tabIndex = mine[product.id] === value || (!mine[product.id] && value === 1) ? 0 : -1;
+          button.innerHTML = `<i class="bi bi-star${value <= rating ? '-fill' : ''}" aria-hidden="true"></i>`;
+        });
+        const label = stars.nextElementSibling;
+        if (label) label.textContent = `${avg(product).toFixed(1)} (${rt(product).n})`;
+      });
     }
 
     /* ===== Рендеринг Каруселі Хітів ===== */
@@ -602,8 +682,7 @@
         const matchCat = !cats.length || cats.includes(p.cat);
         const matchBrand = !brands.length || brands.includes(p.brand);
         const matchPrice = p.price >= minP && p.price <= maxP;
-        const matchFavorite = !favoritesOnly || fav.includes(p.id);
-        return matchQ && matchCat && matchBrand && matchPrice && matchFavorite;
+        return matchQ && matchCat && matchBrand && matchPrice;
       });
 
       // Сортування
@@ -615,49 +694,21 @@
       });
 
       $('#count').textContent = list.length;
+      const active = document.activeElement;
+      const focusSelector = active?.dataset?.add ? `[data-add="${active.dataset.add}"]`
+        : active?.dataset?.fav ? `[data-fav="${active.dataset.fav}"]`
+          : active?.dataset?.cmp ? `[data-cmp="${active.dataset.cmp}"]`
+            : null;
       $('#grid').innerHTML = list.map(cardHTML).join('');
       $('#notFound').hidden = list.length !== 0;
-    }
-
-    function renderComparison() {
-      const products = cmp.map(pid).filter(Boolean);
-      const content = $('#compareContent');
-      if (!products.length) {
-        content.innerHTML = '<p class="text-center text-muted my-4">Додайте товари до порівняння кнопкою з іконкою діаграми в картці товару.</p>';
-        return;
-      }
-
-      const rows = [
-        ['Категорія', p => CAT_NAMES[p.cat]],
-        ['Бренд', p => p.brand],
-        ['Ціна', p => money(p.price)],
-        ...[...new Set(products.flatMap(p => Object.keys(p.specs)))].map(key => [key, p => p.specs[key] || '—'])
-      ];
-      content.innerHTML = `
-        <div class="table-responsive">
-          <table class="table table-bordered align-middle">
-            <thead><tr><th scope="col">Характеристика</th>${products.map(p => `
-              <th scope="col">
-                <div class="d-flex justify-content-between align-items-start gap-2">
-                  <span>${p.short}</span>
-                  <button type="button" class="btn-close" data-cmp-remove="${p.id}" aria-label="Вилучити ${p.short} з порівняння"></button>
-                </div>
-              </th>
-            `).join('')}</tr></thead>
-            <tbody>${rows.map(([label, value]) => `
-              <tr><th scope="row">${label}</th>${products.map(p => `<td>${value(p)}</td>`).join('')}</tr>
-            `).join('')}</tbody>
-          </table>
-        </div>`;
+      if (focusSelector) $('#grid').querySelector(focusSelector)?.focus();
     }
 
     /* ===== Події (Event Listeners) ===== */
     document.addEventListener('click', e => {
       const addBtn = e.target.closest('[data-add]');
       const favBtn = e.target.closest('[data-fav]');
-      const qBtn = e.target.closest('[data-q]');
       const starBtn = e.target.closest('[data-s]');
-      const compareRemoveBtn = e.target.closest('[data-cmp-remove]');
       const compareBtn = e.target.closest('[data-cmp]');
 
       if (addBtn) {
@@ -670,30 +721,15 @@
         if (cmp.includes(id)) {
           cmp = cmp.filter(productId => productId !== id);
           toast('Товар вилучено з порівняння');
-        } else if (cmp.length >= 3) {
-          toast('Для порівняння можна вибрати не більше трьох товарів');
-          return;
         } else {
           cmp.push(id);
           toast('Товар додано до порівняння');
         }
         refresh();
-        renderComparison();
-      } else if (compareRemoveBtn) {
-        const id = +compareRemoveBtn.dataset.cmpRemove;
-        cmp = cmp.filter(productId => productId !== id);
-        refresh();
-        renderComparison();
       } else if (favBtn) {
         const id = +favBtn.dataset.fav;
         fav = fav.includes(id) ? fav.filter(x => x !== id) : [...fav, id];
         toast(fav.includes(id) ? 'Додано в обране' : 'Видалено з обраного');
-        refresh();
-      } else if (qBtn) {
-        const id = qBtn.dataset.q;
-        const delta = +qBtn.dataset.d;
-        cart[id] += delta;
-        if (cart[id] < 1) delete cart[id];
         refresh();
       } else if (starBtn) {
         const starsWrap = starBtn.closest('.stars');
@@ -710,10 +746,26 @@
           save('rate', rate);
           save('mine', mine);
           toast('Дякуємо за вашу оцінку!');
-          renderHits();
-          refresh();
+          syncProductRating(product);
         }
       }
+    });
+
+    document.addEventListener('keydown', event => {
+      if (!(event.target instanceof Element)) return;
+      const starButton = event.target.closest('.star-btn');
+      if (!starButton) return;
+      const buttons = [...starButton.closest('.stars').querySelectorAll('.star-btn')];
+      const index = buttons.indexOf(starButton);
+      let nextIndex;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowUp') nextIndex = (index + 1) % buttons.length;
+      else if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') nextIndex = (index - 1 + buttons.length) % buttons.length;
+      else if (event.key === 'Home') nextIndex = 0;
+      else if (event.key === 'End') nextIndex = buttons.length - 1;
+      else return;
+      event.preventDefault();
+      buttons[nextIndex].focus();
+      buttons[nextIndex].click();
     });
 
     // Динамічний пошук та фільтри
@@ -730,54 +782,19 @@
       $('#minPrice').value = '';
       $('#maxPrice').value = '';
       $('#searchInput').value = '';
+      $('#sort').value = 'pop';
       renderCatalog();
     });
 
-    $('#goCheckout').addEventListener('click', () => {
-      if ($('#goCheckout').disabled) return;
-      toast('Оформлення замовлення успішно створено!');
-      cart = {};
+    window.addEventListener('techpulse-cart-updated', () => {
+      cart = LS('cart', {});
       refresh();
-      bootstrap.Offcanvas.getOrCreateInstance($('#cartOffcanvas')).hide();
     });
-
-    $('#tradeInBtn').addEventListener('click', () => {
-      bootstrap.Modal.getOrCreateInstance($('#tradeInModal')).show();
-    });
-
-    $('#tradeInForm').addEventListener('submit', event => {
-      event.preventDefault();
-      const formData = new FormData(event.currentTarget);
-      const model = formData.get('model').toString().trim();
-      const marketValue = Number(formData.get('value'));
-      const conditionFactor = Number(formData.get('condition'));
-      const estimate = Math.round(marketValue * conditionFactor);
-      const result = $('#tradeInResult');
-      result.textContent = `Попередня оцінка пристрою «${model}»: ${money(estimate)} знижки на нову покупку. Фінальна сума залежить від перевірки пристрою.`;
-      result.hidden = false;
-    });
-
-    $('#compareModal').addEventListener('show.bs.modal', renderComparison);
-
-    $('#headerMenu').addEventListener('shown.bs.collapse', () => {
-      const toggle = $('.header-toggle');
-      toggle.setAttribute('aria-expanded', 'true');
-      toggle.setAttribute('aria-label', 'Закрити меню');
-      toggle.innerHTML = '<i class="bi bi-x-lg" aria-hidden="true"></i>';
-    });
-
-    $('#headerMenu').addEventListener('hidden.bs.collapse', () => {
-      const toggle = $('.header-toggle');
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', 'Відкрити меню');
-      toggle.innerHTML = '<i class="bi bi-list" aria-hidden="true"></i>';
-    });
-
-    $('#favoritesBtn').addEventListener('click', event => {
-      favoritesOnly = !favoritesOnly;
-      event.currentTarget.setAttribute('aria-pressed', String(favoritesOnly));
-      event.currentTarget.setAttribute('aria-label', favoritesOnly ? 'Показати весь каталог' : 'Показати обране');
-      renderCatalog();
+    window.addEventListener('storage', () => {
+      cart = LS('cart', {});
+      fav = LS('fav', []);
+      cmp = LS('cmp', []);
+      refresh();
     });
 
     $('#hitsPause').addEventListener('click', event => {
@@ -793,9 +810,17 @@
       event.currentTarget.innerHTML = `<i class="bi bi-${isPaused ? 'play' : 'pause'}-fill" aria-hidden="true"></i>`;
     });
 
+    const searchQuery = new URLSearchParams(location.search).get('q');
+    if (searchQuery) $('#searchInput').value = searchQuery;
     renderBrands();
     renderHits();
+    const hitsCarousel = bootstrap.Carousel.getOrCreateInstance($('#hitsCar'), {
+      interval: 5000,
+      ride: 'carousel'
+    });
+    hitsCarousel.cycle();
     refresh();
+    renderCatalog();
   </script>
 </body>
 </html>

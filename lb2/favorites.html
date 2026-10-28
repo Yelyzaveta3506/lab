@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechPulse — Обране та збірки</title>
+  <meta name="description" content="Зберігайте улюблені гаджети та створюйте іменовані списки покупок у TechPulse.">
+  <link rel="icon" href="data:,">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index_lab2.css">
+</head>
+<body id="top">
+  <div id="siteHeader"></div>
+  <main class="container my-4">
+    <nav aria-label="Навігаційний шлях" class="mb-4">
+      <ol class="breadcrumb breadcrumb-custom">
+        <li class="breadcrumb-item"><a href="index.html">Головна</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Обране та збірки</li>
+      </ol>
+    </nav>
+    <h1 class="h3 fw-bold mb-4"><i class="bi bi-heart text-success me-2" aria-hidden="true"></i>Обрані гаджети</h1>
+    <section aria-labelledby="favoritesHeading">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
+        <div>
+          <h2 id="favoritesHeading" class="fs-5 fw-bold mb-1">Ваше обране</h2>
+          <p class="text-muted small mb-0">Позначте товари, щоб зібрати їх в окремий список.</p>
+        </div>
+        <div id="collectionViewControls" hidden>
+          <button type="button" class="btn btn-outline-secondary rounded-pill" id="showFavorites">Повернутися до обраного</button>
+        </div>
+      </div>
+      <form id="collectionForm" class="collection-form mb-4">
+        <label for="collectionName" class="form-label fw-semibold">Назва нової збірки</label>
+        <div class="input-group">
+          <input id="collectionName" class="form-control" maxlength="60" placeholder="Наприклад, Хочу на день народження" required>
+          <button type="submit" class="btn btn-green"><i class="bi bi-folder-plus me-1" aria-hidden="true"></i>Створити збірку</button>
+        </div>
+        <div class="form-text">Виберіть один або кілька товарів нижче. Збірки залишаються на цьому пристрої.</div>
+      </form>
+      <div id="favoritesGrid" class="products-grid" aria-live="polite"></div>
+    </section>
+    <section class="mt-5" aria-labelledby="collectionsHeading">
+      <h2 id="collectionsHeading" class="fs-4 fw-bold mb-3"><i class="bi bi-folder2-open text-success me-2" aria-hidden="true"></i>Мої збірки</h2>
+      <div id="collectionsList" class="collections-list" aria-live="polite"></div>
+    </section>
+  </main>
+  <footer class="pt-5 pb-4">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-4">
+          <div class="fs-4 fw-bold text-white mb-2 d-flex align-items-center gap-2"><i class="bi bi-phone text-success" aria-hidden="true"></i> TechPulse</div>
+          <p class="small text-white-50 mb-3">Офіційний інтернет-магазин смартфонів і сучасних гаджетів. Гарантія якості, широкий вибір оригінальної техніки та сервісне обслуговування.</p>
+          <p class="small text-white-50 mb-0">Сторінки TechPulse у соцмережах скоро з’являться.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2 class="text-white fs-6 fw-bold mb-3">Каталог</h2>
+          <nav aria-label="Каталог у підвалі"><ul class="list-unstyled small d-grid gap-2 m-0">
+            <li><a href="index.html#catalog">Смартфони</a></li><li><a href="index.html#catalog">Чохли</a></li><li><a href="index.html#catalog">Навушники</a></li><li><a href="index.html#catalog">Смарт-годинники</a></li>
+          </ul></nav>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2 class="text-white fs-6 fw-bold mb-3">Клієнтам</h2>
+          <nav aria-label="Інформація для клієнтів"><ul class="list-unstyled small d-grid gap-2 m-0">
+            <li><a href="trade-in.html">Trade-in</a></li><li><span>Оплата й доставка — деталі уточнюйте у менеджера.</span></li><li><span>Офіційна гарантія на сертифіковану техніку.</span></li><li><a href="mailto:support@techpulse.ua">Центр підтримки</a></li>
+          </ul></nav>
+        </div>
+        <div class="col-lg-4">
+          <h2 class="text-white fs-6 fw-bold mb-3">Контакти</h2>
+          <address class="small d-grid gap-2 m-0">
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-geo-alt text-success" aria-hidden="true"></i> вул. Хрещатик, 24, Київ, Україна</span>
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-telephone text-success" aria-hidden="true"></i> <a href="tel:0800300555">0 (800) 300-555 (безкоштовно)</a></span>
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-envelope text-success" aria-hidden="true"></i> <a href="mailto:support@techpulse.ua">support@techpulse.ua</a></span>
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-clock text-success" aria-hidden="true"></i> Пн-Нд: 09:00 — 21:00</span>
+          </address>
+        </div>
+      </div>
+      <hr class="border-secondary opacity-25">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 small text-white-50">
+        <p class="m-0">&copy; 2026 TechPulse. Усі права захищені.</p><p class="m-0">Зроблено з любов’ю до технологій</p>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+(() => {
+  const image = id => `images/product-${id}.png`;
+  const product = (id, cat, brand, name, price, old, rating, reviews, specs) => ({
+    id,
+    cat,
+    brand,
+    name,
+    short: name.replace(/^(Смартфон|Чохол|Бездротові навушники|Смарт-годинник)\s+/, ''),
+    price,
+    old,
+    r: rating,
+    n: reviews,
+    specs,
+    img: image(id)
+  });
+
+  const PRODUCTS = [
+    product(1, 'phone', 'Apple', 'Смартфон Apple iPhone 15 Pro 256GB Natural Titanium', 47999, 55999, 4.8, 42, { 'Діагональ': '6,1"', 'Екран': 'Super Retina XDR', 'Процесор': 'Apple A17 Pro', 'Камера': '48+12+12 Мп', 'Акумулятор': '3274 мАг' }),
+    product(2, 'phone', 'Samsung', 'Смартфон Samsung Galaxy S24 Ultra 12/512GB Grey', 52499, 65999, 4.9, 58, { 'Діагональ': '6,8"', 'Екран': 'Dynamic AMOLED 2X', 'Процесор': 'Snapdragon 8 Gen 3', 'Камера': '200+50+12+10 Мп', 'Акумулятор': '5000 мАг' }),
+    product(3, 'phone', 'Samsung', 'Смартфон Samsung Galaxy S25 FE 8/256GB Jetblack', 29999, 32499, 4.5, 103, { 'Діагональ': '6,7"', 'Екран': 'Dynamic AMOLED 2X', 'Процесор': 'Exynos 2400', 'Камера': '50+12+8 Мп', 'Акумулятор': '4900 мАг' }),
+    product(4, 'phone', 'Xiaomi', 'Смартфон Xiaomi 14 12/512GB Black', 34999, 0, 4.6, 19, { 'Діагональ': '6,36"', 'Екран': 'LTPO AMOLED', 'Процесор': 'Snapdragon 8 Gen 3', 'Камера': '50+50+50 Мп', 'Акумулятор': '4610 мАг' }),
+    product(5, 'phone', 'Google', 'Смартфон Google Pixel 8 Pro 12/256GB Bay', 38999, 51999, 4.7, 27, { 'Діагональ': '6,7"', 'Екран': 'LTPO OLED', 'Процесор': 'Google Tensor G3', 'Камера': '50+48+48 Мп', 'Акумулятор': '5050 мАг' }),
+    product(6, 'phone', 'Apple', 'Смартфон Apple iPhone 14 128GB Midnight', 27999, 31999, 4.7, 76, { 'Діагональ': '6,1"', 'Екран': 'Super Retina XDR', 'Процесор': 'Apple A15 Bionic', 'Камера': '12+12 Мп', 'Акумулятор': '3279 мАг' }),
+    product(7, 'phone', 'Xiaomi', 'Смартфон Xiaomi Redmi Note 13 Pro 8/256GB Blue', 12999, 0, 4.4, 64, { 'Діагональ': '6,67"', 'Екран': 'AMOLED 120 Гц', 'Процесор': 'Helio G99 Ultra', 'Камера': '200+8+2 Мп', 'Акумулятор': '5100 мАг' }),
+    product(8, 'phone', 'Samsung', 'Смартфон Samsung Galaxy A55 8/256GB Navy', 17999, 19999, 4.5, 51, { 'Діагональ': '6,6"', 'Екран': 'Super AMOLED', 'Процесор': 'Exynos 1480', 'Камера': '50+12+5 Мп', 'Акумулятор': '5000 мАг' }),
+    product(9, 'case', 'Apple', 'Чохол Apple iPhone 15 Pro Silicone Case MagSafe', 1799, 0, 4.6, 33, { 'Матеріал': 'Силікон', 'Сумісність': 'iPhone 15 Pro', 'MagSafe': 'Так', 'Колір': 'Чорний' }),
+    product(10, 'case', 'Samsung', 'Чохол Samsung Galaxy S25 FE Clear Case', 449, 599, 4.2, 21, { 'Матеріал': 'Полікарбонат', 'Сумісність': 'Galaxy S25 FE', 'MagSafe': 'Ні', 'Колір': 'Прозорий' }),
+    product(11, 'audio', 'Apple', 'Бездротові навушники Apple AirPods Pro 2 USB-C', 10499, 0, 4.9, 84, { 'Тип': 'TWS Внутрішньоканальні', 'Шумозаглушення': 'Активне', 'Зарядка': 'USB-C', 'Автономність': 'до 6 год' }),
+    product(12, 'watch', 'Apple', 'Смарт-годинник Apple Watch Series 9 GPS 41mm', 17999, 19999, 4.5, 31, { 'Дисплей': '1,69"', 'Корпус': 'Алюміній 41 мм', 'Датчики': 'ЕКГ, SpO2', 'Автономність': 'до 18 год' })
+  ];
+
+  const CATEGORY_NAMES = {
+    phone: 'Смартфони',
+    case: 'Чохли',
+    audio: 'Навушники',
+    watch: 'Смарт-годинники'
+  };
+
+  function showStorageError(message) {
+    console.error('TechPulse: browser storage is unavailable or contains invalid data.');
+    let notice = document.getElementById('storageNotice');
+    if (!notice) {
+      notice = document.createElement('div');
+      notice.id = 'storageNotice';
+      notice.className = 'alert alert-warning storage-notice';
+      notice.setAttribute('role', 'alert');
+      document.body.append(notice);
+    }
+    notice.textContent = message;
+  }
+
+  function read(key, fallback) {
+    try {
+      const value = localStorage.getItem(key);
+      return value === null ? fallback : JSON.parse(value);
+    } catch (error) {
+      showStorageError('Не вдалося прочитати дані браузера. Перевірте налаштування сховища та відкрийте сайт через локальний вебсервер.');
+      return fallback;
+    }
+  }
+
+  function write(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch (error) {
+      showStorageError('Не вдалося зберегти дані у браузері. Перевірте налаштування сховища та відкрийте сайт через локальний вебсервер.');
+      return false;
+    }
+  }
+
+  window.TechPulseStore = {
+    PRODUCTS,
+    CATEGORY_NAMES,
+    read,
+    write,
+    money: amount => `${Number(amount).toLocaleString('uk-UA')} ₴`
+  };
+  if (location.protocol === 'file:') {
+    showStorageError('Сайт відкрито як file://. Браузер може ізолювати сховище між HTML-сторінками, тому для надійного збереження кошика, обраного й порівняння відкрийте папку через локальний вебсервер.');
+  }
+})();
+  </script>
+  <script>
+(() => {
+  const page = location.pathname.split('/').pop() || 'index.html';
+  const active = name => page === name ? ' aria-current="page"' : '';
+  const header = document.getElementById('siteHeader');
+  if (!header) return;
+
+  header.innerHTML = `
+    <div class="topbar">
+      <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <span><i class="bi bi-truck me-1" aria-hidden="true"></i> Доставка за 1 гривню</span>
+        <span><i class="bi bi-shield-check me-1" aria-hidden="true"></i> Офіційна гарантія</span>
+        <span><i class="bi bi-arrow-repeat me-1" aria-hidden="true"></i> Trade-in зі знижкою</span>
+        <span><i class="bi bi-credit-card me-1" aria-hidden="true"></i> Розстрочка від 0%</span>
+      </div>
+    </div>
+    <header class="sticky-top bg-white shadow-sm py-2">
+      <div class="container header-content d-flex align-items-center gap-3 flex-wrap">
+        <a class="brand" href="index.html#top"${active('index.html')} aria-label="TechPulse — на головну">
+          <i class="bi bi-phone text-success" aria-hidden="true"></i> TechPulse
+        </a>
+        <button class="header-toggle ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#headerMenu" aria-controls="headerMenu" aria-expanded="false" aria-label="Відкрити меню">
+          <i class="bi bi-list" aria-hidden="true"></i>
+        </button>
+        <div class="collapse header-menu flex-grow-1" id="headerMenu">
+          <form class="search-form" id="searchForm" role="search" action="index.html">
+            <div class="input-group">
+              <input type="search" id="searchInput" name="q" class="form-control rounded-start-pill border-end-0 ps-3" placeholder="Пошук смартфонів та гаджетів..." aria-label="Пошук">
+              <button class="btn btn-green rounded-end-pill px-4" type="submit" id="searchBtn" aria-label="Шукати"><i class="bi bi-search" aria-hidden="true"></i></button>
+            </div>
+          </form>
+          <nav class="header-actions" aria-label="Швидкі дії">
+            <a href="trade-in.html" class="hico"${active('trade-in.html')}><i class="bi bi-arrow-repeat" aria-hidden="true"></i><span>Trade-in</span></a>
+            <a href="compare.html" class="hico"${active('compare.html')}><i class="bi bi-bar-chart" aria-hidden="true"></i><span>Порівняти</span><span class="bdg" id="cmpN" hidden aria-live="polite">0</span></a>
+            <a href="favorites.html" class="hico"${active('favorites.html')}><i class="bi bi-heart" aria-hidden="true"></i><span>Обране</span><span class="bdg" id="favN" hidden aria-live="polite">0</span></a>
+            <button type="button" class="hico" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" title="Кошик"><i class="bi bi-cart3" aria-hidden="true"></i><span>Кошик</span><span class="bdg" id="cartN" hidden aria-live="polite">0</span></button>
+          </nav>
+        </div>
+      </div>
+    </header>`;
+
+  document.body.insertAdjacentHTML('beforeend', `
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+      <div class="offcanvas-header border-bottom">
+        <h2 class="offcanvas-title fs-5 fw-bold" id="cartOffcanvasLabel"><i class="bi bi-cart3 text-success me-2" aria-hidden="true"></i>Ваш кошик</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрити"></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column">
+        <div id="cartItems" class="flex-grow-1 overflow-auto pe-1"></div>
+        <div class="border-top pt-3 mt-auto">
+          <div class="d-flex justify-content-between align-items-center mb-3"><span class="fw-bold">Разом до сплати:</span><span id="cartTotal" class="text-success fs-4 fw-extrabold">0 ₴</span></div>
+          <button type="button" id="goCheckout" class="btn btn-green w-100 rounded-pill py-2 fw-semibold" disabled>Оформити замовлення</button>
+        </div>
+      </div>
+    </div>
+    <div class="toast-wrap position-fixed bottom-0 end-0 p-3">
+      <div id="toast" class="toast text-white bg-success border-0 shadow-lg" role="status" aria-live="polite" aria-atomic="true">
+        <div class="d-flex align-items-center"><div class="toast-body" id="toastText"></div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрити" data-bs-theme="dark"></button></div>
+      </div>
+    </div>`);
+
+  const store = window.TechPulseStore;
+  const products = store.PRODUCTS;
+  const productById = id => products.find(item => item.id === Number(id));
+  const money = store.money;
+  const loadObject = key => {
+    const value = store.read(key, {});
+    return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+  };
+  const toast = message => {
+    document.getElementById('toastText').textContent = message;
+    bootstrap.Toast.getOrCreateInstance(document.getElementById('toast'), { delay: 2500 }).show();
+  };
+
+  function renderCart() {
+    const cart = loadObject('cart');
+    const items = Object.entries(cart).filter(([id, quantity]) => productById(id) && Number.isInteger(quantity) && quantity > 0);
+    const cartCount = items.reduce((total, [, quantity]) => total + quantity, 0);
+    const favorites = store.read('fav', []);
+    const comparisons = store.read('cmp', []);
+    const cartBadge = document.getElementById('cartN');
+    const favBadge = document.getElementById('favN');
+    const cmpBadge = document.getElementById('cmpN');
+    cartBadge.textContent = cartCount;
+    cartBadge.hidden = cartCount === 0;
+    favBadge.textContent = Array.isArray(favorites) ? favorites.length : 0;
+    favBadge.hidden = favBadge.textContent === '0';
+    cmpBadge.textContent = Array.isArray(comparisons) ? comparisons.length : 0;
+    cmpBadge.hidden = cmpBadge.textContent === '0';
+
+    document.getElementById('cartItems').innerHTML = items.length ? items.map(([id, quantity]) => {
+      const item = productById(id);
+      return `<div class="d-flex gap-2 align-items-center border-bottom py-2">
+        <img src="${item.img}" width="54" height="54" class="rounded object-fit-contain" alt="" loading="lazy">
+        <div class="flex-grow-1 min-w-0"><div class="fw-semibold small text-truncate">${item.short}</div><div class="small text-success fw-bold">${money(item.price)}</div></div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Кількість товару ${item.short}">
+          <button type="button" class="btn btn-outline-secondary" data-q="${id}" data-d="-1" aria-label="Зменшити кількість ${item.short}">−</button>
+          <span class="px-2 align-self-center" aria-live="polite">${quantity}</span>
+          <button type="button" class="btn btn-outline-secondary" data-q="${id}" data-d="1" aria-label="Збільшити кількість ${item.short}">+</button>
+        </div>
+      </div>`;
+    }).join('') : '<p class="text-muted text-center my-5">Ваш кошик порожній</p>';
+    document.getElementById('cartTotal').textContent = money(items.reduce((total, [id, quantity]) => total + productById(id).price * quantity, 0));
+    document.getElementById('goCheckout').disabled = items.length === 0;
+  }
+
+  window.TechPulseShell = { refresh: renderCart };
+  document.getElementById('goCheckout').addEventListener('click', () => {
+    if (!document.getElementById('goCheckout').disabled) location.href = 'checkout.html';
+  });
+  document.addEventListener('click', event => {
+    const button = event.target.closest('[data-q]');
+    if (!button) return;
+    const cart = loadObject('cart');
+    const id = button.dataset.q;
+    cart[id] = (cart[id] || 0) + Number(button.dataset.d);
+    if (cart[id] < 1) delete cart[id];
+    if (store.write('cart', cart)) {
+      renderCart();
+      window.dispatchEvent(new CustomEvent('techpulse-cart-updated'));
+    }
+  });
+  document.getElementById('headerMenu').addEventListener('shown.bs.collapse', () => {
+    const toggle = document.querySelector('.header-toggle');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Закрити меню');
+    toggle.innerHTML = '<i class="bi bi-x-lg" aria-hidden="true"></i>';
+  });
+  document.getElementById('headerMenu').addEventListener('hidden.bs.collapse', () => {
+    const toggle = document.querySelector('.header-toggle');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Відкрити меню');
+    toggle.innerHTML = '<i class="bi bi-list" aria-hidden="true"></i>';
+  });
+  window.addEventListener('storage', renderCart);
+  renderCart();
+})();
+  </script>
+  <script>
+    const store = window.TechPulseStore;
+    const { PRODUCTS, money } = store;
+    const productById = id => PRODUCTS.find(product => product.id === Number(id));
+    const grid = document.getElementById('favoritesGrid');
+    const selected = new Set();
+    let activeCollection = null;
+    const escapeHTML = value => String(value).replace(/[&<>"']/g, character => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[character]);
+    const getFavorites = () => {
+      const value = store.read('fav', []);
+      return Array.isArray(value) ? [...new Set(value.filter(id => productById(id)))] : [];
+    };
+    const getCollections = () => {
+      const value = store.read('wishlistCollections', []);
+      return Array.isArray(value) ? value.filter(collection =>
+        collection && typeof collection.id === 'string' &&
+        typeof collection.name === 'string' && Array.isArray(collection.productIds)
+      ) : [];
+    };
+
+    function renderFavorites() {
+      const favorites = getFavorites();
+      const collection = activeCollection && getCollections().find(item => item.id === activeCollection);
+      const products = collection
+        ? collection.productIds.map(productById).filter(Boolean)
+        : favorites.map(productById);
+      document.getElementById('collectionViewControls').hidden = !collection;
+      document.getElementById('collectionForm').hidden = Boolean(collection);
+      document.getElementById('favoritesHeading').textContent = collection ? collection.name : 'Ваше обране';
+      if (!products.length) {
+        grid.innerHTML = `<div class="empty-state"><i class="bi bi-heart display-4 text-success" aria-hidden="true"></i><p class="fs-5 mt-3">${collection ? 'У цій збірці поки немає товарів.' : 'Обране поки порожнє.'}</p><p class="text-muted">Додавайте гаджети сердечком у каталозі.</p><a href="index.html#catalog" class="btn btn-green rounded-pill">До каталогу</a></div>`;
+        return;
+      }
+
+      grid.innerHTML = products.map(product => `
+        <article class="product">
+          <div class="product-img"><img src="${product.img}" class="favorite-image" alt="${escapeHTML(product.short)}" width="500" height="500" loading="lazy"></div>
+          <div class="p-3 d-flex flex-column flex-grow-1">
+            ${collection ? '' : `<label class="form-check mb-2"><input class="form-check-input collection-select" type="checkbox" value="${product.id}" ${selected.has(product.id) ? 'checked' : ''}><span class="form-check-label">Додати до збірки</span></label>`}
+            <span class="text-muted small">${escapeHTML(product.brand)}</span>
+            <h3 class="fs-6 fw-bold my-1">${escapeHTML(product.short)}</h3>
+            <p class="text-success fw-bold mb-3">${money(product.price)}</p>
+            <div class="d-flex flex-wrap gap-2 mt-auto">
+              <button type="button" class="btn btn-green btn-sm rounded-pill" data-add-favorite="${product.id}"><i class="bi bi-cart-plus me-1" aria-hidden="true"></i>До кошика</button>
+              ${collection ? '' : `<button type="button" class="btn btn-outline-danger btn-sm rounded-pill" data-remove-favorite="${product.id}"><i class="bi bi-trash me-1" aria-hidden="true"></i>Видалити з обраного</button>`}
+            </div>
+          </div>
+        </article>`).join('');
+    }
+
+    function renderCollections() {
+      const collections = getCollections();
+      const target = document.getElementById('collectionsList');
+      if (!collections.length) {
+        target.innerHTML = '<p class="text-muted">Збережених збірок поки немає. Створіть першу зі свого обраного.</p>';
+        return;
+      }
+      target.innerHTML = collections.map(collection => {
+        const validProducts = collection.productIds.map(productById).filter(Boolean);
+        const amount = validProducts.reduce((total, product) => total + product.price, 0);
+        return `<article class="collection-card">
+          <div><h3 class="fs-5 fw-bold mb-1">${escapeHTML(collection.name)}</h3><p class="text-muted mb-0">${validProducts.length} товар(ів) · ${money(amount)}</p></div>
+          <div class="d-flex flex-wrap gap-2">
+            <button type="button" class="btn btn-outline-success btn-sm rounded-pill" data-view-collection="${escapeHTML(collection.id)}">Переглянути</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill" data-export-collection="${escapeHTML(collection.id)}"><i class="bi bi-download me-1" aria-hidden="true"></i>Завантажити список</button>
+            <button type="button" class="btn btn-outline-danger btn-sm rounded-pill" data-delete-collection="${escapeHTML(collection.id)}" aria-label="Видалити збірку ${escapeHTML(collection.name)}"><i class="bi bi-trash" aria-hidden="true"></i></button>
+          </div>
+        </article>`;
+      }).join('');
+    }
+
+    document.getElementById('collectionForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const name = document.getElementById('collectionName').value.trim();
+      const productIds = [...selected].filter(id => getFavorites().includes(id));
+      if (!name || !productIds.length) {
+        window.alert('Введіть назву збірки та позначте щонайменше один товар.');
+        return;
+      }
+      const collections = getCollections();
+      collections.push({ id: crypto.randomUUID(), name, productIds, createdAt: new Date().toISOString() });
+      if (store.write('wishlistCollections', collections)) {
+        selected.clear();
+        event.currentTarget.reset();
+        renderFavorites();
+        renderCollections();
+      }
+    });
+
+    document.addEventListener('change', event => {
+      if (!event.target.matches('.collection-select')) return;
+      const id = Number(event.target.value);
+      if (event.target.checked) selected.add(id);
+      else selected.delete(id);
+    });
+    document.addEventListener('click', event => {
+      const remove = event.target.closest('[data-remove-favorite]');
+      const add = event.target.closest('[data-add-favorite]');
+      const view = event.target.closest('[data-view-collection]');
+      const download = event.target.closest('[data-export-collection]');
+      const removeCollection = event.target.closest('[data-delete-collection]');
+      if (remove) {
+        const id = Number(remove.dataset.removeFavorite);
+        if (store.write('fav', getFavorites().filter(favoriteId => favoriteId !== id))) {
+          selected.delete(id);
+          renderFavorites();
+          window.TechPulseShell.refresh();
+        }
+      } else if (add) {
+        const cart = store.read('cart', {});
+        const nextCart = cart && typeof cart === 'object' && !Array.isArray(cart) ? cart : {};
+        const id = add.dataset.addFavorite;
+        nextCart[id] = (Number(nextCart[id]) || 0) + 1;
+        if (store.write('cart', nextCart)) {
+          window.TechPulseShell.refresh();
+          document.getElementById('toastText').textContent = 'Товар додано до кошика';
+          bootstrap.Toast.getOrCreateInstance(document.getElementById('toast')).show();
+        }
+      } else if (view) {
+        activeCollection = view.dataset.viewCollection;
+        renderFavorites();
+        document.getElementById('favoritesHeading').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else if (download) {
+        const collection = getCollections().find(item => item.id === download.dataset.exportCollection);
+        if (!collection) return;
+        const data = {
+          name: collection.name,
+          createdAt: collection.createdAt,
+          products: collection.productIds.map(productById).filter(Boolean).map(product => ({
+            name: product.name,
+            price: product.price,
+            specifications: product.specs
+          }))
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${collection.name.replace(/[^\p{L}\p{N}-]+/gu, '-').replace(/^-|-$/g, '') || 'techpulse-collection'}.json`;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+      } else if (removeCollection) {
+        const remaining = getCollections().filter(collection => collection.id !== removeCollection.dataset.deleteCollection);
+        if (store.write('wishlistCollections', remaining)) {
+          if (activeCollection === removeCollection.dataset.deleteCollection) activeCollection = null;
+          renderFavorites();
+          renderCollections();
+        }
+      } else if (event.target.closest('#showFavorites')) {
+        activeCollection = null;
+        renderFavorites();
+      }
+    });
+    window.addEventListener('storage', () => {
+      renderFavorites();
+      renderCollections();
+    });
+    renderFavorites();
+    renderCollections();
+  </script>
+</body>
+</html>
