@@ -649,6 +649,9 @@
       }
       const collection = activeCollection && collections.find(item => item.id === activeCollection);
       const items = collection ? collection.productIds.map(productById).filter(Boolean) : favorites.map(productById);
+      const hero = document.getElementById('favoritesHero');
+      if (hero) hero.hidden = Boolean(collection);
+      document.body.classList.toggle('favorites-collection-view', Boolean(collection));
       document.getElementById('favoritesBreadcrumb').innerHTML = collection
         ? `<li class="breadcrumb-item"><a href="index.html">Головна</a></li>
           <li class="breadcrumb-item"><a href="favorites.html">Обране</a></li>
@@ -943,12 +946,18 @@
         <span class="order-success-icon"><i class="bi bi-check2" aria-hidden="true"></i></span>
         <span class="section-eyebrow">Дякуємо за замовлення</span>
         <h2>Все готово!</h2>
-        <p>Замовлення <strong>${orderNumber}</strong> оформлено в деморежимі. Реальну оплату та передачу даних не виконано.</p>
+        <p>Замовлення <strong>${orderNumber}</strong> успішно оформлено.</p>
         <a href="index.html#catalog" class="btn btn-green rounded-pill"><i class="bi bi-arrow-left me-2" aria-hidden="true"></i>Повернутися до каталогу</a>
       </div>
       <img src="images/cat-successful-order.png" alt="Кіт вітає з оформленням замовлення" loading="lazy">`;
       document.getElementById('checkoutContent').hidden = true;
       success.hidden = false;
+      const steps = document.querySelectorAll('.checkout-steps li');
+      steps.forEach((step, index) => {
+        step.classList.remove('is-current');
+        step.classList.add('is-complete');
+        step.setAttribute('aria-current', index === steps.length - 1 ? 'step' : 'false');
+      });
       window.TechPulseShell.refresh();
     });
   }

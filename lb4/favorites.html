@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="index_lab2.css?v=10">
+  <link rel="stylesheet" href="index_lab2.css?v=13">
 </head>
 <body id="top">
   <div id="siteHeader"></div>
@@ -22,13 +22,17 @@
         <li class="breadcrumb-item active" aria-current="page">Обране</li>
       </ol>
     </nav>
-    <section class="favorites-hero mb-4">
+    <section class="favorites-hero mb-4" id="favoritesHero">
       <div>
         <span class="section-eyebrow"><i class="bi bi-heart-fill me-1" aria-hidden="true"></i> Твої знахідки</span>
         <h1 class="h2 fw-bold mt-2 mb-2">Обрані гаджети</h1>
         <p class="mb-0">Зберігай цікаві товари й повертайся до них, коли будеш готовий.</p>
       </div>
       <img src="images/cat-favourite.png" alt="Кіт і смартфон" width="240" height="180">
+    </section>
+    <section id="collectionsSection" class="favorites-collections mb-4" aria-labelledby="collectionsHeading">
+      <h2 id="collectionsHeading" class="fs-4 fw-bold mb-3"><i class="bi bi-folder2-open text-success me-2" aria-hidden="true"></i>Мої збірки</h2>
+      <div id="collectionsList" class="collections-list" aria-live="polite"></div>
     </section>
     <section aria-labelledby="favoritesHeading">
       <div class="favorites-section-heading d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
@@ -61,10 +65,6 @@
         </div>
       </form>
       <div id="favoritesGrid" class="products-grid" aria-live="polite"></div>
-    </section>
-    <section class="mt-5" aria-labelledby="collectionsHeading">
-      <h2 id="collectionsHeading" class="fs-4 fw-bold mb-3"><i class="bi bi-folder2-open text-success me-2" aria-hidden="true"></i>Мої збірки</h2>
-      <div id="collectionsList" class="collections-list" aria-live="polite"></div>
     </section>
   </main>
   <footer class="pt-5 pb-4">
@@ -105,6 +105,6 @@
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="script.js?v=10"></script>
+  <script src="script.js?v=13"></script>
 </body>
 </html>
