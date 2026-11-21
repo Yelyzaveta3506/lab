@@ -18,7 +18,7 @@
     const image = event.target;
     if (!(image instanceof HTMLImageElement) || image.dataset.fallback) return;
     image.dataset.fallback = 'true';
-    image.src = 'images/cat-phone.svg';
+    image.src = 'images/cat-phone.png';
   }, true);
 
   function showStorageError(message) {
@@ -67,6 +67,54 @@
     bootstrap.Toast.getOrCreateInstance(element, { delay: 2500 }).show();
   }
 
+  function showLoader() {
+    const loader = document.getElementById('loader');
+    if (loader) loader.style.display = 'flex';
+  }
+
+  function hideLoader() {
+    const loader = document.getElementById('loader');
+    if (loader) loader.style.display = 'none';
+  }
+
+  function showMessage(text, type = 'success') {
+    const alertType = ['success', 'danger', 'warning', 'info'].includes(type) ? type : 'info';
+    let container = document.getElementById('messageContainer');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'messageContainer';
+      container.className = 'position-fixed top-0 start-50 translate-middle-x p-3 d-grid gap-2';
+      container.style.width = 'calc(100% - 1rem)';
+      container.style.maxWidth = '36rem';
+      container.style.zIndex = '1090';
+      container.setAttribute('aria-live', 'polite');
+      container.setAttribute('aria-atomic', 'false');
+      document.body.append(container);
+    }
+
+    const alert = document.createElement('div');
+    alert.className = `alert alert-${alertType} alert-dismissible fade show shadow`;
+    alert.setAttribute('role', alertType === 'danger' ? 'alert' : 'status');
+    alert.append(document.createTextNode(text));
+
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'btn-close';
+    closeButton.setAttribute('data-bs-dismiss', 'alert');
+    closeButton.setAttribute('aria-label', 'Закрити повідомлення');
+    closeButton.addEventListener('click', () => {
+      if (!window.bootstrap?.Alert) alert.remove();
+    });
+    alert.append(closeButton);
+    container.prepend(alert);
+
+    window.setTimeout(() => {
+      if (!alert.isConnected) return;
+      if (window.bootstrap?.Alert) bootstrap.Alert.getOrCreateInstance(alert).close();
+      else alert.remove();
+    }, 3000);
+  }
+
   function renderHeader() {
     const header = document.getElementById('siteHeader');
     if (!header) return;
@@ -93,11 +141,12 @@
           <div class="collapse header-menu flex-grow-1" id="headerMenu">
             <form class="search-form" id="searchForm" role="search" action="index.html">
               <div class="input-group">
-                <input type="search" id="searchInput" name="q" class="form-control rounded-start-pill border-end-0 ps-3" placeholder="Пошук смартфонів та гаджетів..." aria-label="Пошук">
+                <input type="search" id="searchInput" name="q" maxlength="100" class="form-control rounded-start-pill border-end-0 ps-3" placeholder="Пошук смартфонів та гаджетів..." aria-label="Пошук">
                 <button class="btn btn-green rounded-end-pill px-4" type="submit" id="searchBtn" aria-label="Шукати"><i class="bi bi-search" aria-hidden="true"></i></button>
               </div>
             </form>
             <nav class="header-actions" aria-label="Швидкі дії">
+              <a href="index.html#top" class="hico home-link"${active('index.html')}><i class="bi bi-house-door" aria-hidden="true"></i><span>Головна</span></a>
               <a href="trade-in.html" class="hico"${active('trade-in.html')}><i class="bi bi-arrow-repeat" aria-hidden="true"></i><span>Trade-in</span></a>
               <a href="compare.html" class="hico"${active('compare.html')}><i class="bi bi-bar-chart" aria-hidden="true"></i><span>Порівняти</span><span class="bdg" id="cmpN" hidden aria-live="polite">0</span></a>
               <a href="favorites.html" class="hico"${active('favorites.html')}><i class="bi bi-heart" aria-hidden="true"></i><span>Обране</span><span class="bdg" id="favN" hidden aria-live="polite">0</span></a>
@@ -198,7 +247,7 @@
           </div>
         </article>`;
       }).join('') : `<div class="cart-empty">
-          <img src="images/cat-phone.svg" alt="" width="210" height="158">
+          <img src="images/cat-phone.png" alt="" width="210" height="158">
           <h3>Кошик чекає на покупки</h3>
           <p>Додавайте сюди техніку, яка вам сподобалась.</p>
         </div>`;
@@ -215,8 +264,12 @@
       const removeButton = event.target.closest('[data-cart-remove]');
       if (removeButton) {
         const cart = getObject('cart');
+        const product = productById(removeButton.dataset.cartRemove);
         delete cart[removeButton.dataset.cartRemove];
         if (write('cart', cart)) {
+          console.log('TechPulse: товар видалено з кошика', {
+            productId: product ? product.id : removeButton.dataset.cartRemove
+          });
           renderCart();
           window.dispatchEvent(new CustomEvent('techpulse-cart-updated'));
         }
@@ -226,9 +279,15 @@
       if (!button) return;
       const cart = getObject('cart');
       const id = button.dataset.q;
+      const previousQuantity = cart[id] || 0;
       cart[id] = (cart[id] || 0) + Number(button.dataset.d);
       if (cart[id] < 1) delete cart[id];
       if (write('cart', cart)) {
+        console.log('TechPulse: змінено кількість товару в кошику', {
+          productId: Number(id),
+          previousQuantity,
+          quantity: cart[id] || 0
+        });
         renderCart();
         window.dispatchEvent(new CustomEvent('techpulse-cart-updated'));
       }
@@ -272,11 +331,10 @@
     const ratingData = product => ratings[product.id] || { sum: product.r * product.n, n: product.n };
     const average = product => ratingData(product).sum / ratingData(product).n;
     const starsHTML = product => {
-      const currentAverage = Math.round(average(product));
       const selectedRating = myRatings[product.id] || 0;
       const stars = [1, 2, 3, 4, 5].map(value => `
-        <button type="button" class="star-btn" role="radio" data-s="${value}" aria-label="Оцінити ${value} з 5" aria-checked="${selectedRating === value}" tabindex="${selectedRating === value || (!selectedRating && value === 1) ? '0' : '-1'}">
-          <i class="bi bi-star${value <= currentAverage ? '-fill' : ''}" aria-hidden="true"></i>
+        <button type="button" class="star-btn${value <= selectedRating ? ' is-selected' : ''}" role="radio" data-s="${value}" aria-label="Оцінити ${value} з 5" aria-checked="${selectedRating === value}" tabindex="${selectedRating === value || (!selectedRating && value === 1) ? '0' : '-1'}">
+          <i class="bi bi-star${value <= selectedRating ? '-fill' : ''}" aria-hidden="true"></i>
         </button>`).join('');
       return `<span class="stars" role="radiogroup" aria-label="Оцінити ${escapeHTML(product.short)}" data-id="${product.id}">${stars}</span>
         <small class="text-muted ms-1">${average(product).toFixed(1)} (${ratingData(product).n})</small>`;
@@ -316,7 +374,7 @@
     }
 
     function refresh() {
-      write('cart', cart);
+      const cartSaved = write('cart', cart);
       write('fav', favorites);
       write('cmp', comparisons);
       window.TechPulseShell.refresh();
@@ -332,10 +390,14 @@
         compareButton.setAttribute('aria-pressed', String(isCompared));
         compareButton.setAttribute('aria-label', isCompared ? 'Вилучити з порівняння' : 'Додати до порівняння');
       });
+      return cartSaved;
     }
 
     function renderCatalog() {
-      const query = $('#searchInput').value.trim().toLowerCase();
+      const rawQuery = $('#searchInput').value;
+      const query = typeof rawQuery === 'string'
+        ? rawQuery.trim().replace(/\s+/g, ' ').toLocaleLowerCase('uk-UA').slice(0, 100)
+        : '';
       const selectedCategories = $$('.filter-cat:checked').map(input => input.value);
       const selectedBrands = $$('.filter-brand:checked').map(input => input.value);
       const onlyInStock = $('#inStockFilter').checked;
@@ -357,11 +419,29 @@
         return b.popularity - a.popularity;
       });
       $('#count').textContent = list.length;
+      console.log('TechPulse: пошук і фільтри каталогу', {
+        query,
+        categories: selectedCategories,
+        brands: selectedBrands,
+        onlyInStock,
+        minPrice,
+        maxPrice,
+        sort,
+        results: list.length
+      });
       const activeElement = document.activeElement;
       const focusSelector = activeElement?.dataset?.add ? `[data-add="${activeElement.dataset.add}"]`
         : activeElement?.dataset?.fav ? `[data-fav="${activeElement.dataset.fav}"]`
           : activeElement?.dataset?.cmp ? `[data-cmp="${activeElement.dataset.cmp}"]` : null;
       $('#grid').innerHTML = list.map(cardHTML).join('');
+      $$('#grid .product').forEach(card => {
+        card.style.opacity = '0';
+        window.setTimeout(() => {
+          if (!card.isConnected) return;
+          card.style.transition = 'opacity 0.5s';
+          card.style.opacity = '1';
+        }, 10);
+      });
       $('#notFound').hidden = list.length !== 0;
       if (focusSelector) $('#grid').querySelector(focusSelector)?.focus();
     }
@@ -372,6 +452,8 @@
         <label class="form-check-label" for="brand-${index}">${escapeHTML(brand)}</label>
       </div>`).join('');
     const hits = [...products].sort((a, b) => b.popularity - a.popularity).slice(0, 4);
+    const hitsSection = $('#hitsCar').closest('section');
+    if (hitsSection) hitsSection.hidden = hits.length === 0;
     $('#hitsInd').innerHTML = hits.map((product, index) => `
       <button type="button" data-bs-target="#hitsCar" data-bs-slide-to="${index}" class="${index === 0 ? 'active' : ''}" aria-current="${index === 0}" aria-label="Слайд ${index + 1}"></button>`).join('');
     $('#hitsInner').innerHTML = hits.map((product, index) => `
@@ -398,9 +480,23 @@
       const compareButton = event.target.closest('[data-cmp]');
       if (addButton) {
         const id = addButton.dataset.add;
+        const product = productById(id);
+        if (!product || product.inStock !== true) {
+          console.warn('TechPulse: спроба додати недоступний товар до кошика', { productId: id });
+          toast('Цей товар зараз недоступний.');
+          return;
+        }
         cart[id] = (cart[id] || 0) + 1;
-        toast('Товар успішно додано до кошика!');
-        refresh();
+        if (!refresh()) {
+          toast('Не вдалося зберегти кошик. Перевірте налаштування сховища браузера.');
+          return;
+        }
+        console.log('TechPulse: товар додано до кошика', {
+          productId: product.id,
+          name: product.name,
+          quantity: cart[id]
+        });
+        showMessage('Товар додано до кошика!', 'success');
       } else if (compareButton) {
         const id = Number(compareButton.dataset.cmp);
         comparisons = comparisons.includes(id) ? comparisons.filter(value => value !== id) : [...comparisons, id];
@@ -425,13 +521,13 @@
         write('rate', ratings);
         write('mine', myRatings);
         toast('Дякуємо за вашу оцінку!');
-        const rating = Math.round(average(product));
         $$('.stars[data-id="' + id + '"]').forEach(ratingStars => {
           ratingStars.querySelectorAll('.star-btn').forEach(button => {
             const starValue = Number(button.dataset.s);
+            button.classList.toggle('is-selected', starValue <= myRatings[id]);
             button.setAttribute('aria-checked', String(myRatings[id] === starValue));
             button.tabIndex = myRatings[id] === starValue ? 0 : -1;
-            button.innerHTML = `<i class="bi bi-star${starValue <= rating ? '-fill' : ''}" aria-hidden="true"></i>`;
+            button.innerHTML = `<i class="bi bi-star${starValue <= myRatings[id] ? '-fill' : ''}" aria-hidden="true"></i>`;
           });
           if (ratingStars.nextElementSibling) {
             ratingStars.nextElementSibling.textContent = `${average(product).toFixed(1)} (${ratingData(product).n})`;
@@ -490,6 +586,7 @@
       renderCatalog();
     });
     $('#hitsPause').addEventListener('click', event => {
+      if (!hits.length) return;
       const carousel = bootstrap.Carousel.getOrCreateInstance($('#hitsCar'));
       const isPaused = event.currentTarget.getAttribute('aria-pressed') !== 'true';
       if (isPaused) carousel.pause();
@@ -499,9 +596,11 @@
       event.currentTarget.innerHTML = `<i class="bi bi-${isPaused ? 'play' : 'pause'}-fill" aria-hidden="true"></i>`;
     });
     const query = new URLSearchParams(location.search).get('q');
-    if (query) $('#searchInput').value = query;
-    const carousel = bootstrap.Carousel.getOrCreateInstance($('#hitsCar'), { interval: 5000, ride: 'carousel' });
-    carousel.cycle();
+    if (typeof query === 'string') $('#searchInput').value = query.slice(0, 100);
+    if (hits.length) {
+      const carousel = bootstrap.Carousel.getOrCreateInstance($('#hitsCar'), { interval: 5000, ride: 'carousel' });
+      carousel.cycle();
+    }
     refresh();
     renderCatalog();
   }
@@ -538,14 +637,21 @@
     function renderFavorites() {
       const favorites = getFavorites();
       const comparisons = read('cmp', []);
+      const collections = getCollections();
       for (const id of selected) {
         if (!favorites.includes(id)) selected.delete(id);
       }
-      const collection = activeCollection && getCollections().find(item => item.id === activeCollection);
+      const collection = activeCollection && collections.find(item => item.id === activeCollection);
+      const collectionIndex = collection ? collections.findIndex(item => item.id === collection.id) : -1;
       const items = collection ? collection.productIds.map(productById).filter(Boolean) : favorites.map(productById);
       document.getElementById('collectionViewControls').hidden = !collection;
+      document.getElementById('collectionBreadcrumb').hidden = !collection;
+      document.getElementById('collectionBreadcrumbName').textContent = collection ? `Збірка ${collectionIndex + 1}` : '';
       document.getElementById('collectionForm').hidden = Boolean(collection) || favorites.length === 0;
       document.getElementById('favoritesHeading').textContent = collection ? collection.name : 'Ваше обране';
+      document.getElementById('favoritesDescription').textContent = collection
+        ? `Товарів у цій збірці: ${items.length}.`
+        : 'Позначте товари, щоб зібрати їх в окремий список.';
       syncCollectionSelection();
       if (!items.length) {
         grid.innerHTML = `<section class="empty-state-visual">
@@ -554,7 +660,7 @@
             <p>${collection ? 'Поверніться до обраного та додайте товари до цієї збірки.' : 'Натисніть сердечко на картці товару, щоб зберегти його тут.'}</p>
             <a href="index.html#catalog" class="btn btn-green rounded-pill"><i class="bi bi-search me-2" aria-hidden="true"></i>Знайти гаджет</a>
           </div>
-          <img src="images/cat-phone.svg" alt="Кіт чекає на нові гаджети" loading="lazy">
+          <img src="images/cat-favourite.png" alt="Кіт чекає на нові гаджети" loading="lazy">
         </section>`;
         return;
       }
@@ -586,14 +692,16 @@
         target.innerHTML = '<div class="collection-empty"><i class="bi bi-folder2-open" aria-hidden="true"></i><span>Збірок ще немає. Познач товари вище й створи першу.</span></div>';
         return;
       }
-      target.innerHTML = collections.map(collection => {
+      target.innerHTML = collections.map((collection, index) => {
         const items = collection.productIds.map(productById).filter(Boolean);
         const amount = items.reduce((total, product) => total + product.price, 0);
         return `<article class="collection-card">
-          <div><h3 class="fs-5 fw-bold mb-1">${escapeHTML(collection.name)}</h3><p class="text-muted mb-0">${items.length} товар(ів) · ${money(amount)}</p></div>
-          <div class="d-flex flex-wrap gap-2">
-            <button type="button" class="btn btn-outline-success btn-sm rounded-pill" data-view-collection="${escapeHTML(collection.id)}">Переглянути</button>
-            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill" data-export-collection="${escapeHTML(collection.id)}"><i class="bi bi-download me-1" aria-hidden="true"></i>Завантажити список</button>
+          <div class="collection-card-info">
+            <span class="collection-card-icon"><i class="bi bi-folder2-open" aria-hidden="true"></i></span>
+            <div><span class="collection-card-label">Збірка ${index + 1}</span><h3>${escapeHTML(collection.name)}</h3><p>${items.length} товарів · ${money(amount)}</p></div>
+          </div>
+          <div class="collection-actions">
+            <button type="button" class="btn btn-outline-success btn-sm rounded-pill" data-view-collection="${escapeHTML(collection.id)}"><i class="bi bi-arrow-up-right me-1" aria-hidden="true"></i>Відкрити</button>
             <button type="button" class="btn btn-outline-danger btn-sm rounded-pill" data-delete-collection="${escapeHTML(collection.id)}" aria-label="Видалити збірку ${escapeHTML(collection.name)}"><i class="bi bi-trash" aria-hidden="true"></i></button>
           </div>
         </article>`;
@@ -609,12 +717,15 @@
         return;
       }
       const collections = getCollections();
-      collections.push({ id: crypto.randomUUID(), name, productIds, createdAt: new Date().toISOString() });
+      const collection = { id: crypto.randomUUID(), name, productIds, createdAt: new Date().toISOString() };
+      collections.push(collection);
       if (write('wishlistCollections', collections)) {
         selected.clear();
         event.currentTarget.reset();
+        activeCollection = collection.id;
         renderFavorites();
         renderCollections();
+        document.getElementById('favoritesHeading').scrollIntoView({ behavior: 'smooth', block: 'center' });
         toast('Збірку створено');
       }
     });
@@ -630,7 +741,6 @@
       const remove = event.target.closest('[data-remove-favorite]');
       const add = event.target.closest('[data-add-favorite]');
       const view = event.target.closest('[data-view-collection]');
-      const download = event.target.closest('[data-export-collection]');
       const removeCollection = event.target.closest('[data-delete-collection]');
       if (event.target.closest('#selectAllFavorites')) {
         getFavorites().forEach(id => selected.add(id));
@@ -668,27 +778,6 @@
         activeCollection = view.dataset.viewCollection;
         renderFavorites();
         document.getElementById('favoritesHeading').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } else if (download) {
-        const collection = getCollections().find(item => item.id === download.dataset.exportCollection);
-        if (!collection) return;
-        const data = {
-          name: collection.name,
-          createdAt: collection.createdAt,
-          products: collection.productIds.map(productById).filter(Boolean).map(product => ({
-            name: product.name,
-            price: product.price,
-            specifications: product.specs
-          }))
-        };
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `${collection.name.replace(/[^\p{L}\p{N}-]+/gu, '-').replace(/^-|-$/g, '') || 'techpulse-collection'}.json`;
-        document.body.append(link);
-        link.click();
-        link.remove();
-        window.setTimeout(() => URL.revokeObjectURL(url), 1000);
       } else if (removeCollection) {
         const id = removeCollection.dataset.deleteCollection;
         if (write('wishlistCollections', getCollections().filter(collection => collection.id !== id))) {
@@ -699,6 +788,7 @@
       } else if (event.target.closest('#showFavorites')) {
         activeCollection = null;
         renderFavorites();
+        document.getElementById('collectionsHeading').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
     window.addEventListener('storage', () => {
@@ -732,7 +822,7 @@
             <p>Натисни кнопку порівняння на картках товарів — і ми покажемо різницю в цінах та характеристиках.</p>
             <a href="index.html#catalog" class="btn btn-green rounded-pill"><i class="bi bi-plus-lg me-2" aria-hidden="true"></i>Обрати товари</a>
           </div>
-          <img src="images/cat-phone.svg" alt="Кіт зі смартфоном" loading="lazy">
+          <img src="images/cat-comparison.png" alt="Кіт зі смартфоном" loading="lazy">
         </section>`;
         return;
       }
@@ -836,7 +926,7 @@
         <p>Замовлення <strong>${orderNumber}</strong> оформлено в деморежимі. Реальну оплату та передачу даних не виконано.</p>
         <a href="index.html#catalog" class="btn btn-green rounded-pill"><i class="bi bi-arrow-left me-2" aria-hidden="true"></i>Повернутися до каталогу</a>
       </div>
-      <img src="images/cat-phone.svg" alt="Кіт вітає з оформленням замовлення" loading="lazy">`;
+      <img src="images/cat-successful-order.png" alt="Кіт вітає з оформленням замовлення" loading="lazy">`;
       document.getElementById('checkoutContent').hidden = true;
       success.hidden = false;
       window.TechPulseShell.refresh();
@@ -849,40 +939,115 @@
       const model = document.getElementById('deviceModel').value.trim();
       const price = Number(document.getElementById('devicePrice').value);
       const factor = Number(document.getElementById('deviceCondition').value);
-      const phone = document.getElementById('userContact').value.trim();
       const result = Math.round(price * factor);
       const output = document.getElementById('tradeInOutput');
-      output.textContent = `Попередній розрахунок для пристрою «${model}»: ${result.toLocaleString('uk-UA')} ₴. Контакт для зв’язку: ${phone}. У демоверсії заявка не надсилається менеджеру; остаточна сума залежить від огляду пристрою.`;
+      output.textContent = `Попередня оцінка пристрою «${model}»: ${result.toLocaleString('uk-UA')} ₴. Остаточна сума може змінитися після огляду пристрою.`;
       output.hidden = false;
     });
   }
 
   async function initialize() {
     renderHeader();
-    const response = await fetch('products.json');
-    if (!response.ok) throw new Error(`Не вдалося завантажити products.json (HTTP ${response.status}).`);
-    const data = await response.json();
-    if (!Array.isArray(data) || data.some(product =>
-      !product || !Number.isInteger(product.id) || typeof product.name !== 'string' ||
-      !categoryKeys[product.category] || !Number.isFinite(product.price) ||
-      (product.oldPrice !== null && !Number.isFinite(product.oldPrice)) ||
-      typeof product.brand !== 'string' || !Number.isFinite(product.rating) ||
-      !Number.isFinite(product.popularity) || typeof product.image !== 'string' ||
-      typeof product.inStock !== 'boolean' || typeof product.description !== 'string'
-    )) {
-      throw new Error('Файл products.json має неправильну структуру товарів.');
+    const catalogGrid = document.getElementById('grid');
+    const notFound = document.getElementById('notFound');
+    let loading = false;
+
+    function showLoading() {
+      if (notFound) notFound.hidden = true;
+      if (catalogGrid) catalogGrid.innerHTML = '';
+      showLoader();
     }
-    const products = initializeStore(data);
-    initializeShell(products);
-    if (document.getElementById('grid')) initializeCatalog(products);
-    if (document.getElementById('favoritesGrid')) initializeFavorites(products);
-    if (document.getElementById('fullCompareContainer')) initializeCompare(products);
-    if (document.getElementById('checkoutForm')) initializeCheckout(products);
-    if (document.getElementById('tradeInFullForm')) initializeTradeIn();
+
+    function showLoadError() {
+      if (catalogGrid) {
+        if (notFound) notFound.hidden = true;
+        catalogGrid.innerHTML = `
+          <div class="catalog-feedback catalog-feedback-error" role="alert">
+            <i class="bi bi-exclamation-triangle" aria-hidden="true"></i>
+            <p class="mb-1">Не вдалося завантажити товари. Перевірте з’єднання та спробуйте ще раз.</p>
+            <button type="button" class="btn btn-green rounded-pill" id="retryCatalogLoad">
+              <i class="bi bi-arrow-clockwise me-1" aria-hidden="true"></i>Оновити
+            </button>
+          </div>`;
+      } else {
+        showStorageError('Не вдалося завантажити каталог товарів. Перевірте з’єднання та оновіть сторінку.');
+      }
+    }
+
+    async function loadAndInitialize() {
+      if (loading) return;
+      loading = true;
+      try {
+        showLoading();
+        let data;
+        try {
+          console.info('TechPulse: завантаження товарів із products.json.');
+          const response = await fetch('products.json');
+          if (!response.ok) {
+            throw new Error(`products.json повернув HTTP ${response.status}.`);
+          }
+          data = await response.json();
+          if (!Array.isArray(data) || data.some(product =>
+            !product || !Number.isInteger(product.id) ||
+            typeof product.name !== 'string' || !product.name.trim() ||
+            !Object.prototype.hasOwnProperty.call(categoryKeys, product.category) ||
+            !Number.isFinite(product.price) || product.price < 0 ||
+            (product.oldPrice !== null && (!Number.isFinite(product.oldPrice) || product.oldPrice < 0)) ||
+            typeof product.brand !== 'string' || !product.brand.trim() ||
+            !Number.isFinite(product.rating) || product.rating < 0 || product.rating > 5 ||
+            !Number.isFinite(product.popularity) || typeof product.image !== 'string' || !product.image.trim() ||
+            typeof product.inStock !== 'boolean' || typeof product.description !== 'string'
+          ) || new Set(data.map(product => product.id)).size !== data.length) {
+            throw new Error('products.json має неправильну структуру товарів або повторювані id.');
+          }
+          console.log('TechPulse: завантажені товари', {
+            count: data.length,
+            ids: data.map(product => product.id),
+            products: data
+          });
+        } catch (error) {
+          console.error('TechPulse: помилка завантаження products.json.', error);
+          showLoadError();
+          showMessage('Не вдалося завантажити products.json. Спробуйте ще раз.', 'danger');
+          return;
+        }
+
+        try {
+          const products = initializeStore(data);
+          initializeShell(products);
+          if (catalogGrid) initializeCatalog(products);
+          if (document.getElementById('favoritesGrid')) initializeFavorites(products);
+          if (document.getElementById('fullCompareContainer')) initializeCompare(products);
+          if (document.getElementById('checkoutForm')) initializeCheckout(products);
+          if (document.getElementById('tradeInFullForm')) initializeTradeIn();
+        } catch (error) {
+          console.error('TechPulse: помилка ініціалізації сторінки.', error);
+          showStorageError('Не вдалося підготувати компоненти сторінки. Перевірте код у консолі DevTools.');
+        }
+      } finally {
+        hideLoader();
+        loading = false;
+      }
+    }
+
+    document.addEventListener('click', event => {
+      if (!(event.target instanceof Element) || !event.target.closest('#retryCatalogLoad')) return;
+      void loadAndInitialize();
+    });
+
+    await loadAndInitialize();
   }
 
-  initialize().catch(error => {
-    console.error('TechPulse: не вдалося ініціалізувати сторінку.', error);
-    showStorageError(`Не вдалося завантажити каталог товарів. ${error.message} Запустіть сайт через локальний вебсервер і перевірте products.json.`);
-  });
+  function start() {
+    initialize().catch(error => {
+      console.error('TechPulse: не вдалося запустити сторінку.', error);
+      showStorageError('Не вдалося запустити магазин. Перевірте код у консолі DevTools.');
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, { once: true });
+  } else {
+    start();
+  }
 })();
