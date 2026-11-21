@@ -252,7 +252,7 @@
           </div>
         </article>`;
       }).join('') : `<div class="cart-empty">
-          <img src="images/cat-phone.png" alt="" width="210" height="158">
+          <img src="images/cat-nothing.png" alt="" width="210" height="158">
           <h3>Кошик чекає на покупки</h3>
           <p>Додавайте сюди техніку, яка вам сподобалась.</p>
         </div>`;
@@ -669,7 +669,7 @@
             <p>${collection ? 'Поверніться до обраного та додайте товари до цієї збірки.' : 'Натисніть сердечко на картці товару, щоб зберегти його тут.'}</p>
             <a href="index.html#catalog" class="btn btn-green rounded-pill"><i class="bi bi-search me-2" aria-hidden="true"></i>Знайти гаджет</a>
           </div>
-          <img src="images/cat-favourite.png" alt="Кіт чекає на нові гаджети" loading="lazy">
+          <img src="images/cat-nothing.png" alt="Кіт чекає на нові гаджети" loading="lazy">
         </section>`;
         animateElements(grid, '.empty-state-visual');
         return;
@@ -840,7 +840,7 @@
             <p>Натисни кнопку порівняння на картках товарів — і ми покажемо різницю в цінах та характеристиках.</p>
             <a href="index.html#catalog" class="btn btn-green rounded-pill"><i class="bi bi-plus-lg me-2" aria-hidden="true"></i>Обрати товари</a>
           </div>
-          <img src="images/cat-comparison.png" alt="Кіт зі смартфоном" loading="lazy">
+          <img src="images/cat-nothing.png" alt="Кіт зі смартфоном" loading="lazy">
         </section>`;
         animateElements(container, '.empty-state-visual');
         return;
@@ -954,6 +954,13 @@
   }
 
   function initializeTradeIn() {
+    const scrollButton = document.getElementById('tradeInScrollButton');
+    const calculator = document.getElementById('tradeInCalculator');
+    scrollButton?.addEventListener('click', event => {
+      event.preventDefault();
+      calculator?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.setTimeout(() => document.getElementById('deviceModel')?.focus({ preventScroll: true }), 650);
+    });
     document.getElementById('tradeInFullForm').addEventListener('submit', event => {
       event.preventDefault();
       const model = document.getElementById('deviceModel').value.trim();
