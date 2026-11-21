@@ -1363,7 +1363,8 @@ button[data-compare-favorite][aria-pressed="true"] {
 
 .compare-hero {
   position: relative;
-  min-height: 13.5rem;
+  min-height: 17rem;
+  padding-right: 0;
   border-color: #d3e8d7;
   background:
     radial-gradient(ellipse at 92% 8%, rgba(119, 190, 132, .3), transparent 34%),
@@ -1374,6 +1375,7 @@ button[data-compare-favorite][aria-pressed="true"] {
 .compare-hero-copy {
   flex: 1 1 0;
   min-width: 0;
+  max-width: calc(100% - clamp(18rem, 32vw, 22rem));
 }
 
 .compare-hero h1,
@@ -1437,10 +1439,14 @@ button[data-compare-favorite][aria-pressed="true"] {
 }
 
 .compare-hero-visual {
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
   display: grid;
-  flex: 0 0 clamp(15rem, 26vw, 20rem);
-  min-height: 11.5rem;
+  width: clamp(18rem, 32vw, 22rem);
+  height: 100%;
+  min-height: 0;
   align-self: stretch;
   place-items: center;
   overflow: hidden;
@@ -2061,12 +2067,33 @@ button[data-compare-favorite][aria-pressed="true"] {
 .offcanvas.offcanvas-end#cartOffcanvas {
   --bs-offcanvas-width: min(28rem, 100vw);
   border-left: 1px solid #e2ebe3;
-  transition-duration: .35s;
-  transition-timing-function: cubic-bezier(.22, 1, .36, 1);
+  transition-duration: .35s !important;
+  transition-timing-function: cubic-bezier(.22, 1, .36, 1) !important;
 }
 
 #cartItems {
-  will-change: opacity;
+  min-height: 8rem;
+}
+
+.offcanvas-backdrop.show {
+  opacity: .28;
+  transition-duration: .35s !important;
+  transition-timing-function: cubic-bezier(.22, 1, .36, 1) !important;
+}
+
+.cart-line {
+  animation: cartLineEnter .32s cubic-bezier(.22, 1, .36, 1) both;
+}
+
+@keyframes cartLineEnter {
+  from {
+    opacity: 0;
+    transform: translateX(.65rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .cart-drawer-heading {
@@ -2250,6 +2277,11 @@ button[data-compare-favorite][aria-pressed="true"] {
     align-items: stretch;
     flex-direction: column;
     min-height: 0;
+    padding-right: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .compare-hero-copy {
+    max-width: none;
   }
 
   .favorites-hero {
@@ -2272,6 +2304,10 @@ button[data-compare-favorite][aria-pressed="true"] {
   }
 
   .compare-hero-visual {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
     width: 100%;
     height: 14rem;
     min-height: 14rem;
@@ -2544,7 +2580,7 @@ button[data-compare-favorite][aria-pressed="true"] {
   justify-content: space-between;
   gap: 1rem;
   overflow: hidden;
-  padding: 0;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
   border: 1px solid #d5ecda;
   border-radius: 1.4rem;
   background:
@@ -2563,11 +2599,9 @@ button[data-compare-favorite][aria-pressed="true"] {
 }
 
 .trade-in-calculator-art > div {
-  position: absolute;
+  position: relative;
   z-index: 2;
-  top: clamp(1.4rem, 3vw, 2.2rem);
-  left: clamp(1.4rem, 3vw, 2.2rem);
-  max-width: calc(100% - 2 * clamp(1.4rem, 3vw, 2.2rem));
+  max-width: 22rem;
 }
 
 .trade-in-calculator-art p {
@@ -2586,23 +2620,18 @@ button[data-compare-favorite][aria-pressed="true"] {
 }
 
 .trade-in-calculator-art > img {
-  position: absolute;
-  inset: 0;
+  position: relative;
   display: block;
   width: 100%;
-  height: 100%;
-  max-height: none;
-  margin: 0;
-  object-fit: cover;
+  height: auto;
+  max-height: 19rem;
+  margin: auto 0;
+  object-fit: contain;
   object-position: center;
   filter: drop-shadow(0 10px 16px rgba(24, 76, 43, .12));
 }
 
 .trade-in-art-note {
-  position: absolute;
-  z-index: 2;
-  left: clamp(1.4rem, 3vw, 2.2rem);
-  bottom: clamp(1.2rem, 2vw, 1.8rem);
   display: inline-flex;
   align-items: center;
   align-self: flex-start;
@@ -2773,18 +2802,15 @@ button[data-compare-favorite][aria-pressed="true"] {
   }
 
   .trade-in-calculator-art > img {
-    max-height: none;
+    max-height: 13rem;
   }
 
   .trade-in-calculator-art > div {
-    right: 1.25rem;
-    left: 1.25rem;
-    max-width: calc(100% - 2.5rem);
+    max-width: 22rem;
   }
 
   .trade-in-art-note {
-    left: 1.25rem;
-    bottom: 1.25rem;
+    align-self: flex-start;
   }
 }
 

@@ -261,12 +261,7 @@
           <p>Додавайте сюди техніку, яка вам сподобалась.</p>
         </div>`;
       if (cartItems.innerHTML !== cartMarkup) {
-        cartItems.style.opacity = '0';
         cartItems.innerHTML = cartMarkup;
-        window.requestAnimationFrame(() => {
-          cartItems.style.transition = 'opacity 0.22s ease';
-          cartItems.style.opacity = '1';
-        });
       }
       document.getElementById('cartTotal').textContent = money(subtotal + (items.length ? 1 : 0));
       document.getElementById('goCheckout').disabled = items.length === 0;
@@ -709,7 +704,7 @@
       const hero = document.getElementById('favoritesHero');
       if (hero) hero.hidden = Boolean(collection);
       const collectionsSection = document.getElementById('collectionsSection');
-      if (collectionsSection) collectionsSection.hidden = false;
+      if (collectionsSection) collectionsSection.hidden = Boolean(collection);
       document.body.classList.toggle('favorites-collection-view', Boolean(collection));
       document.getElementById('favoritesBreadcrumb').innerHTML = collection
         ? `<li class="breadcrumb-item"><a href="index.html">Головна</a></li>
