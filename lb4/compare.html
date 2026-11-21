@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="index_lab2.css">
+  <link rel="stylesheet" href="index_lab2.css?v=2">
 </head>
 <body id="top">
   <div id="siteHeader"></div>
@@ -22,11 +22,27 @@
         <li class="breadcrumb-item active" aria-current="page">Порівняння товарів</li>
       </ol>
     </nav>
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-      <h1 class="h3 fw-bold m-0"><i class="bi bi-bar-chart text-success me-2" aria-hidden="true"></i>Порівняння характеристик</h1>
-      <a href="index.html#catalog" class="btn btn-green rounded-pill"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Додати товари</a>
+    <section class="compare-hero mb-4">
+      <div>
+        <span class="section-eyebrow"><i class="bi bi-stars me-1" aria-hidden="true"></i> Обирай впевнено</span>
+        <h1 class="h2 fw-bold mt-2 mb-2">Порівняй і знайди своє</h1>
+        <p class="mb-3">Відмінності, ціни та оцінки — зібрані в одному зручному місці.</p>
+        <span class="compare-count" id="compareCount" aria-live="polite">0 товарів</span>
+      </div>
+      <img src="images/cat-phone.png" alt="Кіт допомагає порівняти гаджети" width="260" height="196">
+    </section>
+    <div class="compare-toolbar mb-3">
+      <label class="form-check form-switch m-0">
+        <input class="form-check-input" type="checkbox" id="compareOnlyDifferent">
+        <span class="form-check-label">Показувати лише відмінності</span>
+      </label>
+      <div class="d-flex flex-wrap gap-2">
+        <button type="button" class="btn btn-outline-secondary rounded-pill" id="clearComparison" disabled>
+          <i class="bi bi-trash3 me-1" aria-hidden="true"></i>Очистити
+        </button>
+        <a href="index.html#catalog" class="btn btn-green rounded-pill"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Додати товари</a>
+      </div>
     </div>
-    <p class="text-muted">У таблиці показані всі вибрані товари. Найвигідніша ціна та вищий рейтинг підсвічені; характеристики, що відрізняються, можна порівняти в одному рядку.</p>
     <div id="fullCompareContainer" aria-live="polite"></div>
   </main>
   <footer class="pt-5 pb-4">
@@ -41,7 +57,7 @@
         <div class="col-6 col-lg-2">
           <h2 class="text-white fs-6 fw-bold mb-3">Каталог</h2>
           <nav aria-label="Каталог у підвалі"><ul class="list-unstyled small d-grid gap-2 m-0">
-            <li><a href="index.html#catalog">Смартфони</a></li><li><a href="index.html#catalog">Чохли</a></li><li><a href="index.html#catalog">Навушники</a></li><li><a href="index.html#catalog">Смарт-годинники</a></li>
+            <li><a href="index.html#catalog">Смартфони</a></li><li><a href="index.html#catalog">Ноутбуки</a></li><li><a href="index.html#catalog">Планшети</a></li>
           </ul></nav>
         </div>
         <div class="col-6 col-lg-2">

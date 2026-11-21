@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="index_lab2.css">
+  <link rel="stylesheet" href="index_lab2.css?v=2">
 </head>
 <body id="top">
   <div id="siteHeader"></div>
@@ -22,7 +22,17 @@
         <li class="breadcrumb-item active" aria-current="page">Оформлення замовлення</li>
       </ol>
     </nav>
-    <h1 class="h3 fw-bold mb-4"><i class="bi bi-bag-check text-success me-2" aria-hidden="true"></i>Оформлення замовлення</h1>
+    <div class="checkout-heading">
+      <div>
+        <span class="section-eyebrow"><i class="bi bi-shield-check me-1" aria-hidden="true"></i> Безпечно та просто</span>
+        <h1 class="h2 fw-bold mt-2 mb-3"><i class="bi bi-bag-check text-success me-2" aria-hidden="true"></i>Оформлення замовлення</h1>
+      </div>
+      <ol class="checkout-steps" aria-label="Етапи оформлення">
+        <li class="is-complete"><span>1</span>Кошик</li>
+        <li class="is-current"><span>2</span>Доставка</li>
+        <li><span>3</span>Підтвердження</li>
+      </ol>
+    </div>
     <div id="emptyCheckout" class="empty-state" hidden>
       <i class="bi bi-cart-x display-4 text-success" aria-hidden="true"></i>
       <p class="fs-5 mt-3">У кошику немає товарів.</p>
@@ -65,10 +75,13 @@
         </section>
       </div>
       <div class="col-lg-5">
-        <section class="card border-0 shadow-sm p-4 rounded-4 bg-white" aria-labelledby="orderSummaryHeading">
-          <h2 id="orderSummaryHeading" class="fs-5 fw-bold mb-3">Ваше замовлення</h2>
+        <section class="checkout-summary" aria-labelledby="orderSummaryHeading">
+          <div class="checkout-summary-heading">
+            <div><span class="section-eyebrow">Підсумок</span><h2 id="orderSummaryHeading" class="fs-5 fw-bold mb-0 mt-1">Ваше замовлення</h2></div>
+            <i class="bi bi-bag-check" aria-hidden="true"></i>
+          </div>
           <ul class="list-unstyled mb-3" id="checkoutItemsList"></ul>
-          <hr>
+          <div class="checkout-shipping-note"><i class="bi bi-truck me-2" aria-hidden="true"></i>Доставка по Україні — лише 1 ₴</div>
           <div class="d-flex justify-content-between mb-2">
             <span>Товари:</span>
             <span id="checkoutSubtotal">0 ₴</span>
@@ -81,9 +94,11 @@
             <span>До сплати:</span>
             <span class="text-success" id="checkoutTotal">0 ₴</span>
           </div>
+          <img class="checkout-summary-art" src="images/cat-phone.png" alt="Кіт із телефоном" loading="lazy">
         </section>
       </div>
     </div>
+    <section id="orderSuccessScreen" class="order-success mt-4" hidden aria-live="polite"></section>
   </main>
   <footer class="pt-5 pb-4">
     <div class="container">
@@ -97,7 +112,7 @@
         <div class="col-6 col-lg-2">
           <h2 class="text-white fs-6 fw-bold mb-3">Каталог</h2>
           <nav aria-label="Каталог у підвалі"><ul class="list-unstyled small d-grid gap-2 m-0">
-            <li><a href="index.html#catalog">Смартфони</a></li><li><a href="index.html#catalog">Чохли</a></li><li><a href="index.html#catalog">Навушники</a></li><li><a href="index.html#catalog">Смарт-годинники</a></li>
+            <li><a href="index.html#catalog">Смартфони</a></li><li><a href="index.html#catalog">Ноутбуки</a></li><li><a href="index.html#catalog">Планшети</a></li>
           </ul></nav>
         </div>
         <div class="col-6 col-lg-2">

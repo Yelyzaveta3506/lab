@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="index_lab2.css">
+  <link rel="stylesheet" href="index_lab2.css?v=2">
 </head>
 <body id="top">
   <div id="siteHeader"></div>
@@ -22,7 +22,14 @@
         <li class="breadcrumb-item active" aria-current="page">Обране та збірки</li>
       </ol>
     </nav>
-    <h1 class="h3 fw-bold mb-4"><i class="bi bi-heart text-success me-2" aria-hidden="true"></i>Обрані гаджети</h1>
+    <section class="favorites-hero mb-4">
+      <div>
+        <span class="section-eyebrow"><i class="bi bi-heart-fill me-1" aria-hidden="true"></i> Твої знахідки</span>
+        <h1 class="h2 fw-bold mt-2 mb-2">Обрані гаджети</h1>
+        <p class="mb-0">Зберігай цікаві товари й повертайся до них, коли будеш готовий.</p>
+      </div>
+      <img src="images/cat-phone.png" alt="Кіт і смартфон" width="240" height="180">
+    </section>
     <section aria-labelledby="favoritesHeading">
       <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
         <div>
@@ -37,9 +44,15 @@
         <label for="collectionName" class="form-label fw-semibold">Назва нової збірки</label>
         <div class="input-group">
           <input id="collectionName" class="form-control" maxlength="60" placeholder="Наприклад, Хочу на день народження" required>
-          <button type="submit" class="btn btn-green"><i class="bi bi-folder-plus me-1" aria-hidden="true"></i>Створити збірку</button>
+          <button type="submit" class="btn btn-green" id="createCollectionBtn" disabled><i class="bi bi-folder-plus me-1" aria-hidden="true"></i>Створити збірку</button>
         </div>
-        <div class="form-text">Виберіть один або кілька товарів нижче. Збірки залишаються на цьому пристрої.</div>
+        <div class="collection-form-footer">
+          <span class="form-text" id="collectionSelectionStatus" aria-live="polite">Познач товари, які хочеш зібрати в окремий список.</span>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" id="selectAllFavorites">Вибрати всі</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill" id="clearCollectionSelection" hidden>Зняти вибір</button>
+          </div>
+        </div>
       </form>
       <div id="favoritesGrid" class="products-grid" aria-live="polite"></div>
     </section>
@@ -60,7 +73,7 @@
         <div class="col-6 col-lg-2">
           <h2 class="text-white fs-6 fw-bold mb-3">Каталог</h2>
           <nav aria-label="Каталог у підвалі"><ul class="list-unstyled small d-grid gap-2 m-0">
-            <li><a href="index.html#catalog">Смартфони</a></li><li><a href="index.html#catalog">Чохли</a></li><li><a href="index.html#catalog">Навушники</a></li><li><a href="index.html#catalog">Смарт-годинники</a></li>
+            <li><a href="index.html#catalog">Смартфони</a></li><li><a href="index.html#catalog">Ноутбуки</a></li><li><a href="index.html#catalog">Планшети</a></li>
           </ul></nav>
         </div>
         <div class="col-6 col-lg-2">

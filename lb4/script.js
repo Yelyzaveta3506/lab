@@ -14,6 +14,13 @@
   })[character]);
   const money = amount => `${Number(amount).toLocaleString('uk-UA')} ₴`;
 
+  document.addEventListener('error', event => {
+    const image = event.target;
+    if (!(image instanceof HTMLImageElement) || image.dataset.fallback) return;
+    image.dataset.fallback = 'true';
+    image.src = 'images/cat-phone.svg';
+  }, true);
+
   function showStorageError(message) {
     console.error(`TechPulse: ${message}`);
     let notice = document.getElementById('storageNotice');
@@ -102,15 +109,18 @@
 
     document.body.insertAdjacentHTML('beforeend', `
       <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
-        <div class="offcanvas-header border-bottom">
-          <h2 class="offcanvas-title fs-5 fw-bold" id="cartOffcanvasLabel"><i class="bi bi-cart3 text-success me-2" aria-hidden="true"></i>Ваш кошик</h2>
+        <div class="offcanvas-header cart-drawer-heading">
+          <div><span class="section-eyebrow">Ваш вибір</span><h2 class="offcanvas-title fs-5 fw-bold mt-1" id="cartOffcanvasLabel"><i class="bi bi-cart3 text-success me-2" aria-hidden="true"></i>Кошик</h2></div>
+          <span class="cart-items-badge" id="cartCountValue" aria-live="polite">0</span>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрити"></button>
         </div>
         <div class="offcanvas-body d-flex flex-column">
           <div id="cartItems" class="flex-grow-1 overflow-auto pe-1"></div>
-          <div class="border-top pt-3 mt-auto">
-            <div class="d-flex justify-content-between align-items-center mb-3"><span class="fw-bold">Разом до сплати:</span><span id="cartTotal" class="text-success fs-4 fw-extrabold">0 ₴</span></div>
-            <button type="button" id="goCheckout" class="btn btn-green w-100 rounded-pill py-2 fw-semibold" disabled>Оформити замовлення</button>
+          <div class="cart-summary mt-auto">
+            <div class="cart-delivery-note"><i class="bi bi-truck me-2" aria-hidden="true"></i>Доставка по Україні — 1 ₴</div>
+            <div class="d-flex justify-content-between align-items-center mb-3"><span class="fw-bold">Разом із доставкою</span><span id="cartTotal" class="text-success fs-4 fw-extrabold">0 ₴</span></div>
+            <button type="button" id="goCheckout" class="btn btn-green w-100 rounded-pill py-2 fw-semibold" disabled><i class="bi bi-lock me-2" aria-hidden="true"></i>До оформлення</button>
+            <a href="index.html#catalog" class="cart-back-link">Продовжити покупки</a>
           </div>
         </div>
       </div>
@@ -157,6 +167,7 @@
         productById(id) && Number.isInteger(quantity) && quantity > 0
       );
       const count = items.reduce((total, [, quantity]) => total + quantity, 0);
+      const subtotal = items.reduce((total, [id, quantity]) => total + productById(id).price * quantity, 0);
       const favorites = read('fav', []);
       const comparisons = read('cmp', []);
       const cartBadge = document.getElementById('cartN');
@@ -164,25 +175,34 @@
       const compareBadge = document.getElementById('cmpN');
       cartBadge.textContent = count;
       cartBadge.hidden = count === 0;
+      document.getElementById('cartCountValue').textContent = count;
       favoriteBadge.textContent = Array.isArray(favorites) ? favorites.length : 0;
       favoriteBadge.hidden = favoriteBadge.textContent === '0';
       compareBadge.textContent = Array.isArray(comparisons) ? comparisons.length : 0;
       compareBadge.hidden = compareBadge.textContent === '0';
       document.getElementById('cartItems').innerHTML = items.length ? items.map(([id, quantity]) => {
         const item = productById(id);
-        return `<div class="d-flex gap-2 align-items-center border-bottom py-2">
-          <img src="${escapeHTML(item.img)}" width="54" height="54" class="rounded object-fit-contain" alt="" loading="lazy">
-          <div class="flex-grow-1 min-w-0"><div class="fw-semibold small text-truncate">${escapeHTML(item.short)}</div><div class="small text-success fw-bold">${money(item.price)}</div></div>
-          <div class="btn-group btn-group-sm" role="group" aria-label="Кількість товару ${escapeHTML(item.short)}">
-            <button type="button" class="btn btn-outline-secondary" data-q="${id}" data-d="-1" aria-label="Зменшити кількість ${escapeHTML(item.short)}">−</button>
-            <span class="px-2 align-self-center" aria-live="polite">${quantity}</span>
-            <button type="button" class="btn btn-outline-secondary" data-q="${id}" data-d="1" aria-label="Збільшити кількість ${escapeHTML(item.short)}">+</button>
+        return `<article class="cart-line">
+          <img src="${escapeHTML(item.img)}" width="88" height="88" class="cart-line-image" alt="${escapeHTML(item.short)}" loading="lazy">
+          <div class="cart-line-content">
+            <div class="d-flex align-items-start justify-content-between gap-2">
+              <div class="min-w-0"><span class="cart-line-brand">${escapeHTML(item.brand)}</span><h3 class="cart-line-title">${escapeHTML(item.short)}</h3></div>
+              <button type="button" class="cart-remove" data-cart-remove="${id}" aria-label="Видалити ${escapeHTML(item.short)} з кошика"><i class="bi bi-trash3" aria-hidden="true"></i></button>
+            </div>
+            <strong class="cart-line-price">${money(item.price * quantity)}</strong>
+            <div class="cart-stepper" role="group" aria-label="Кількість товару ${escapeHTML(item.short)}">
+              <button type="button" data-q="${id}" data-d="-1" aria-label="Зменшити кількість">−</button>
+              <span aria-live="polite">${quantity}</span>
+              <button type="button" data-q="${id}" data-d="1" aria-label="Збільшити кількість">+</button>
+            </div>
           </div>
+        </article>`;
+      }).join('') : `<div class="cart-empty">
+          <img src="images/cat-phone.svg" alt="" width="210" height="158">
+          <h3>Кошик чекає на покупки</h3>
+          <p>Додавайте сюди техніку, яка вам сподобалась.</p>
         </div>`;
-      }).join('') : '<p class="text-muted text-center my-5">Ваш кошик порожній</p>';
-      document.getElementById('cartTotal').textContent = money(items.reduce(
-        (total, [id, quantity]) => total + productById(id).price * quantity, 0
-      ));
+      document.getElementById('cartTotal').textContent = money(subtotal + (items.length ? 1 : 0));
       document.getElementById('goCheckout').disabled = items.length === 0;
     }
 
@@ -192,6 +212,16 @@
     });
     document.addEventListener('click', event => {
       if (!(event.target instanceof Element)) return;
+      const removeButton = event.target.closest('[data-cart-remove]');
+      if (removeButton) {
+        const cart = getObject('cart');
+        delete cart[removeButton.dataset.cartRemove];
+        if (write('cart', cart)) {
+          renderCart();
+          window.dispatchEvent(new CustomEvent('techpulse-cart-updated'));
+        }
+        return;
+      }
       const button = event.target.closest('[data-q]');
       if (!button) return;
       const cart = getObject('cart');
@@ -289,28 +319,7 @@
       write('cart', cart);
       write('fav', favorites);
       write('cmp', comparisons);
-      const cartCount = Object.values(cart).reduce((total, quantity) => total + quantity, 0);
-      $('#cartN').textContent = cartCount;
-      $('#cartN').hidden = cartCount === 0;
-      $('#favN').textContent = favorites.length;
-      $('#favN').hidden = favorites.length === 0;
-      $('#cmpN').textContent = comparisons.length;
-      $('#cmpN').hidden = comparisons.length === 0;
-      const ids = Object.keys(cart).filter(id => productById(id));
-      $('#cartItems').innerHTML = ids.length ? ids.map(id => {
-        const product = productById(id);
-        return `<div class="d-flex gap-2 align-items-center border-bottom py-2">
-          <img src="${escapeHTML(product.img)}" width="54" height="54" class="rounded object-fit-contain" alt="${escapeHTML(product.short)}">
-          <div class="flex-grow-1 min-w-0"><div class="fw-semibold small text-truncate">${escapeHTML(product.short)}</div><div class="small text-success fw-bold">${money(product.price)}</div></div>
-          <div class="btn-group btn-group-sm" aria-label="Кількість товару ${escapeHTML(product.short)}">
-            <button type="button" class="btn btn-outline-secondary" data-q="${id}" data-d="-1" aria-label="Зменшити кількість">−</button>
-            <span class="px-2 align-self-center" aria-live="polite">${cart[id]}</span>
-            <button type="button" class="btn btn-outline-secondary" data-q="${id}" data-d="1" aria-label="Збільшити кількість">+</button>
-          </div>
-        </div>`;
-      }).join('') : '<p class="text-muted text-center my-5">Ваш кошик порожній</p>';
-      $('#cartTotal').textContent = money(ids.reduce((sum, id) => sum + productById(id).price * cart[id], 0));
-      $('#goCheckout').disabled = ids.length === 0;
+      window.TechPulseShell.refresh();
       $$('#grid [data-product-id]').forEach(card => {
         const id = Number(card.dataset.productId);
         const favoriteButton = card.querySelector('[data-fav]');
@@ -455,6 +464,11 @@
     $('#searchInput').addEventListener('input', renderCatalog);
     $('#sort').addEventListener('change', renderCatalog);
     $('#filtersForm').addEventListener('input', renderCatalog);
+    $('#filtersForm').addEventListener('change', event => {
+      if (event.target.matches('.filter-cat, .filter-brand, #inStockFilter, #minPrice, #maxPrice')) {
+        $('#catalog').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
     $('#resetFilters').addEventListener('click', () => {
       $$('#filtersForm input[type="checkbox"]').forEach(input => { input.checked = false; });
       $('#minPrice').value = '';
@@ -462,6 +476,7 @@
       $('#searchInput').value = '';
       $('#sort').value = 'pop';
       renderCatalog();
+      $('#catalog').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     window.addEventListener('techpulse-cart-updated', () => {
       cart = read('cart', {});
@@ -492,11 +507,13 @@
   }
 
   function initializeFavorites(products) {
-    const store = window.TechPulseStore;
     const productById = id => products.find(product => product.id === Number(id));
     const grid = document.getElementById('favoritesGrid');
     const selected = new Set();
     let activeCollection = null;
+    const selectionStatus = document.getElementById('collectionSelectionStatus');
+    const createCollectionButton = document.getElementById('createCollectionBtn');
+    const clearSelectionButton = document.getElementById('clearCollectionSelection');
     const getFavorites = () => {
       const value = read('fav', []);
       return Array.isArray(value) ? [...new Set(value.filter(id => productById(id)))] : [];
@@ -509,28 +526,54 @@
       ) : [];
     };
 
+    function syncCollectionSelection() {
+      const count = selected.size;
+      selectionStatus.textContent = count
+        ? `Вибрано товарів: ${count}. Збірки залишаються на цьому пристрої.`
+        : 'Познач товари, які хочеш зібрати в окремий список.';
+      createCollectionButton.disabled = count === 0;
+      clearSelectionButton.hidden = count === 0;
+    }
+
     function renderFavorites() {
       const favorites = getFavorites();
+      const comparisons = read('cmp', []);
+      for (const id of selected) {
+        if (!favorites.includes(id)) selected.delete(id);
+      }
       const collection = activeCollection && getCollections().find(item => item.id === activeCollection);
       const items = collection ? collection.productIds.map(productById).filter(Boolean) : favorites.map(productById);
       document.getElementById('collectionViewControls').hidden = !collection;
-      document.getElementById('collectionForm').hidden = Boolean(collection);
+      document.getElementById('collectionForm').hidden = Boolean(collection) || favorites.length === 0;
       document.getElementById('favoritesHeading').textContent = collection ? collection.name : 'Ваше обране';
+      syncCollectionSelection();
       if (!items.length) {
-        grid.innerHTML = `<div class="empty-state"><i class="bi bi-heart display-4 text-success" aria-hidden="true"></i><p class="fs-5 mt-3">${collection ? 'У цій збірці поки немає товарів.' : 'Обране поки порожнє.'}</p><p class="text-muted">Додавайте гаджети сердечком у каталозі.</p><a href="index.html#catalog" class="btn btn-green rounded-pill">До каталогу</a></div>`;
+        grid.innerHTML = `<section class="empty-state-visual">
+          <div><span class="section-eyebrow"><i class="bi bi-heart me-1" aria-hidden="true"></i> Ще є місце для знахідок</span>
+            <h3>${collection ? 'У цій збірці поки порожньо' : 'Обране поки порожнє'}</h3>
+            <p>${collection ? 'Поверніться до обраного та додайте товари до цієї збірки.' : 'Натисніть сердечко на картці товару, щоб зберегти його тут.'}</p>
+            <a href="index.html#catalog" class="btn btn-green rounded-pill"><i class="bi bi-search me-2" aria-hidden="true"></i>Знайти гаджет</a>
+          </div>
+          <img src="images/cat-phone.svg" alt="Кіт чекає на нові гаджети" loading="lazy">
+        </section>`;
         return;
       }
       grid.innerHTML = items.map(product => `
-        <article class="product">
-          <div class="product-img"><img src="${escapeHTML(product.img)}" class="favorite-image" alt="${escapeHTML(product.short)}" width="500" height="500" loading="lazy"></div>
-          <div class="p-3 d-flex flex-column flex-grow-1">
-            ${collection ? '' : `<label class="form-check mb-2"><input class="form-check-input collection-select" type="checkbox" value="${product.id}" ${selected.has(product.id) ? 'checked' : ''}><span class="form-check-label">Додати до збірки</span></label>`}
-            <span class="text-muted small">${escapeHTML(product.brand)}</span>
-            <h3 class="fs-6 fw-bold my-1">${escapeHTML(product.short)}</h3>
-            <p class="text-success fw-bold mb-3">${money(product.price)}</p>
-            <div class="d-flex flex-wrap gap-2 mt-auto">
-              <button type="button" class="btn btn-green btn-sm rounded-pill" data-add-favorite="${product.id}" ${product.inStock ? '' : 'disabled'}><i class="bi bi-cart-plus me-1" aria-hidden="true"></i>До кошика</button>
-              ${collection ? '' : `<button type="button" class="btn btn-outline-danger btn-sm rounded-pill" data-remove-favorite="${product.id}"><i class="bi bi-trash me-1" aria-hidden="true"></i>Видалити з обраного</button>`}
+        <article class="product favorite-product">
+          <div class="product-img favorite-product-media">
+            ${product.old ? `<span class="discount">-${Math.round(100 - product.price / product.old * 100)}%</span>` : ''}
+            <img src="${escapeHTML(product.img)}" class="favorite-image" alt="${escapeHTML(product.short)}" width="500" height="500" loading="lazy">
+          </div>
+          <div class="favorite-product-body">
+            ${collection ? '' : `<label class="favorite-select"><input class="form-check-input collection-select" type="checkbox" value="${product.id}" ${selected.has(product.id) ? 'checked' : ''}><span><i class="bi bi-folder-plus me-1" aria-hidden="true"></i>До збірки</span></label>`}
+            <span class="text-muted small">${escapeHTML(product.brand)} · ${categoryNames[product.category]}</span>
+            <h3 title="${escapeHTML(product.name)}">${escapeHTML(product.short)}</h3>
+            <div class="favorite-price">${money(product.price)}${product.old ? `<del>${money(product.old)}</del>` : ''}</div>
+            <span class="stock-label ${product.inStock ? 'is-available' : 'is-unavailable'}"><i class="bi bi-${product.inStock ? 'check-circle' : 'x-circle'} me-1" aria-hidden="true"></i>${product.inStock ? 'Є в наявності' : 'Немає в наявності'}</span>
+            <div class="favorite-actions">
+              <button type="button" class="btn btn-green rounded-pill" data-add-favorite="${product.id}" ${product.inStock ? '' : 'disabled'}><i class="bi bi-cart-plus me-1" aria-hidden="true"></i>До кошика</button>
+              <button type="button" class="btn btn-outline-secondary rounded-pill" data-compare-favorite="${product.id}" aria-pressed="${Array.isArray(comparisons) && comparisons.includes(product.id)}"><i class="bi bi-bar-chart me-1" aria-hidden="true"></i>${Array.isArray(comparisons) && comparisons.includes(product.id) ? 'У порівнянні' : 'Порівняти'}</button>
+              ${collection ? '' : `<button type="button" class="favorite-remove" data-remove-favorite="${product.id}" aria-label="Видалити ${escapeHTML(product.short)} з обраного"><i class="bi bi-heartbreak" aria-hidden="true"></i></button>`}
             </div>
           </div>
         </article>`).join('');
@@ -540,7 +583,7 @@
       const collections = getCollections();
       const target = document.getElementById('collectionsList');
       if (!collections.length) {
-        target.innerHTML = '<p class="text-muted">Збережених збірок поки немає. Створіть першу зі свого обраного.</p>';
+        target.innerHTML = '<div class="collection-empty"><i class="bi bi-folder2-open" aria-hidden="true"></i><span>Збірок ще немає. Познач товари вище й створи першу.</span></div>';
         return;
       }
       target.innerHTML = collections.map(collection => {
@@ -562,7 +605,7 @@
       const name = document.getElementById('collectionName').value.trim();
       const productIds = [...selected].filter(id => getFavorites().includes(id));
       if (!name || !productIds.length) {
-        window.alert('Введіть назву збірки та позначте щонайменше один товар.');
+        toast('Спочатку позначте товари для збірки.');
         return;
       }
       const collections = getCollections();
@@ -572,6 +615,7 @@
         event.currentTarget.reset();
         renderFavorites();
         renderCollections();
+        toast('Збірку створено');
       }
     });
     document.addEventListener('change', event => {
@@ -579,6 +623,7 @@
       const id = Number(event.target.value);
       if (event.target.checked) selected.add(id);
       else selected.delete(id);
+      syncCollectionSelection();
     });
     document.addEventListener('click', event => {
       if (!(event.target instanceof Element)) return;
@@ -587,7 +632,13 @@
       const view = event.target.closest('[data-view-collection]');
       const download = event.target.closest('[data-export-collection]');
       const removeCollection = event.target.closest('[data-delete-collection]');
-      if (remove) {
+      if (event.target.closest('#selectAllFavorites')) {
+        getFavorites().forEach(id => selected.add(id));
+        renderFavorites();
+      } else if (event.target.closest('#clearCollectionSelection')) {
+        selected.clear();
+        renderFavorites();
+      } else if (remove) {
         const id = Number(remove.dataset.removeFavorite);
         if (write('fav', getFavorites().filter(favoriteId => favoriteId !== id))) {
           selected.delete(id);
@@ -601,6 +652,17 @@
         if (write('cart', cart)) {
           window.TechPulseShell.refresh();
           toast('Товар додано до кошика');
+        }
+      } else if (event.target.closest('[data-compare-favorite]')) {
+        const button = event.target.closest('[data-compare-favorite]');
+        const id = Number(button.dataset.compareFavorite);
+        const comparisons = read('cmp', []);
+        const next = Array.isArray(comparisons) ? comparisons : [];
+        const updated = next.includes(id) ? next.filter(item => item !== id) : [...next, id];
+        if (write('cmp', updated)) {
+          window.TechPulseShell.refresh();
+          renderFavorites();
+          toast(updated.includes(id) ? 'Товар додано до порівняння' : 'Товар вилучено з порівняння');
         }
       } else if (view) {
         activeCollection = view.dataset.viewCollection;
@@ -649,14 +711,29 @@
 
   function initializeCompare(products) {
     const container = document.getElementById('fullCompareContainer');
+    const compareCount = document.getElementById('compareCount');
+    const onlyDifferent = document.getElementById('compareOnlyDifferent');
+    const clearButton = document.getElementById('clearComparison');
     const productById = id => products.find(product => product.id === Number(id));
 
     function renderComparePage() {
       const saved = read('cmp', []);
       const items = Array.isArray(saved) ? [...new Set(saved.filter(id => productById(id)))] : [];
       const compared = items.map(productById);
+      const countWord = compared.length === 1 ? 'товар' : compared.length > 1 && compared.length < 5 ? 'товари' : 'товарів';
+      compareCount.textContent = `${compared.length} ${countWord}`;
+      clearButton.disabled = compared.length === 0;
+      onlyDifferent.disabled = compared.length < 2;
+      if (onlyDifferent.disabled) onlyDifferent.checked = false;
       if (!compared.length) {
-        container.innerHTML = '<div class="empty-state"><i class="bi bi-bar-chart display-4 text-success" aria-hidden="true"></i><p class="fs-5 mt-3">Порівняння поки порожнє.</p><p class="text-muted">Додайте будь-яку кількість товарів до порівняння з каталогу.</p><a href="index.html#catalog" class="btn btn-green rounded-pill">Перейти до каталогу</a></div>';
+        container.innerHTML = `<section class="empty-state-visual">
+          <div><span class="section-eyebrow"><i class="bi bi-bar-chart me-1" aria-hidden="true"></i> Порівняй характеристики</span>
+            <h2>Поки немає товарів для порівняння</h2>
+            <p>Натисни кнопку порівняння на картках товарів — і ми покажемо різницю в цінах та характеристиках.</p>
+            <a href="index.html#catalog" class="btn btn-green rounded-pill"><i class="bi bi-plus-lg me-2" aria-hidden="true"></i>Обрати товари</a>
+          </div>
+          <img src="images/cat-phone.svg" alt="Кіт зі смартфоном" loading="lazy">
+        </section>`;
         return;
       }
       const specKeys = [...new Set(compared.flatMap(product => Object.keys(product.specs)))];
@@ -668,6 +745,8 @@
         { label: 'Знижка', value: product => product.old ? Math.round((1 - product.price / product.old) * 100) : 0, format: value => value ? `${value}%` : '—', best: 'max' },
         { label: 'Рейтинг покупців', value: product => product.r, format: value => `${value.toFixed(1)} / 5`, best: 'max' },
         { label: 'Кількість відгуків', value: product => product.n, format: value => value.toLocaleString('uk-UA') },
+        { label: 'Популярність', value: product => product.popularity, format: value => value.toLocaleString('uk-UA'), best: 'max' },
+        { label: 'Наявність', value: product => product.inStock ? 'Є в наявності' : 'Немає в наявності' },
         ...specKeys.map(label => ({ label, value: product => product.specs[label] || '—' }))
       ];
       const bestValues = Object.fromEntries(rows.filter(row => row.best).map(row => {
@@ -680,11 +759,14 @@
             ${compared.map(product => `<th scope="col" class="comparison-product">
               <button type="button" class="comparison-remove" data-remove-compare="${product.id}" aria-label="Вилучити ${escapeHTML(product.short)} з порівняння"><i class="bi bi-x-lg" aria-hidden="true"></i></button>
               <img src="${escapeHTML(product.img)}" width="112" height="112" loading="lazy" alt="" class="comparison-image">
-              <span class="d-block">${escapeHTML(product.short)}</span><span class="d-block text-success fw-bold mt-1">${money(product.price)}</span>
+              <span class="comparison-brand">${escapeHTML(product.brand)} · ${window.TechPulseStore.CATEGORY_NAMES[product.cat]}</span>
+              <span class="comparison-title">${escapeHTML(product.short)}</span><span class="comparison-price">${money(product.price)}</span>
+              <span class="stock-label ${product.inStock ? 'is-available' : 'is-unavailable'}"><i class="bi bi-${product.inStock ? 'check-circle' : 'x-circle'} me-1" aria-hidden="true"></i>${product.inStock ? 'Є в наявності' : 'Немає в наявності'}</span>
             </th>`).join('')}
           </tr></thead><tbody>${rows.map(row => {
             const values = compared.map(row.value);
             const different = new Set(values.map(value => String(value))).size > 1;
+            if (onlyDifferent.checked && !different) return '';
             return `<tr class="${different ? 'comparison-different' : ''}"><th scope="row">${escapeHTML(row.label)}</th>
               ${compared.map(product => {
                 const value = row.value(product);
@@ -705,6 +787,13 @@
         window.TechPulseShell.refresh();
       }
     });
+    clearButton.addEventListener('click', () => {
+      if (write('cmp', [])) {
+        renderComparePage();
+        window.TechPulseShell.refresh();
+      }
+    });
+    onlyDifferent.addEventListener('change', renderComparePage);
     window.addEventListener('storage', renderComparePage);
     renderComparePage();
   }
@@ -723,9 +812,13 @@
     document.getElementById('checkoutContent').hidden = items.length === 0;
     list.innerHTML = items.map(([id, quantity]) => {
       const product = productById(id);
-      return `<li class="d-flex justify-content-between gap-3 border-bottom py-2">
-        <span>${escapeHTML(product.short)} <span class="text-muted">× ${quantity}</span></span>
-        <strong class="text-nowrap">${money(product.price * quantity)}</strong>
+      return `<li class="checkout-item">
+        <img src="${escapeHTML(product.img)}" alt="" width="68" height="68" loading="lazy">
+        <div class="checkout-item-copy">
+          <strong>${escapeHTML(product.short)}</strong>
+          <span>${quantity} шт. × ${money(product.price)}</span>
+        </div>
+        <strong class="checkout-item-total">${money(product.price * quantity)}</strong>
       </li>`;
     }).join('');
     document.getElementById('checkoutSubtotal').textContent = money(subtotal);
@@ -734,8 +827,18 @@
     document.getElementById('checkoutForm').addEventListener('submit', event => {
       event.preventDefault();
       if (!items.length || !write('cart', {})) return;
-      document.getElementById('orderSuccessAlert').hidden = false;
-      document.getElementById('confirmOrder').disabled = true;
+      const orderNumber = `TP-${Date.now().toString().slice(-8)}`;
+      const success = document.getElementById('orderSuccessScreen');
+      success.innerHTML = `<div class="order-success-copy">
+        <span class="order-success-icon"><i class="bi bi-check2" aria-hidden="true"></i></span>
+        <span class="section-eyebrow">Дякуємо за замовлення</span>
+        <h2>Все готово!</h2>
+        <p>Замовлення <strong>${orderNumber}</strong> оформлено в деморежимі. Реальну оплату та передачу даних не виконано.</p>
+        <a href="index.html#catalog" class="btn btn-green rounded-pill"><i class="bi bi-arrow-left me-2" aria-hidden="true"></i>Повернутися до каталогу</a>
+      </div>
+      <img src="images/cat-phone.svg" alt="Кіт вітає з оформленням замовлення" loading="lazy">`;
+      document.getElementById('checkoutContent').hidden = true;
+      success.hidden = false;
       window.TechPulseShell.refresh();
     });
   }
