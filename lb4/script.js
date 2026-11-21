@@ -77,6 +77,7 @@
     showMessage(message, type);
   }
 
+  // Керування індикатором завантаження каталогу.
   function showLoader() {
     const loader = document.getElementById('loader');
     if (loader) loader.style.display = 'flex';
@@ -87,6 +88,7 @@
     if (loader) loader.style.display = 'none';
   }
 
+  // Створює єдине фіксоване сповіщення для дій користувача та помилок.
   function showMessage(text, type = 'success') {
     const alertType = ['success', 'danger', 'warning', 'info'].includes(type) ? type : 'info';
     let container = document.getElementById('messageContainer');
@@ -179,7 +181,7 @@
             <div class="cart-delivery-note"><i class="bi bi-truck me-2" aria-hidden="true"></i>Доставка по Україні — 1 ₴</div>
             <div class="d-flex justify-content-between align-items-center mb-3"><span class="fw-bold">Разом із доставкою</span><span id="cartTotal" class="text-success fs-4 fw-extrabold">0 ₴</span></div>
             <button type="button" id="goCheckout" class="btn btn-green w-100 rounded-pill py-2 fw-semibold" disabled><i class="bi bi-lock me-2" aria-hidden="true"></i>До оформлення</button>
-            <a href="index.html#catalog" class="cart-back-link">Продовжити покупки</a>
+            <button type="button" class="cart-back-link btn btn-link" data-cart-continue>Продовжити покупки</button>
           </div>
         </div>
       </div>`);
@@ -215,6 +217,7 @@
   function initializeShell(products) {
     const productById = id => products.find(product => product.id === Number(id));
 
+    // Синхронізує кошик, лічильники header і localStorage.
     function renderCart() {
       const cart = getObject('cart');
       const items = Object.entries(cart).filter(([id, quantity]) =>
@@ -263,6 +266,13 @@
     window.TechPulseShell = { refresh: renderCart };
     document.getElementById('goCheckout').addEventListener('click', () => {
       if (!document.getElementById('goCheckout').disabled) location.href = 'checkout.html';
+    });
+    document.querySelector('[data-cart-continue]').addEventListener('click', () => {
+      const drawer = document.getElementById('cartOffcanvas');
+      if (drawer && window.bootstrap?.Offcanvas) {
+        bootstrap.Offcanvas.getOrCreateInstance(drawer).hide();
+      }
+      document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     document.addEventListener('click', event => {
       if (!(event.target instanceof Element)) return;
@@ -350,9 +360,11 @@
           <i class="bi bi-star${value <= selectedRating ? '-fill' : ''}" aria-hidden="true"></i>
         </button>`).join('');
       return `<span class="stars" role="radiogroup" aria-label="Оцінити ${escapeHTML(product.short)}" data-id="${product.id}">${stars}</span>
-        <small class="text-muted ms-1">${average(product).toFixed(1)} (${ratingData(product).n})</small>`;
+        <small class="text-muted ms-1 rating-summary">${average(product).toFixed(1)} (${ratingData(product).n})</small>
+        ${selectedRating ? '<button type="button" class="star-remove" data-star-remove aria-label="Прибрати свою оцінку" title="Прибрати оцінку"><i class="bi bi-x-lg" aria-hidden="true"></i></button>' : ''}`;
     };
 
+    // Формує розмітку картки товару для каталогу й хітів продажів.
     function cardHTML(product) {
       const isFavorite = favorites.includes(product.id);
       const specs = Object.entries(product.specs).slice(0, 4);
@@ -406,6 +418,7 @@
       return cartSaved;
     }
 
+    // Застосовує пошук, одночасні фільтри та обране сортування до масиву товарів.
     function renderCatalog() {
       const rawQuery = $('#searchInput').value;
       const query = typeof rawQuery === 'string'
@@ -483,6 +496,7 @@
       const addButton = event.target.closest('[data-add]');
       const favoriteButton = event.target.closest('[data-fav]');
       const starButton = event.target.closest('[data-s]');
+      const starRemoveButton = event.target.closest('[data-star-remove]');
       const compareButton = event.target.closest('[data-cmp]');
       if (addButton) {
         const id = addButton.dataset.add;
@@ -513,6 +527,35 @@
         favorites = favorites.includes(id) ? favorites.filter(value => value !== id) : [...favorites, id];
         toast(favorites.includes(id) ? 'Додано в обране' : 'Видалено з обраного');
         refresh();
+      } else if (starRemoveButton) {
+        const stars = starRemoveButton.parentElement?.querySelector('.stars');
+        if (!stars) return;
+        const id = Number(stars.dataset.id);
+        const product = productById(id);
+        if (!product) return;
+        const previous = myRatings[id] || 0;
+        if (!previous) return;
+        const current = ratingData(product);
+        const nextN = Math.max(product.n, current.n - 1);
+        ratings[id] = {
+          sum: Math.max(0, current.sum - previous),
+          n: nextN
+        };
+        delete myRatings[id];
+        write('rate', ratings);
+        write('mine', myRatings);
+        toast('Вашу оцінку прибрано', 'info');
+        $$('.stars[data-id="' + id + '"]').forEach(ratingStars => {
+          ratingStars.querySelectorAll('.star-btn').forEach(button => {
+            button.classList.remove('is-selected');
+            button.setAttribute('aria-checked', 'false');
+            button.tabIndex = Number(button.dataset.s) === 1 ? 0 : -1;
+            button.innerHTML = '<i class="bi bi-star" aria-hidden="true"></i>';
+          });
+          ratingStars.parentElement.querySelector('.star-remove')?.remove();
+          const summary = ratingStars.parentElement.querySelector('.rating-summary');
+          if (summary) summary.textContent = `${average(product).toFixed(1)} (${ratingData(product).n})`;
+        });
       } else if (starButton) {
         const stars = starButton.closest('.stars');
         if (!stars) return;
@@ -537,6 +580,11 @@
           });
           if (ratingStars.nextElementSibling) {
             ratingStars.nextElementSibling.textContent = `${average(product).toFixed(1)} (${ratingData(product).n})`;
+            ratingStars.nextElementSibling.classList.add('rating-summary');
+          }
+          if (!ratingStars.parentElement.querySelector('.star-remove')) {
+            ratingStars.parentElement.insertAdjacentHTML('beforeend',
+              '<button type="button" class="star-remove" data-star-remove aria-label="Прибрати свою оцінку" title="Прибрати оцінку"><i class="bi bi-x-lg" aria-hidden="true"></i></button>');
           }
         });
       }
@@ -937,8 +985,29 @@
     document.getElementById('checkoutSubtotal').textContent = money(subtotal);
     document.getElementById('checkoutDelivery').textContent = money(delivery);
     document.getElementById('checkoutTotal').textContent = money(subtotal + delivery);
-    document.getElementById('checkoutForm').addEventListener('submit', event => {
+    const checkoutForm = document.getElementById('checkoutForm');
+    const validationMessage = document.getElementById('checkoutValidationMessage');
+    checkoutForm.querySelectorAll('.form-control, .form-select').forEach(field => {
+      const updateFieldState = () => {
+        const empty = field.value.trim() === '';
+        field.classList.toggle('is-invalid', !empty && !field.checkValidity());
+        field.classList.toggle('is-valid', !empty && field.checkValidity());
+      };
+      field.addEventListener('input', updateFieldState);
+      field.addEventListener('change', updateFieldState);
+    });
+    checkoutForm.addEventListener('submit', event => {
       event.preventDefault();
+      if (!checkoutForm.checkValidity()) {
+        checkoutForm.querySelectorAll('.form-control, .form-select').forEach(field => {
+          field.classList.toggle('is-invalid', !field.checkValidity());
+          field.classList.toggle('is-valid', field.value.trim() !== '' && field.checkValidity());
+        });
+        if (validationMessage) validationMessage.hidden = false;
+        checkoutForm.querySelector(':invalid')?.focus();
+        return;
+      }
+      if (validationMessage) validationMessage.hidden = true;
       if (!items.length || !write('cart', {})) return;
       const orderNumber = `TP-${Date.now().toString().slice(-8)}`;
       const success = document.getElementById('orderSuccessScreen');
@@ -1012,6 +1081,7 @@
       }
     }
 
+    // Завантажує JSON, перевіряє структуру даних і запускає модулі сторінки.
     async function loadAndInitialize() {
       if (loading) return;
       loading = true;

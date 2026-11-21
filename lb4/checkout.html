@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="index_lab2.css?v=14">
+  <link rel="stylesheet" href="index_lab2.css?v=15">
 </head>
 <body id="top">
   <div id="siteHeader"></div>
@@ -42,30 +42,34 @@
       <div class="col-lg-7">
         <section class="card border-0 shadow-sm p-4 rounded-4" aria-labelledby="buyerHeading">
           <h2 id="buyerHeading" class="fs-5 fw-bold mb-3">Дані покупця та доставки</h2>
-          <form id="checkoutForm">
+          <form id="checkoutForm" novalidate>
             <div class="mb-3">
-              <label for="fullName" class="form-label">ПІБ</label>
+              <label for="fullName" class="form-label">ПІБ <span class="required-mark" aria-label="обов'язкове поле">*</span></label>
               <input type="text" class="form-control" id="fullName" name="fullName" autocomplete="name" minlength="5" maxlength="120" required placeholder="Шевченко Тарас Григорович">
             </div>
             <div class="mb-3">
-              <label for="phoneNum" class="form-label">Номер телефону</label>
+              <label for="phoneNum" class="form-label">Номер телефону <span class="required-mark" aria-label="обов'язкове поле">*</span></label>
               <input type="tel" class="form-control" id="phoneNum" name="phone" autocomplete="tel" pattern="[+0-9\x28\x29\x20\x2D]{9,20}" required placeholder="+38 (067) 000-00-00">
             </div>
             <div class="mb-3">
-              <label for="email" class="form-label">Електронна пошта <span class="text-muted">(необов’язково)</span></label>
-              <input type="email" class="form-control" id="email" name="email" autocomplete="email" maxlength="254" placeholder="name@example.com">
+              <label for="email" class="form-label">Електронна пошта <span class="required-mark" aria-label="обов'язкове поле">*</span></label>
+              <input type="email" class="form-control" id="email" name="email" autocomplete="email" maxlength="254" required placeholder="name@example.com">
             </div>
             <div class="mb-3">
-              <label for="deliveryAddress" class="form-label">Місто та адреса / відділення доставки</label>
+              <label for="deliveryAddress" class="form-label">Місто та адреса / відділення доставки <span class="required-mark" aria-label="обов'язкове поле">*</span></label>
               <input type="text" class="form-control" id="deliveryAddress" name="address" autocomplete="shipping street-address" maxlength="200" required placeholder="м. Київ, відділення №5">
             </div>
             <div class="mb-4">
-              <label for="paymentMethod" class="form-label">Спосіб оплати</label>
+              <label for="paymentMethod" class="form-label">Спосіб оплати <span class="required-mark" aria-label="обов'язкове поле">*</span></label>
               <select class="form-select" id="paymentMethod" name="payment" required>
                 <option value="cod">Оплата при отриманні (накладений платіж)</option>
                 <option value="card">Карткою онлайн (демо)</option>
                 <option value="installments">Розстрочка 0% (демо)</option>
               </select>
+            </div>
+            <div id="checkoutValidationMessage" class="checkout-validation-message" role="alert" hidden>
+              <i class="bi bi-exclamation-circle" aria-hidden="true"></i>
+              <span>Заповніть усі обов’язкові поля правильно.</span>
             </div>
             <button type="submit" class="btn btn-green w-100 rounded-pill py-2 fw-semibold" id="confirmOrder">Підтвердити замовлення</button>
           </form>
@@ -137,6 +141,6 @@
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="script.js?v=14"></script>
+  <script src="script.js?v=15"></script>
 </body>
 </html>
