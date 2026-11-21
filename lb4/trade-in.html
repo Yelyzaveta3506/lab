@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="index_lab2.css?v=7">
+  <link rel="stylesheet" href="index_lab2.css?v=8">
 </head>
 <body id="top">
   <div id="siteHeader"></div>
@@ -68,14 +68,35 @@
               <label for="devicePrice" class="form-label fw-semibold">Орієнтовна ринкова вартість, ₴</label>
               <input type="number" class="form-control" id="devicePrice" min="1" max="1000000" step="1" required placeholder="25000">
             </div>
-            <div class="mb-3">
-              <label for="deviceCondition" class="form-label fw-semibold">Стан корпусу та екрана</label>
-              <select class="form-select" id="deviceCondition" required>
-                <option value="0.7">Відмінний — без пошкоджень (до 70%)</option>
-                <option value="0.5">Добрий — незначні сліди використання (до 50%)</option>
-                <option value="0.3">Задовільний — помітні сліди використання (до 30%)</option>
-              </select>
-            </div>
+            <fieldset class="trade-condition-group mb-3 border-0 p-0">
+              <legend class="form-label fw-semibold">Стан корпусу та екрана</legend>
+              <div class="trade-condition-options">
+                <label class="trade-condition-option" for="conditionExcellent">
+                  <input class="trade-condition-input" type="radio" name="deviceCondition" id="conditionExcellent" value="0.7" required checked>
+                  <span class="trade-condition-card">
+                    <span class="trade-condition-icon"><i class="bi bi-stars" aria-hidden="true"></i></span>
+                    <span class="trade-condition-copy"><strong>Відмінний</strong><small>Без тріщин і помітних слідів</small></span>
+                    <span class="trade-condition-value">до 70%</span>
+                  </span>
+                </label>
+                <label class="trade-condition-option" for="conditionGood">
+                  <input class="trade-condition-input" type="radio" name="deviceCondition" id="conditionGood" value="0.5" required>
+                  <span class="trade-condition-card">
+                    <span class="trade-condition-icon"><i class="bi bi-check2-circle" aria-hidden="true"></i></span>
+                    <span class="trade-condition-copy"><strong>Добрий</strong><small>Незначні сліди використання</small></span>
+                    <span class="trade-condition-value">до 50%</span>
+                  </span>
+                </label>
+                <label class="trade-condition-option" for="conditionFair">
+                  <input class="trade-condition-input" type="radio" name="deviceCondition" id="conditionFair" value="0.3" required>
+                  <span class="trade-condition-card">
+                    <span class="trade-condition-icon"><i class="bi bi-phone" aria-hidden="true"></i></span>
+                    <span class="trade-condition-copy"><strong>Задовільний</strong><small>Помітні сліди використання</small></span>
+                    <span class="trade-condition-value">до 30%</span>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
             <button type="submit" class="btn btn-green w-100 rounded-pill py-2 fw-semibold"><i class="bi bi-calculator me-2" aria-hidden="true"></i>Розрахувати знижку</button>
           </form>
           <div id="tradeInOutput" class="alert alert-success mt-4 mb-0" role="status" aria-live="polite" hidden></div>
@@ -121,6 +142,6 @@
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="script.js?v=8"></script>
+  <script src="script.js?v=9"></script>
 </body>
 </html>

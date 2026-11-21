@@ -14,6 +14,20 @@
   })[character]);
   const money = amount => `${Number(amount).toLocaleString('uk-UA')} ₴`;
 
+  function animateElements(container, selector) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    container.querySelectorAll(selector).forEach(element => {
+      element.style.opacity = '0';
+      element.style.transform = 'translateY(8px)';
+      window.setTimeout(() => {
+        if (!element.isConnected) return;
+        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+      }, 10);
+    });
+  }
+
   document.addEventListener('error', event => {
     const image = event.target;
     if (!(image instanceof HTMLImageElement) || image.dataset.fallback) return;
@@ -59,12 +73,8 @@
     return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
   }
 
-  function toast(message) {
-    const text = document.getElementById('toastText');
-    const element = document.getElementById('toast');
-    if (!text || !element || !window.bootstrap) return;
-    text.textContent = message;
-    bootstrap.Toast.getOrCreateInstance(element, { delay: 2500 }).show();
+  function toast(message, type = 'success') {
+    showMessage(message, type);
   }
 
   function showLoader() {
@@ -171,11 +181,6 @@
             <button type="button" id="goCheckout" class="btn btn-green w-100 rounded-pill py-2 fw-semibold" disabled><i class="bi bi-lock me-2" aria-hidden="true"></i>До оформлення</button>
             <a href="index.html#catalog" class="cart-back-link">Продовжити покупки</a>
           </div>
-        </div>
-      </div>
-      <div class="toast-wrap position-fixed bottom-0 end-0 p-3">
-        <div id="toast" class="toast text-white bg-success border-0 shadow-lg" role="status" aria-live="polite" aria-atomic="true">
-          <div class="d-flex align-items-center"><div class="toast-body" id="toastText"></div><button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Закрити" data-bs-theme="dark"></button></div>
         </div>
       </div>`);
   }
@@ -320,6 +325,14 @@
     const ratings = read('rate', {});
     const myRatings = read('mine', {});
     const productById = id => products.find(product => product.id === Number(id));
+    const filterPanel = $('#catalogFilterPanel');
+    if (filterPanel) {
+      const compactLayout = window.matchMedia('(max-width: 991.98px)');
+      const syncFilterPanel = () => { filterPanel.open = !compactLayout.matches; };
+      syncFilterPanel();
+      if (compactLayout.addEventListener) compactLayout.addEventListener('change', syncFilterPanel);
+      else compactLayout.addListener(syncFilterPanel);
+    }
 
     cart = cart && typeof cart === 'object' && !Array.isArray(cart)
       ? Object.fromEntries(Object.entries(cart).filter(([id, quantity]) =>
@@ -434,14 +447,7 @@
         : activeElement?.dataset?.fav ? `[data-fav="${activeElement.dataset.fav}"]`
           : activeElement?.dataset?.cmp ? `[data-cmp="${activeElement.dataset.cmp}"]` : null;
       $('#grid').innerHTML = list.map(cardHTML).join('');
-      $$('#grid .product').forEach(card => {
-        card.style.opacity = '0';
-        window.setTimeout(() => {
-          if (!card.isConnected) return;
-          card.style.transition = 'opacity 0.5s';
-          card.style.opacity = '1';
-        }, 10);
-      });
+      animateElements($('#grid'), '.product');
       $('#notFound').hidden = list.length !== 0;
       if (focusSelector) $('#grid').querySelector(focusSelector)?.focus();
     }
@@ -483,12 +489,12 @@
         const product = productById(id);
         if (!product || product.inStock !== true) {
           console.warn('TechPulse: спроба додати недоступний товар до кошика', { productId: id });
-          toast('Цей товар зараз недоступний.');
+          toast('Цей товар зараз недоступний.', 'warning');
           return;
         }
         cart[id] = (cart[id] || 0) + 1;
         if (!refresh()) {
-          toast('Не вдалося зберегти кошик. Перевірте налаштування сховища браузера.');
+          toast('Не вдалося зберегти кошик. Перевірте налаштування сховища браузера.', 'warning');
           return;
         }
         console.log('TechPulse: товар додано до кошика', {
@@ -642,11 +648,14 @@
         if (!favorites.includes(id)) selected.delete(id);
       }
       const collection = activeCollection && collections.find(item => item.id === activeCollection);
-      const collectionIndex = collection ? collections.findIndex(item => item.id === collection.id) : -1;
       const items = collection ? collection.productIds.map(productById).filter(Boolean) : favorites.map(productById);
+      document.getElementById('favoritesBreadcrumb').innerHTML = collection
+        ? `<li class="breadcrumb-item"><a href="index.html">Головна</a></li>
+          <li class="breadcrumb-item"><a href="favorites.html">Обране</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Збірка «${escapeHTML(collection.name)}»</li>`
+        : `<li class="breadcrumb-item"><a href="index.html">Головна</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Обране</li>`;
       document.getElementById('collectionViewControls').hidden = !collection;
-      document.getElementById('collectionBreadcrumb').hidden = !collection;
-      document.getElementById('collectionBreadcrumbName').textContent = collection ? `Збірка ${collectionIndex + 1}` : '';
       document.getElementById('collectionForm').hidden = Boolean(collection) || favorites.length === 0;
       document.getElementById('favoritesHeading').textContent = collection ? collection.name : 'Ваше обране';
       document.getElementById('favoritesDescription').textContent = collection
@@ -662,6 +671,7 @@
           </div>
           <img src="images/cat-favourite.png" alt="Кіт чекає на нові гаджети" loading="lazy">
         </section>`;
+        animateElements(grid, '.empty-state-visual');
         return;
       }
       grid.innerHTML = items.map(product => `
@@ -683,6 +693,7 @@
             </div>
           </div>
         </article>`).join('');
+      animateElements(grid, '.favorite-product');
     }
 
     function renderCollections() {
@@ -706,6 +717,7 @@
           </div>
         </article>`;
       }).join('');
+      animateElements(target, '.collection-card');
     }
 
     document.getElementById('collectionForm').addEventListener('submit', event => {
@@ -713,7 +725,7 @@
       const name = document.getElementById('collectionName').value.trim();
       const productIds = [...selected].filter(id => getFavorites().includes(id));
       if (!name || !productIds.length) {
-        toast('Спочатку позначте товари для збірки.');
+        toast('Спочатку позначте товари для збірки.', 'warning');
         return;
       }
       const collections = getCollections();
@@ -752,7 +764,13 @@
         const id = Number(remove.dataset.removeFavorite);
         if (write('fav', getFavorites().filter(favoriteId => favoriteId !== id))) {
           selected.delete(id);
-          renderFavorites();
+          const card = remove.closest('.favorite-product');
+          if (card && !card.classList.contains('is-removing')) {
+            card.classList.add('is-removing');
+            window.setTimeout(renderFavorites, 250);
+          } else if (!card) {
+            renderFavorites();
+          }
           window.TechPulseShell.refresh();
         }
       } else if (add) {
@@ -824,6 +842,7 @@
           </div>
           <img src="images/cat-comparison.png" alt="Кіт зі смартфоном" loading="lazy">
         </section>`;
+        animateElements(container, '.empty-state-visual');
         return;
       }
       const specKeys = [...new Set(compared.flatMap(product => Object.keys(product.specs)))];
@@ -865,6 +884,7 @@
               }).join('')}</tr>`;
           }).join('')}</tbody>
         </table></div></div>`;
+      animateElements(container, '.comparison-card');
     }
 
     container.addEventListener('click', event => {
@@ -938,7 +958,9 @@
       event.preventDefault();
       const model = document.getElementById('deviceModel').value.trim();
       const price = Number(document.getElementById('devicePrice').value);
-      const factor = Number(document.getElementById('deviceCondition').value);
+      const selectedCondition = event.currentTarget.querySelector('input[name="deviceCondition"]:checked');
+      if (!selectedCondition) return;
+      const factor = Number(selectedCondition.value);
       const result = Math.round(price * factor);
       const output = document.getElementById('tradeInOutput');
       output.textContent = `Попередня оцінка пристрою «${model}»: ${result.toLocaleString('uk-UA')} ₴. Остаточна сума може змінитися після огляду пристрою.`;

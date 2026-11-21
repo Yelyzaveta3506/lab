@@ -11,15 +11,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="index_lab2.css?v=7">
+  <link rel="stylesheet" href="index_lab2.css?v=8">
 </head>
 <body id="top">
   <div id="siteHeader"></div>
   <main class="container my-4">
     <nav aria-label="Навігаційний шлях" class="mb-4">
-      <ol class="breadcrumb breadcrumb-custom">
+      <ol id="favoritesBreadcrumb" class="breadcrumb breadcrumb-custom">
         <li class="breadcrumb-item"><a href="index.html">Головна</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Обране та збірки</li>
+        <li class="breadcrumb-item active" aria-current="page">Обране</li>
       </ol>
     </nav>
     <section class="favorites-hero mb-4">
@@ -33,9 +33,6 @@
     <section aria-labelledby="favoritesHeading">
       <div class="favorites-section-heading d-flex justify-content-between align-items-center flex-wrap gap-3 mb-3">
         <div>
-          <div id="collectionBreadcrumb" class="collection-breadcrumb" hidden>
-            <span>Мої збірки</span><i class="bi bi-chevron-right" aria-hidden="true"></i><strong id="collectionBreadcrumbName"></strong>
-          </div>
           <h2 id="favoritesHeading" class="fs-5 fw-bold mb-1">Ваше обране</h2>
           <p id="favoritesDescription" class="text-muted small mb-0">Позначте товари, щоб зібрати їх в окремий список.</p>
         </div>
@@ -108,6 +105,6 @@
     </div>
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="script.js?v=8"></script>
+  <script src="script.js?v=9"></script>
 </body>
 </html>
