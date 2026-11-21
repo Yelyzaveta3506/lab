@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechPulse — Оформлення замовлення</title>
+  <meta name="description" content="Перевірте склад кошика та введіть дані для оформлення замовлення в TechPulse.">
+  <link rel="icon" href="data:,">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index_lab2.css">
+</head>
+<body id="top">
+  <div id="siteHeader"></div>
+  <main class="container my-4">
+    <nav aria-label="Навігаційний шлях" class="mb-4">
+      <ol class="breadcrumb breadcrumb-custom">
+        <li class="breadcrumb-item"><a href="index.html">Головна</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Оформлення замовлення</li>
+      </ol>
+    </nav>
+    <h1 class="h3 fw-bold mb-4"><i class="bi bi-bag-check text-success me-2" aria-hidden="true"></i>Оформлення замовлення</h1>
+    <div id="emptyCheckout" class="empty-state" hidden>
+      <i class="bi bi-cart-x display-4 text-success" aria-hidden="true"></i>
+      <p class="fs-5 mt-3">У кошику немає товарів.</p>
+      <a href="index.html#catalog" class="btn btn-green rounded-pill">Повернутися до каталогу</a>
+    </div>
+    <div id="checkoutContent" class="row g-4">
+      <div class="col-lg-7">
+        <section class="card border-0 shadow-sm p-4 rounded-4" aria-labelledby="buyerHeading">
+          <h2 id="buyerHeading" class="fs-5 fw-bold mb-3">Дані покупця та доставки</h2>
+          <form id="checkoutForm">
+            <div class="mb-3">
+              <label for="fullName" class="form-label">ПІБ</label>
+              <input type="text" class="form-control" id="fullName" name="fullName" autocomplete="name" minlength="5" maxlength="120" required placeholder="Шевченко Тарас Григорович">
+            </div>
+            <div class="mb-3">
+              <label for="phoneNum" class="form-label">Номер телефону</label>
+              <input type="tel" class="form-control" id="phoneNum" name="phone" autocomplete="tel" pattern="[+0-9\x28\x29\x20\x2D]{9,20}" required placeholder="+38 (067) 000-00-00">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Електронна пошта <span class="text-muted">(необов’язково)</span></label>
+              <input type="email" class="form-control" id="email" name="email" autocomplete="email" maxlength="254" placeholder="name@example.com">
+            </div>
+            <div class="mb-3">
+              <label for="deliveryAddress" class="form-label">Місто та адреса / відділення доставки</label>
+              <input type="text" class="form-control" id="deliveryAddress" name="address" autocomplete="shipping street-address" maxlength="200" required placeholder="м. Київ, відділення №5">
+            </div>
+            <div class="mb-4">
+              <label for="paymentMethod" class="form-label">Спосіб оплати</label>
+              <select class="form-select" id="paymentMethod" name="payment" required>
+                <option value="cod">Оплата при отриманні (накладений платіж)</option>
+                <option value="card">Карткою онлайн (демо)</option>
+                <option value="installments">Розстрочка 0% (демо)</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-green w-100 rounded-pill py-2 fw-semibold" id="confirmOrder">Підтвердити замовлення</button>
+          </form>
+          <div id="orderSuccessAlert" class="alert alert-success mt-3 mb-0" role="status" aria-live="polite" hidden>
+            <strong>Замовлення оформлено в деморежимі.</strong> Справжню оплату та передачу даних не виконано — для цього потрібен сервер магазину.
+          </div>
+        </section>
+      </div>
+      <div class="col-lg-5">
+        <section class="card border-0 shadow-sm p-4 rounded-4 bg-white" aria-labelledby="orderSummaryHeading">
+          <h2 id="orderSummaryHeading" class="fs-5 fw-bold mb-3">Ваше замовлення</h2>
+          <ul class="list-unstyled mb-3" id="checkoutItemsList"></ul>
+          <hr>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Товари:</span>
+            <span id="checkoutSubtotal">0 ₴</span>
+          </div>
+          <div class="d-flex justify-content-between mb-3">
+            <span>Доставка:</span>
+            <span id="checkoutDelivery">1 ₴</span>
+          </div>
+          <div class="d-flex justify-content-between fw-bold fs-5">
+            <span>До сплати:</span>
+            <span class="text-success" id="checkoutTotal">0 ₴</span>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <footer class="pt-5 pb-4">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-4">
+          <div class="fs-4 fw-bold text-white mb-2 d-flex align-items-center gap-2"><a href="index.html" class="fs-4 fw-bold text-white mb-2 d-flex align-items-center gap-2 text-decoration-none">
+              <i class="bi bi-phone text-success" aria-hidden="true"></i> TechPulse</a></div>
+          <p class="small text-white-50 mb-3">Офіційний інтернет-магазин смартфонів і сучасних гаджетів. Гарантія якості, широкий вибір оригінальної техніки та сервісне обслуговування.</p>
+          <p class="small text-white-50 mb-0">Сторінки TechPulse у соцмережах скоро з’являться.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2 class="text-white fs-6 fw-bold mb-3">Каталог</h2>
+          <nav aria-label="Каталог у підвалі"><ul class="list-unstyled small d-grid gap-2 m-0">
+            <li><a href="index.html#catalog">Смартфони</a></li><li><a href="index.html#catalog">Чохли</a></li><li><a href="index.html#catalog">Навушники</a></li><li><a href="index.html#catalog">Смарт-годинники</a></li>
+          </ul></nav>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2 class="text-white fs-6 fw-bold mb-3">Клієнтам</h2>
+          <nav aria-label="Інформація для клієнтів"><ul class="list-unstyled small d-grid gap-2 m-0">
+            <li><a href="trade-in.html">Trade-in</a></li><li><span>Оплата й доставка — деталі уточнюйте у менеджера.</span></li><li><span>Офіційна гарантія на сертифіковану техніку.</span></li><li><a href="mailto:support@techpulse.ua">Центр підтримки</a></li>
+          </ul></nav>
+        </div>
+        <div class="col-lg-4">
+          <h2 class="text-white fs-6 fw-bold mb-3">Контакти</h2>
+          <address class="small d-grid gap-2 m-0">
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-geo-alt text-success" aria-hidden="true"></i> вул. Хрещатик, 24, Київ, Україна</span>
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-telephone text-success" aria-hidden="true"></i> <a href="tel:0800300555">0 (800) 300-555 (безкоштовно)</a></span>
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-envelope text-success" aria-hidden="true"></i> <a href="mailto:support@techpulse.ua">support@techpulse.ua</a></span>
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-clock text-success" aria-hidden="true"></i> Пн-Нд: 09:00 — 21:00</span>
+          </address>
+        </div>
+      </div>
+      <hr class="border-secondary opacity-25">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 small text-white-50">
+        <p class="m-0">&copy; 2026 TechPulse. Усі права захищені.</p><p class="m-0">Зроблено з любов’ю до технологій</p>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

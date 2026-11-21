@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechPulse — Порівняння товарів</title>
+  <meta name="description" content="Порівняйте повні характеристики, ціни та рейтинги гаджетів TechPulse.">
+  <link rel="icon" href="data:,">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index_lab2.css">
+</head>
+<body id="top">
+  <div id="siteHeader"></div>
+  <main class="container my-4">
+    <nav aria-label="Навігаційний шлях" class="mb-4">
+      <ol class="breadcrumb breadcrumb-custom">
+        <li class="breadcrumb-item"><a href="index.html">Головна</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Порівняння товарів</li>
+      </ol>
+    </nav>
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+      <h1 class="h3 fw-bold m-0"><i class="bi bi-bar-chart text-success me-2" aria-hidden="true"></i>Порівняння характеристик</h1>
+      <a href="index.html#catalog" class="btn btn-green rounded-pill"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Додати товари</a>
+    </div>
+    <p class="text-muted">У таблиці показані всі вибрані товари. Найвигідніша ціна та вищий рейтинг підсвічені; характеристики, що відрізняються, можна порівняти в одному рядку.</p>
+    <div id="fullCompareContainer" aria-live="polite"></div>
+  </main>
+  <footer class="pt-5 pb-4">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-4">
+          <div class="fs-4 fw-bold text-white mb-2 d-flex align-items-center gap-2"><a href="index.html" class="fs-4 fw-bold text-white mb-2 d-flex align-items-center gap-2 text-decoration-none">
+              <i class="bi bi-phone text-success" aria-hidden="true"></i> TechPulse</a></div>
+          <p class="small text-white-50 mb-3">Офіційний інтернет-магазин смартфонів і сучасних гаджетів. Гарантія якості, широкий вибір оригінальної техніки та сервісне обслуговування.</p>
+          <p class="small text-white-50 mb-0">Сторінки TechPulse у соцмережах скоро з’являться.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2 class="text-white fs-6 fw-bold mb-3">Каталог</h2>
+          <nav aria-label="Каталог у підвалі"><ul class="list-unstyled small d-grid gap-2 m-0">
+            <li><a href="index.html#catalog">Смартфони</a></li><li><a href="index.html#catalog">Чохли</a></li><li><a href="index.html#catalog">Навушники</a></li><li><a href="index.html#catalog">Смарт-годинники</a></li>
+          </ul></nav>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2 class="text-white fs-6 fw-bold mb-3">Клієнтам</h2>
+          <nav aria-label="Інформація для клієнтів"><ul class="list-unstyled small d-grid gap-2 m-0">
+            <li><a href="trade-in.html">Trade-in</a></li><li><span>Оплата й доставка — деталі уточнюйте у менеджера.</span></li><li><span>Офіційна гарантія на сертифіковану техніку.</span></li><li><a href="mailto:support@techpulse.ua">Центр підтримки</a></li>
+          </ul></nav>
+        </div>
+        <div class="col-lg-4">
+          <h2 class="text-white fs-6 fw-bold mb-3">Контакти</h2>
+          <address class="small d-grid gap-2 m-0">
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-geo-alt text-success" aria-hidden="true"></i> вул. Хрещатик, 24, Київ, Україна</span>
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-telephone text-success" aria-hidden="true"></i> <a href="tel:0800300555">0 (800) 300-555 (безкоштовно)</a></span>
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-envelope text-success" aria-hidden="true"></i> <a href="mailto:support@techpulse.ua">support@techpulse.ua</a></span>
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-clock text-success" aria-hidden="true"></i> Пн-Нд: 09:00 — 21:00</span>
+          </address>
+        </div>
+      </div>
+      <hr class="border-secondary opacity-25">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 small text-white-50">
+        <p class="m-0">&copy; 2026 TechPulse. Усі права захищені.</p><p class="m-0">Зроблено з любов’ю до технологій</p>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

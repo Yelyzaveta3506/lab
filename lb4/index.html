@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Лабораторна робота №2 | Звіт</title>
+        <meta name="description" content="TechPulse — каталог смартфонів і гаджетів із фільтрами, порівнянням та програмою Trade-in.">
+        <link rel="icon" href="data:,">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="index_lab2.css">
+</head>
+<body id="top">
+
+  <div id="siteHeader"></div>
+
+  <main class="container my-4">
+    
+    <!-- Hero Section -->
+    <section class="hero p-4 p-md-5 mb-5">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <span class="badge bg-white text-success rounded-pill px-3 py-2 mb-3 fw-bold">
+            <i class="bi bi-lightning-charge me-1" aria-hidden="true"></i> Акція сезону
+          </span>
+          <h1 class="display-5 fw-extrabold mb-3">Смартфони з вигодою до 25%</h1>
+          <p class="lead mb-4 opacity-90">Оновлюйте ваш пристрій разом із TechPulse: обміняйте старий за програмою Trade-in та купуйте флагмани у вигідну розстрочку.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <a href="#catalog" class="btn btn-light text-success fw-bold rounded-pill px-4 py-2">
+              <i class="bi bi-bag me-1" aria-hidden="true"></i> До каталогу
+            </a>
+            <a href="trade-in.html" class="btn btn-outline-light fw-bold rounded-pill px-4 py-2">
+              Оцінити старий смартфон
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-5 text-center mt-4 mt-lg-0">
+          <img src="images/phone_sale.png" alt="Акція TechPulse" width="480" height="320" class="img-fluid rounded-4 shadow-lg">
+        </div>
+      </div>
+    </section>
+
+    <!-- Секція переваг -->
+    <section class="mb-5" aria-labelledby="advantagesTitle">
+      <h2 class="visually-hidden" id="advantagesTitle">Наші переваги</h2>
+      <ul class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 list-unstyled mb-0">
+      <li class="col">
+        <div class="adv text-center">
+          <i class="bi bi-truck mb-2" aria-hidden="true"></i>
+          <h3 class="fs-6 fw-bold mb-1">Доставка за 1 ₴</h3>
+          <p class="small text-muted m-0">Швидка доставка по країні або самовивіз за 15 хв.</p>
+        </div>
+      </li>
+      <li class="col">
+        <div class="adv text-center">
+          <i class="bi bi-patch-check mb-2" aria-hidden="true"></i>
+          <h3 class="fs-6 fw-bold mb-1">Офіційна гарантія</h3>
+          <p class="small text-muted m-0">Тільки сертифікована оригінальна техніка.</p>
+        </div>
+      </li>
+      <li class="col">
+        <div class="adv text-center">
+          <i class="bi bi-arrow-counterclockwise mb-2" aria-hidden="true"></i>
+          <h3 class="fs-6 fw-bold mb-1">Програма Trade-in</h3>
+          <p class="small text-muted m-0">Отримай максимальну знижку за свій старий гаджет.</p>
+        </div>
+      </li>
+      <li class="col">
+        <div class="adv text-center">
+          <i class="bi bi-percent mb-2" aria-hidden="true"></i>
+          <h3 class="fs-6 fw-bold mb-1">Розстрочка 0%</h3>
+          <p class="small text-muted m-0">Зручна оплата частинами без прихованих комісій.</p>
+        </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Каталог товарів з фільтрами -->
+    <section id="catalog" class="pt-3">
+      <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+        <h2 class="fs-3 fw-bold m-0">Каталог товарів</h2>
+        <div class="d-flex align-items-center gap-2">
+          <span class="text-muted small" role="status" aria-live="polite">Знайдено: <strong id="count" class="text-dark">0</strong></span>
+          <select id="sort" class="form-select form-select-sm w-auto" aria-label="Сортування">
+            <option value="pop">За популярністю</option>
+            <option value="asc">Від дешевших до дорогих</option>
+            <option value="desc">Від дорогих до дешевших</option>
+            <option value="rate">За рейтингом</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <!-- Фільтри (Sidebar) -->
+        <aside class="col-lg-3">
+          <div id="filtersForm" class="filters p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h3 class="fs-5 fw-bold m-0">
+                <i class="bi bi-funnel text-success me-1" aria-hidden="true"></i> Фільтри
+              </h3>
+              <button type="button" id="resetFilters" class="btn btn-link btn-sm text-muted p-0 text-decoration-none">
+                Скинути
+              </button>
+            </div>
+
+            <!-- Категорії -->
+            <fieldset class="mb-4 border-0 p-0">
+              <legend class="fs-6 fw-semibold mb-2">Категорії</legend>
+              <div class="form-check mb-1">
+                <input class="form-check-input filter-cat" type="checkbox" value="smartphones" id="cat1">
+                <label class="form-check-label" for="cat1">Смартфони</label>
+              </div>
+              <div class="form-check mb-1">
+                <input class="form-check-input filter-cat" type="checkbox" value="laptops" id="cat2">
+                <label class="form-check-label" for="cat2">Ноутбуки</label>
+              </div>
+              <div class="form-check mb-1">
+                <input class="form-check-input filter-cat" type="checkbox" value="tablets" id="cat3">
+                <label class="form-check-label" for="cat3">Планшети</label>
+              </div>
+            </fieldset>
+
+            <div class="form-check mb-4">
+              <input class="form-check-input" type="checkbox" id="inStockFilter">
+              <label class="form-check-label" for="inStockFilter">Лише в наявності</label>
+            </div>
+
+            <!-- Бренди -->
+            <fieldset class="mb-4 border-0 p-0">
+              <legend class="fs-6 fw-semibold mb-2">Бренд</legend>
+              <div id="brandsList">
+              </div>
+            </fieldset>
+
+            <!-- Ціна -->
+            <fieldset class="mb-2 border-0 p-0">
+              <legend class="fs-6 fw-semibold mb-2">Ціна, грн</legend>
+              <div class="input-group input-group-sm">
+                <input id="minPrice" type="number" min="0" class="form-control" placeholder="від 0" aria-label="Мін ціна">
+                <input id="maxPrice" type="number" min="0" class="form-control" placeholder="до 52499" aria-label="Макс ціна">
+              </div>
+            </fieldset>
+          </div>
+        </aside>
+
+        <!-- Галерея товарів  -->
+        <div class="col-lg-9">
+          <div id="grid" class="products-grid">
+          </div>
+          <div id="notFound" class="text-center text-muted my-5" hidden role="status" aria-live="polite">
+            <i class="bi bi-search display-4 mb-3 opacity-50" aria-hidden="true"></i>
+            <p class="fs-5">За вашим запитом нічого не знайдено.</p>
+            <p class="small">Спробуйте змінити фільтри або пошуковий запит.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Секція "Хіти продажів" створена за допомогою каруселі -->
+    <section class="mt-4 mb-5">
+      <h2 class="fs-3 fw-bold mb-3 d-flex align-items-center gap-2">
+        <i class="bi bi-fire text-danger" aria-hidden="true"></i> Хіти продажів
+      </h2>
+      <div id="hitsCar" class="carousel slide hits" data-bs-ride="carousel" data-bs-interval="5000" role="region" aria-roledescription="карусель" aria-label="Хіти продажів">
+        <div class="carousel-inner" id="hitsInner">
+        </div>
+        <div class="carousel-indicators" id="hitsInd">
+        </div>
+        <button class="ctl prev" type="button" data-bs-target="#hitsCar" data-bs-slide="prev" aria-label="Попередній">
+          <i class="bi bi-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button class="ctl next" type="button" data-bs-target="#hitsCar" data-bs-slide="next" aria-label="Наступний">
+          <i class="bi bi-chevron-right" aria-hidden="true"></i>
+        </button>
+        <button class="ctl pause" type="button" id="hitsPause" aria-label="Призупинити автоматичне гортання" aria-pressed="false">
+          <i class="bi bi-pause-fill" aria-hidden="true"></i>
+        </button>
+      </div>
+    </section>
+
+</main>
+
+  <!-- Підвал -->
+  <footer class="pt-5 pb-4">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-4">
+          <div class="fs-4 fw-bold text-white mb-2 d-flex align-items-center gap-2">
+            <a href="#" class="fs-4 fw-bold text-white mb-2 d-flex align-items-center gap-2 text-decoration-none">
+              <i class="bi bi-phone text-success" aria-hidden="true"></i> TechPulse
+            </a>
+          </div>
+          <p class="small text-white-50 mb-3">
+            Офіційний інтернет-магазин смартфонів і сучасних гаджетів. Гарантія якості, широкий вибір оригінальної техніки та сервісне обслуговування.
+          </p>
+          <p class="small text-white-50 mb-0">Сторінки TechPulse у соцмережах скоро з’являться.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2 class="text-white fs-6 fw-bold mb-3">Каталог</h2>
+          <nav aria-label="Каталог у підвалі">
+            <ul class="list-unstyled small d-grid gap-2 m-0">
+              <li><a href="index.html#catalog">Смартфони</a></li>
+              <li><a href="index.html#catalog">Ноутбуки</a></li>
+              <li><a href="index.html#catalog">Планшети</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2 class="text-white fs-6 fw-bold mb-3">Клієнтам</h2>
+          <nav aria-label="Інформація для клієнтів">
+            <ul class="list-unstyled small d-grid gap-2 m-0">
+              <li><a href="trade-in.html">Trade-in</a></li>
+              <li><span>Оплата й доставка — деталі уточнюйте у менеджера.</span></li>
+              <li><span>Офіційна гарантія на сертифіковану техніку.</span></li>
+              <li><a href="mailto:support@techpulse.ua">Центр підтримки</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="col-lg-4">
+          <h2 class="text-white fs-6 fw-bold mb-3">Контакти</h2>
+          <address class="small d-grid gap-2 m-0">
+            <span class="d-flex align-items-center gap-2">
+              <i class="bi bi-geo-alt text-success" aria-hidden="true"></i> вул. Хрещатик, 24, Київ, Україна
+            </span>
+            <span class="d-flex align-items-center gap-2">
+              <i class="bi bi-telephone text-success" aria-hidden="true"></i> <a href="tel:0800300555">0 (800) 300-555 (безкоштовно)</a>
+            </span>
+            <span class="d-flex align-items-center gap-2">
+              <i class="bi bi-envelope text-success" aria-hidden="true"></i> <a href="mailto:support@techpulse.ua">support@techpulse.ua</a>
+            </span>
+            <span class="d-flex align-items-center gap-2">
+              <i class="bi bi-clock text-success" aria-hidden="true"></i> Пн-Нд: 09:00 — 21:00
+            </span>
+          </address>
+        </div>
+      </div>
+      <hr class="border-secondary opacity-25">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 small text-white-50">
+        <p class="m-0">&copy; 2026 TechPulse. Усі права захищені.</p>
+        <p class="m-0">Зроблено з любов’ю до технологій</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

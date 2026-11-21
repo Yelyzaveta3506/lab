@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechPulse — Програма Trade-in</title>
+  <meta name="description" content="Попередньо оцініть старий пристрій за програмою Trade-in у TechPulse.">
+  <link rel="icon" href="data:,">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index_lab2.css">
+</head>
+<body id="top">
+  <div id="siteHeader"></div>
+  <main class="container my-4 trade-in-page">
+    <nav aria-label="Навігаційний шлях" class="mb-4">
+      <ol class="breadcrumb breadcrumb-custom">
+        <li class="breadcrumb-item"><a href="index.html">Головна</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Trade-in</li>
+      </ol>
+    </nav>
+    <section class="hero trade-in-hero mb-5">
+      <div class="trade-in-copy">
+        <span class="trade-in-badge"><i class="bi bi-arrow-repeat" aria-hidden="true"></i>Програма обміну</span>
+        <h1 class="fw-extrabold">Оновіть смартфон вигідно</h1>
+        <p>Здайте старий пристрій і отримайте до <strong>70% його вартості</strong> знижкою на новий гаджет. Остаточну оцінку визначимо після огляду.</p>
+        <a href="#tradeInHeading" class="btn btn-light text-success fw-bold rounded-pill px-4 py-2">Розрахувати Trade-in<i class="bi bi-arrow-down ms-2" aria-hidden="true"></i></a>
+        <ul class="trade-in-benefits" aria-label="Переваги Trade-in">
+          <li><i class="bi bi-shield-check" aria-hidden="true"></i><span>Безпечно</span></li>
+          <li><i class="bi bi-clipboard2-check" aria-hidden="true"></i><span>Прозора оцінка</span></li>
+          <li><i class="bi bi-hand-thumbs-up" aria-hidden="true"></i><span>Без зобов’язань</span></li>
+        </ul>
+      </div>
+      <div class="trade-in-art" aria-hidden="true">
+        <div class="trade-in-orbit trade-in-orbit-outer"></div>
+        <div class="trade-in-orbit trade-in-orbit-inner"></div>
+        <div class="trade-in-phone"><i class="bi bi-phone"></i></div>
+        <div class="trade-in-arrow"><i class="bi bi-arrow-left-right"></i></div>
+        <div class="trade-in-spark trade-in-spark-one"><i class="bi bi-stars"></i></div>
+        <div class="trade-in-spark trade-in-spark-two"><i class="bi bi-plus-lg"></i></div>
+      </div>
+    </section>
+    <section class="row justify-content-center mb-5" aria-labelledby="tradeInHeading">
+      <div class="col-lg-8 col-xl-7">
+        <div class="card border-0 shadow-sm p-4 p-md-5 rounded-4">
+          <h2 id="tradeInHeading" class="fs-4 fw-bold mb-2"><i class="bi bi-calculator text-success me-2" aria-hidden="true"></i>Калькулятор оцінки Trade-in</h2>
+          <p class="text-muted small mb-4">Заповніть форму, щоб розрахувати орієнтовну суму. Це демоверсія: дані не надсилаються менеджеру.</p>
+          <form id="tradeInFullForm">
+            <div class="mb-3">
+              <label for="deviceModel" class="form-label fw-semibold">Модель пристрою</label>
+              <input type="text" class="form-control" id="deviceModel" maxlength="100" required placeholder="Наприклад, iPhone 13 Pro 128GB">
+            </div>
+            <div class="mb-3">
+              <label for="devicePrice" class="form-label fw-semibold">Орієнтовна ринкова вартість, ₴</label>
+              <input type="number" class="form-control" id="devicePrice" min="1" max="1000000" step="1" required placeholder="25000">
+            </div>
+            <div class="mb-3">
+              <label for="deviceCondition" class="form-label fw-semibold">Стан корпусу та екрана</label>
+              <select class="form-select" id="deviceCondition" required>
+                <option value="0.7">Відмінний — без пошкоджень (до 70%)</option>
+                <option value="0.5">Добрий — незначні сліди використання (до 50%)</option>
+                <option value="0.3">Задовільний — помітні сліди використання (до 30%)</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label for="userContact" class="form-label fw-semibold">Номер телефону для зв’язку</label>
+              <input type="tel" class="form-control" id="userContact" autocomplete="tel" pattern="[+0-9\x28\x29\x20\x2D]{9,20}" required placeholder="+38 (050) 000-00-00">
+            </div>
+            <button type="submit" class="btn btn-green w-100 rounded-pill py-2 fw-semibold">Розрахувати Trade-in</button>
+          </form>
+          <div id="tradeInOutput" class="alert alert-success mt-4 mb-0" role="status" aria-live="polite" hidden></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="pt-5 pb-4">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-lg-4">
+          <div class="fs-4 fw-bold text-white mb-2 d-flex align-items-center gap-2"><a href="index.html" class="fs-4 fw-bold text-white mb-2 d-flex align-items-center gap-2 text-decoration-none">
+              <i class="bi bi-phone text-success" aria-hidden="true"></i> TechPulse</a></div>
+          <p class="small text-white-50 mb-3">Офіційний інтернет-магазин смартфонів і сучасних гаджетів. Гарантія якості, широкий вибір оригінальної техніки та сервісне обслуговування.</p>
+          <p class="small text-white-50 mb-0">Сторінки TechPulse у соцмережах скоро з’являться.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2 class="text-white fs-6 fw-bold mb-3">Каталог</h2>
+          <nav aria-label="Каталог у підвалі"><ul class="list-unstyled small d-grid gap-2 m-0">
+            <li><a href="index.html#catalog">Смартфони</a></li><li><a href="index.html#catalog">Чохли</a></li><li><a href="index.html#catalog">Навушники</a></li><li><a href="index.html#catalog">Смарт-годинники</a></li>
+          </ul></nav>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h2 class="text-white fs-6 fw-bold mb-3">Клієнтам</h2>
+          <nav aria-label="Інформація для клієнтів"><ul class="list-unstyled small d-grid gap-2 m-0">
+            <li><a href="trade-in.html">Trade-in</a></li><li><span>Оплата й доставка — деталі уточнюйте у менеджера.</span></li><li><span>Офіційна гарантія на сертифіковану техніку.</span></li><li><a href="mailto:support@techpulse.ua">Центр підтримки</a></li>
+          </ul></nav>
+        </div>
+        <div class="col-lg-4">
+          <h2 class="text-white fs-6 fw-bold mb-3">Контакти</h2>
+          <address class="small d-grid gap-2 m-0">
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-geo-alt text-success" aria-hidden="true"></i> вул. Хрещатик, 24, Київ, Україна</span>
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-telephone text-success" aria-hidden="true"></i> <a href="tel:0800300555">0 (800) 300-555 (безкоштовно)</a></span>
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-envelope text-success" aria-hidden="true"></i> <a href="mailto:support@techpulse.ua">support@techpulse.ua</a></span>
+            <span class="d-flex align-items-center gap-2"><i class="bi bi-clock text-success" aria-hidden="true"></i> Пн-Нд: 09:00 — 21:00</span>
+          </address>
+        </div>
+      </div>
+      <hr class="border-secondary opacity-25">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 small text-white-50">
+        <p class="m-0">&copy; 2026 TechPulse. Усі права захищені.</p><p class="m-0">Зроблено з любов’ю до технологій</p>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
