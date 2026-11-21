@@ -181,7 +181,7 @@
             <div class="cart-delivery-note"><i class="bi bi-truck me-2" aria-hidden="true"></i>Доставка по Україні — 1 ₴</div>
             <div class="d-flex justify-content-between align-items-center mb-3"><span class="fw-bold">Разом із доставкою</span><span id="cartTotal" class="text-success fs-4 fw-extrabold">0 ₴</span></div>
             <button type="button" id="goCheckout" class="btn btn-green w-100 rounded-pill py-2 fw-semibold" disabled><i class="bi bi-lock me-2" aria-hidden="true"></i>До оформлення</button>
-            <button type="button" class="cart-back-link btn btn-link" data-cart-continue>Продовжити покупки</button>
+            <a href="index.html#catalog" class="cart-back-link btn btn-link" data-cart-continue>Продовжити покупки</a>
           </div>
         </div>
       </div>`);
@@ -276,7 +276,7 @@
       if (drawer && window.bootstrap?.Offcanvas) {
         bootstrap.Offcanvas.getOrCreateInstance(drawer).hide();
       }
-      document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      location.href = 'index.html#catalog';
     });
     document.addEventListener('click', event => {
       if (!(event.target instanceof Element)) return;
