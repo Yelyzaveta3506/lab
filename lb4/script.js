@@ -237,7 +237,8 @@
       favoriteBadge.hidden = favoriteBadge.textContent === '0';
       compareBadge.textContent = Array.isArray(comparisons) ? comparisons.length : 0;
       compareBadge.hidden = compareBadge.textContent === '0';
-      document.getElementById('cartItems').innerHTML = items.length ? items.map(([id, quantity]) => {
+      const cartItems = document.getElementById('cartItems');
+      const cartMarkup = items.length ? items.map(([id, quantity]) => {
         const item = productById(id);
         return `<article class="cart-line">
           <img src="${escapeHTML(item.img)}" width="88" height="88" class="cart-line-image" alt="${escapeHTML(item.short)}" loading="lazy">
@@ -254,11 +255,19 @@
             </div>
           </div>
         </article>`;
-      }).join('') : `<div class="cart-empty">
+      }) .join('') : `<div class="cart-empty">
           <img src="images/cat-nothing.png" alt="" width="210" height="158">
           <h3>Кошик чекає на покупки</h3>
           <p>Додавайте сюди техніку, яка вам сподобалась.</p>
         </div>`;
+      if (cartItems.innerHTML !== cartMarkup) {
+        cartItems.style.opacity = '0';
+        cartItems.innerHTML = cartMarkup;
+        window.requestAnimationFrame(() => {
+          cartItems.style.transition = 'opacity 0.22s ease';
+          cartItems.style.opacity = '1';
+        });
+      }
       document.getElementById('cartTotal').textContent = money(subtotal + (items.length ? 1 : 0));
       document.getElementById('goCheckout').disabled = items.length === 0;
     }
@@ -699,6 +708,8 @@
       const items = collection ? collection.productIds.map(productById).filter(Boolean) : favorites.map(productById);
       const hero = document.getElementById('favoritesHero');
       if (hero) hero.hidden = Boolean(collection);
+      const collectionsSection = document.getElementById('collectionsSection');
+      if (collectionsSection) collectionsSection.hidden = false;
       document.body.classList.toggle('favorites-collection-view', Boolean(collection));
       document.getElementById('favoritesBreadcrumb').innerHTML = collection
         ? `<li class="breadcrumb-item"><a href="index.html">Головна</a></li>
